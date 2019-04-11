@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { homePaths } from './home/home-paths';
+import { AppPaths } from './app-paths';
 
 const routes: Routes = [
-  {path: '', redirectTo: homePaths.main, pathMatch: 'full'},
+  {path: '', redirectTo: AppPaths.Home, pathMatch: 'full'},
   {
-    path: homePaths.main,
+    path: AppPaths.Home,
     loadChildren: './home/home.module#HomeModule'
+  },
+  {
+    path: AppPaths.Band,
+    loadChildren: './band/band.module#BandModule'
   },
 ];
 

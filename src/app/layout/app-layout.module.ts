@@ -3,6 +3,7 @@ import { MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToo
 import { NavbarComponent } from './navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    RouterModule
   ],
   declarations: [
     NavbarComponent
