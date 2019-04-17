@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .form-wrapper {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .form-header {
+    text-align: center;
+  }
+
+  .form-element {
+    display: flex;
+    flex-direction: column;
+  }
+}

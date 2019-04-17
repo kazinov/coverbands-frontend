@@ -1,3 +1,22 @@
-<p>
-  create-band works!
-</p>
+<div class="form-wrapper">
+  <h3 class="form-header">Create a band</h3>
+
+  <form [formGroup]="form"
+        class="form-element"
+        novalidate>
+    <mat-form-field>
+      <input matInput
+             placeholder="Enter the band name"
+             formControlName="name">
+      <mat-error *ngIf="form.get('name').invalid">Required field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+    <textarea matInput
+              placeholder="Description"
+              formControlName="description"></textarea>
+      <mat-error *ngIf="form.get('description').invalid">Required field</mat-error>
+    </mat-form-field>
+
+  </form>
+</div>

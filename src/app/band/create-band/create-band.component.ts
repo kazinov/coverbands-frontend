@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-band',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-band.component.scss']
 })
 export class CreateBandComponent implements OnInit {
+  form: FormGroup;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder) {
   }
 
+  ngOnInit() {
+    this.buildForm();
+  }
+
+  private buildForm(): void {
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]]
+    });
+  }
 }
