@@ -139,5 +139,8 @@
       }
     }
   },
-  "defaultProject": "coverbands-frontend"
+  "defaultProject": "coverbands-frontend",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
