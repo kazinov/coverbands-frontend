@@ -1,30 +1,55 @@
 <div class="form-wrapper">
-  <h3 class="form-header">Create a band</h3>
+    <h3 class="form-header">Create a band</h3>
 
-  <form [formGroup]="form"
-        class="form-element"
-        novalidate>
-    <mat-form-field>
-      <input matInput
-             placeholder="Enter the band name"
-             formControlName="name">
-      <mat-error *ngIf="form.get('name').invalid">Required field</mat-error>
-    </mat-form-field>
+    <form [formGroup]="form"
+          class="form-element"
+          novalidate>
+        <mat-form-field>
+            <input matInput
+                   placeholder="Enter the band name"
+                   formControlName="name">
+            <mat-error *ngIf="form.get('name').invalid">Required field</mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-    <textarea matInput
+        <mat-form-field>
+            <textarea matInput
               placeholder="Description"
               formControlName="description"></textarea>
-      <mat-error *ngIf="form.get('description').invalid">Required field</mat-error>
-    </mat-form-field>
+            <mat-error *ngIf="form.get('description').invalid">Required field</mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Genres</mat-label>
-      <mat-select formControlName="genres" multiple>
-        <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Genres</mat-label>
+            <mat-select formControlName="genres" multiple>
+                <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-  </form>
+        <div class="add-bands-container">
+            <h4>Add bands and songs you play</h4>
+            <form [formGroup]="addBandForm"
+                  class="add-bands-form"
+                  novalidate>
+                <mat-form-field class="margin-right-md">
+                    <input matInput
+                           placeholder="Enter the band name"
+                           formControlName="bandName">
+                    <mat-error *ngIf="addBandForm.get('bandName').invalid">Required field</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="margin-right-md">
+                    <input matInput
+                           placeholder="Enter the song name"
+                           formControlName="song">
+                    <mat-error *ngIf="addBandForm.get('song').invalid">Required field</mat-error>
+                </mat-form-field>
+
+                <div>
+                    <button mat-raised-button>Add</button>
+                </div>
+            </form>
+        </div>
+
+    </form>
 
 </div>
