@@ -18,5 +18,13 @@
       <mat-error *ngIf="form.get('description').invalid">Required field</mat-error>
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Genres</mat-label>
+      <mat-select formControlName="genres" multiple>
+        <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
   </form>
+
 </div>

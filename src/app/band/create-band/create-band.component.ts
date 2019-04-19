@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CreateBandComponent implements OnInit {
   form: FormGroup;
 
+  genres: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -19,7 +21,8 @@ export class CreateBandComponent implements OnInit {
   private buildForm(): void {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      description: ['', [Validators.required]]
+      description: ['', [Validators.required]],
+      genres: ['', []]
     });
   }
 }
