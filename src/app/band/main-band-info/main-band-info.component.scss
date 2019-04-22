@@ -1,8 +1,4 @@
-@import "~src/app/shared/styles/common";
-
 :host {
-  @include form-page();
-
   .add-bands-form {
     display: flex;
     align-items: baseline;

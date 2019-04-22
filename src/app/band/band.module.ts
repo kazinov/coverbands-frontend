@@ -4,6 +4,7 @@ import { BandRoutingModule } from './band-routing.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MainBandInfoComponent } from './main-band-info/main-band-info.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,10 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } 
     MatSelectModule,
     MatButtonModule
   ],
-  declarations: [CreateBandComponent]
+  declarations: [
+    CreateBandComponent,
+    MainBandInfoComponent
+  ]
 })
 export class BandModule {
 }
