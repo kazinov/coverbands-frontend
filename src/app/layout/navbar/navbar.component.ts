@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppPaths } from 'src/app/app-paths';
+import { BandPaths } from '../../band/band-paths';
 
 @Component({
   selector: 'app-navbar',
@@ -11,10 +12,19 @@ import { AppPaths } from 'src/app/app-paths';
 })
 export class NavbarComponent {
   AppPaths = AppPaths;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
+
+  get editBandUrl() {
+    return `/${AppPaths.Band}/${BandPaths.Edit}/123`
+  }
+
+  get createBandUrl() {
+    return `/${AppPaths.Band}/${BandPaths.Create}`
+  }
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 

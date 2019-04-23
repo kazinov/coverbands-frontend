@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { MainBandInfoComponent } from './main-band-info/main-band-info.component';
+import { EditBandComponent } from './edit-band/edit-band.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { MainBandInfoComponent } from './main-band-info/main-band-info.component
   ],
   declarations: [
     CreateBandComponent,
+    EditBandComponent,
     MainBandInfoComponent
   ]
 })

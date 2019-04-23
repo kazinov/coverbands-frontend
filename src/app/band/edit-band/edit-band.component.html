@@ -1,0 +1,32 @@
+<div class="app-form-wrapper">
+    <h3 class="app-form-header">Edit a band</h3>
+
+    <app-main-band-info>
+    </app-main-band-info>
+
+    <div class="add-bands-container">
+        <h4>Add bands and songs you play</h4>
+        <form [formGroup]="addBandForm"
+              class="add-bands-form"
+              novalidate>
+            <mat-form-field class="margin-right-md">
+                <input matInput
+                       placeholder="Enter the band name"
+                       formControlName="bandName">
+                <mat-error *ngIf="addBandForm.get('bandName').invalid">Required field</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="margin-right-md">
+                <input matInput
+                       placeholder="Enter the song name"
+                       formControlName="song">
+                <mat-error *ngIf="addBandForm.get('song').invalid">Required field</mat-error>
+            </mat-form-field>
+
+            <div>
+                <button mat-raised-button>Add</button>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,3 +1,4 @@
 export enum BandPaths {
-  Create = 'create'
+  Create = 'create',
+  Edit = 'edit'
 }

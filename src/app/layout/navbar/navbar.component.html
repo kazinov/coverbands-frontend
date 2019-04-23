@@ -19,7 +19,8 @@
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <span>coverbands-frontend</span>
-            <a mat-button [routerLink]="'/' + AppPaths.Band">Bands</a>
+            <a mat-button [routerLink]="createBandUrl">Create</a>
+            <a mat-button [routerLink]="editBandUrl">Edit</a>
         </mat-toolbar>
         <div class="page-content-wrapper">
             <ng-content></ng-content>
