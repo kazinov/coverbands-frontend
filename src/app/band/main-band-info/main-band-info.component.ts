@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./main-band-info.component.scss']
 })
 export class MainBandInfoComponent implements OnInit {
+  @Input() saveButtonText = 'Save';
   form: FormGroup;
 
   genres: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
@@ -22,7 +23,7 @@ export class MainBandInfoComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      genres: ['', []]
+      genres: ['', [Validators.required]]
     });
   }
 }

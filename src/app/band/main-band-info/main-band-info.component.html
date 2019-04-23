@@ -20,6 +20,10 @@
         <mat-select formControlName="genres" multiple>
             <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
         </mat-select>
+        <mat-error *ngIf="form.get('genres').invalid">Required field</mat-error>
     </mat-form-field>
 
+    <div class="save-button-container">
+        <button mat-raised-button color="primary">{{saveButtonText}}</button>
+    </div>
 </form>
