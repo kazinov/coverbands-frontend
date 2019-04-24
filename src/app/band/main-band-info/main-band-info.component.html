@@ -1,6 +1,7 @@
 <form [formGroup]="form"
       class="flex-column spacer"
-      novalidate>
+      novalidate
+      (submit)="onSubmit()">
     <mat-form-field>
         <input matInput
                placeholder="Enter the band name"
@@ -24,6 +25,9 @@
     </mat-form-field>
 
     <div class="save-button-container">
-        <button mat-raised-button color="primary">{{saveButtonText}}</button>
+        <button type="submit"
+                mat-raised-button
+                [disabled]="form.invalid"
+                color="primary">{{saveButtonText}}</button>
     </div>
 </form>

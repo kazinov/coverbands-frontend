@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MainBandInfo } from '../band.model';
 
 @Component({
   selector: 'app-main-band-info',
@@ -8,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class MainBandInfoComponent implements OnInit {
   @Input() saveButtonText = 'Save';
+  @Output() saveClick = new EventEmitter<MainBandInfo>();
   form: FormGroup;
 
   genres: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
@@ -25,5 +27,9 @@ export class MainBandInfoComponent implements OnInit {
       description: ['', [Validators.required]],
       genres: ['', [Validators.required]]
     });
+  }
+
+  onSubmit() {
+    this.saveClick.emit(this.form.value);
   }
 }

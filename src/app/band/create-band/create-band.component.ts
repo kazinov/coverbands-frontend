@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MainBandInfo } from '../band.model';
 
 @Component({
   selector: 'app-create-band',
@@ -21,5 +22,9 @@ export class CreateBandComponent implements OnInit {
       bandName: ['', [Validators.required]],
       song: ['', []]
     });
+  }
+
+  onSaveClick(data: MainBandInfo) {
+    console.log('main info', data);
   }
 }
