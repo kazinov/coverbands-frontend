@@ -14,6 +14,7 @@ import { AppEffects } from './app.effects';
 import { MusicGenresModule } from './core/music-genres/music-genres.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material';
+import { CitiesModule } from './core/cities/cities.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MatSnackBarModule } from '@angular/material';
     MatSnackBarModule,
     AppLayoutModule,
     MusicGenresModule,
+    CitiesModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects])
