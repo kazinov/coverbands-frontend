@@ -17,6 +17,18 @@
     </mat-form-field>
 
     <mat-form-field>
+        <mat-label>City</mat-label>
+        <mat-select formControlName="city">
+            <mat-option
+                    *ngFor="let city of (cities$ | async)"
+                    [value]="city">
+                {{city}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('city').invalid">Required field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
         <mat-label>Genres</mat-label>
         <mat-select formControlName="genres" multiple>
             <mat-option
