@@ -3,7 +3,11 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
-import { loadMusicGenresFailureAction, loadMusicGenresSuccessAction } from './music-genres.actions';
+import {
+  loadMusicGenresAction,
+  loadMusicGenresFailureAction,
+  loadMusicGenresSuccessAction
+} from './music-genres.actions';
 import { MusicGenresModuleState } from './music-genres.reducer';
 import { MusicGenresService } from './music-genres.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,7 +18,7 @@ export class MusicGenresEffects {
 
   @Effect()
   load$ = this.actions$.pipe(
-    ofType(loadMusicGenresSuccessAction.type),
+    ofType(loadMusicGenresAction.type),
     switchMap((action: typeof loadMusicGenresSuccessAction) => {
       return this.musicGenresService.loadMusicGenres()
         .pipe(

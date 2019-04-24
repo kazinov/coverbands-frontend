@@ -4,9 +4,5 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class MusicGenresSelectors {
-  constructor(
-    public selectData: (state: MusicGenresModuleState) => string[]
-      = createFeatureSelector<string[]>(musicGenresFeatureName)
-  ) {
-  }
+  selectGenres = createFeatureSelector<string[]>(musicGenresFeatureName);
 }
