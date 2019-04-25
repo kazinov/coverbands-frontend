@@ -10,6 +10,7 @@ import { allCities } from '../../core/cities/all-cities';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
+import { SelectorOption } from '../../shared/utils/selector-option';
 
 const cityFilterFieldName = 'cityFilter';
 
@@ -25,9 +26,19 @@ export class MainBandInfoComponent implements OnInit, OnDestroy {
   @Output() saveClick = new EventEmitter<MainBandInfo>();
   form: FormGroup;
 
-  genres = allMusicGenres.map((genreId) => this.translationService.translateMusicGenre(genreId));
-  cities = allCities.map((cityId) => this.translationService.translateCity(Countries.Russia, cityId));
-  filteredCities = this.cities.slice();
+  genres: SelectorOption[]
+    = allMusicGenres.map((genreId) => ({
+    id: genreId,
+    label: this.translationService.translateMusicGenre(genreId)
+  }));
+
+  cities: SelectorOption[]
+    = allCities.map((cityId) => ({
+    id: cityId,
+    label: this.translationService.translateCity(Countries.Russia, cityId)
+  }));
+
+  filteredCities: SelectorOption[] = this.cities.slice();
   onDestroy$ = new Subject<void>();
 
   constructor(
@@ -52,7 +63,7 @@ export class MainBandInfoComponent implements OnInit, OnDestroy {
       search = search.toLowerCase();
       this.filteredCities
         = this.cities
-        .filter(city => city.toLowerCase().indexOf(search) > -1);
+        .filter(city => city.label.toLowerCase().indexOf(search) > -1);
     }
   }
 

@@ -27,8 +27,8 @@
             </mat-option>
             <mat-option
                     *ngFor="let city of filteredCities"
-                    [value]="city">
-                {{city}}
+                    [value]="city.id">
+                {{city.label}}
             </mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('city').invalid">Required field</mat-error>
@@ -39,8 +39,8 @@
         <mat-select formControlName="genres" multiple>
             <mat-option
                     *ngFor="let genre of genres"
-                    [value]="genre">
-                {{genre}}
+                    [value]="genre.id">
+                {{genre.label}}
             </mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('genres').invalid">Required field</mat-error>
