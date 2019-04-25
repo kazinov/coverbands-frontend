@@ -1,0 +1,16 @@
+:host {
+  .add-bands-form {
+    display: flex;
+    align-items: baseline;
+
+    mat-form-field {
+      flex: 1;
+    }
+
+    ::ng-deep {
+      .mat-form-field-infix {
+        width: initial;
+      }
+    }
+  }
+}
