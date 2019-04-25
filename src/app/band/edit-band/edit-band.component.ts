@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MainBandInfo } from '../band.model';
+import { CoverInfo } from '../covers-info/cover-info.model';
 
 @Component({
   selector: 'app-edit-band',
@@ -22,5 +24,13 @@ export class EditBandComponent implements OnInit {
       bandName: ['', [Validators.required]],
       song: ['', []]
     });
+  }
+
+  onMainInfoSave(info: MainBandInfo) {
+    console.log('onMainInfoSave', info);
+  }
+
+  onAddCover(cover: CoverInfo) {
+    console.log('onAddCover', cover);
   }
 }

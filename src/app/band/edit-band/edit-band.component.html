@@ -8,7 +8,9 @@
                     Общая информация
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-main-band-info></app-main-band-info>
+            <app-main-band-info
+                    (saveClick)="onMainInfoSave($event)">
+            </app-main-band-info>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -16,7 +18,7 @@
                     Каверы
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-covers-info></app-covers-info>
+            <app-covers-info (addCover)="onAddCover($event)"></app-covers-info>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
