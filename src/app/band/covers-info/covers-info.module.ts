@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { CoversInfoComponent } from '../covers-info/covers-info.component';
 
 @NgModule({
@@ -12,6 +12,8 @@ import { CoversInfoComponent } from '../covers-info/covers-info.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatChipsModule,
+    MatIconModule
   ],
   declarations: [
     CoversInfoComponent

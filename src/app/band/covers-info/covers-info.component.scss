@@ -1,3 +1,5 @@
+@import "~src/app/shared/styles/common";
+
 :host {
   .add-bands-form {
     display: flex;
@@ -12,5 +14,9 @@
         width: initial;
       }
     }
+  }
+
+  .covers-container {
+    margin-top: $margin-md;
   }
 }
