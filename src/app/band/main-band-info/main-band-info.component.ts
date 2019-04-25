@@ -21,7 +21,7 @@ const cityFilterFieldName = 'cityFilter';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainBandInfoComponent implements OnInit, OnDestroy {
-  @Input() saveButtonText = 'Save';
+  @Input() saveButtonText = 'Сохранить';
   @Input() info: MainBandInfo;
   @Output() saveClick = new EventEmitter<MainBandInfo>();
   form: FormGroup;

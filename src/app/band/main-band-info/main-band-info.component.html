@@ -4,24 +4,24 @@
       (submit)="onSubmit()">
     <mat-form-field>
         <input matInput
-               placeholder="Enter the band name"
+               placeholder="Название или имя артиста"
                formControlName="name">
-        <mat-error *ngIf="form.get('name').invalid">Required field</mat-error>
+        <mat-error *ngIf="form.get('name').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
     <mat-form-field>
             <textarea matInput
-                      placeholder="Description"
+                      placeholder="Расскажите о проекте"
                       formControlName="description"></textarea>
-        <mat-error *ngIf="form.get('description').invalid">Required field</mat-error>
+        <mat-error *ngIf="form.get('description').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>City</mat-label>
+        <mat-label>Город</mat-label>
         <mat-select formControlName="city">
             <mat-option>
                 <ngx-mat-select-search
-                        placeholderLabel="Введите город"
+                        placeholderLabel="Поиск"
                         noEntriesFoundLabel="Город не найден"
                         formControlName="cityFilter"></ngx-mat-select-search>
             </mat-option>
@@ -31,11 +31,11 @@
                 {{city.label}}
             </mat-option>
         </mat-select>
-        <mat-error *ngIf="form.get('city').invalid">Required field</mat-error>
+        <mat-error *ngIf="form.get('city').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Genres</mat-label>
+        <mat-label>Жанры</mat-label>
         <mat-select formControlName="genres" multiple>
             <mat-option
                     *ngFor="let genre of genres"
@@ -43,7 +43,7 @@
                 {{genre.label}}
             </mat-option>
         </mat-select>
-        <mat-error *ngIf="form.get('genres').invalid">Required field</mat-error>
+        <mat-error *ngIf="form.get('genres').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
     <div class="save-button-container">
