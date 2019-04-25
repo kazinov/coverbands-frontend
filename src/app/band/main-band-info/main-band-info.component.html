@@ -20,7 +20,7 @@
         <mat-label>City</mat-label>
         <mat-select formControlName="city">
             <mat-option
-                    *ngFor="let city of (cities$ | async)"
+                    *ngFor="let city of cities"
                     [value]="city">
                 {{city}}
             </mat-option>
@@ -32,7 +32,7 @@
         <mat-label>Genres</mat-label>
         <mat-select formControlName="genres" multiple>
             <mat-option
-                    *ngFor="let genre of (genres$ | async)"
+                    *ngFor="let genre of genres"
                     [value]="genre">
                 {{genre}}
             </mat-option>

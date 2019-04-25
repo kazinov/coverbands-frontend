@@ -15,6 +15,7 @@ import { MusicGenresModule } from './core/music-genres/music-genres.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material';
 import { CitiesModule } from './core/cities/cities.module';
+import { TranslationModule } from './core/translation/translation.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CitiesModule } from './core/cities/cities.module';
     AppLayoutModule,
     MusicGenresModule,
     CitiesModule,
+    TranslationModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects])

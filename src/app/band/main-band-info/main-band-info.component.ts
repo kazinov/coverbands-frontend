@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MainBandInfo } from '../band.model';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MusicGenresModuleState } from '../../core/music-genres/music-genres.reducer';
-import { loadMusicGenresAction } from '../../core/music-genres/music-genres.actions';
-import { MusicGenresSelectors } from '../../core/music-genres/music-genres.selectors';
-import { loadCitiesAction } from '../../core/cities/cities.actions';
 import { Countries } from '../../core/countries/counries.model';
-import { CitiesSelectors } from '../../core/cities/cities.selectors';
+import { TranslationService } from '../../core/translation/translation.service';
+import { allMusicGenres } from '../../core/music-genres/all-music.genres';
+import { allCities } from '../../core/cities/all-cities';
 
 @Component({
   selector: 'app-main-band-info',
@@ -20,20 +19,17 @@ export class MainBandInfoComponent implements OnInit {
   @Output() saveClick = new EventEmitter<MainBandInfo>();
   form: FormGroup;
 
-  genres$ = this.store.pipe(select(this.musicGenresSelectors.selectGenres));
-  cities$ = this.store.pipe(select(this.citiesSelectors.citiesForCountrySelectorFactory(Countries.Russia)));
+  genres = allMusicGenres.map((genreId) => this.translationService.translateMusicGenre(genreId));
+  cities = allCities.map((cityId) => this.translationService.translateCity(Countries.Russia, cityId));
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<MusicGenresModuleState>,
-    private musicGenresSelectors: MusicGenresSelectors,
-    private citiesSelectors: CitiesSelectors
+    private translationService: TranslationService
   ) {
   }
 
   ngOnInit() {
-    this.store.dispatch(loadMusicGenresAction());
-    this.store.dispatch(loadCitiesAction({countryId: Countries.Russia}));
     this.buildForm();
   }
 
