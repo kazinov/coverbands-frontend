@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MainBandInfo } from '../band.model';
 import { Store } from '@ngrx/store';
@@ -7,13 +7,16 @@ import { Countries } from '../../core/countries/counries.model';
 import { TranslationService } from '../../core/translation/translation.service';
 import { allMusicGenres } from '../../core/music-genres/all-music.genres';
 import { allCities } from '../../core/cities/all-cities';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-band-info',
   templateUrl: './main-band-info.component.html',
-  styleUrls: ['./main-band-info.component.scss']
+  styleUrls: ['./main-band-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainBandInfoComponent implements OnInit {
+export class MainBandInfoComponent implements OnInit, OnDestroy {
   @Input() saveButtonText = 'Save';
   @Input() info: MainBandInfo;
   @Output() saveClick = new EventEmitter<MainBandInfo>();
@@ -21,6 +24,8 @@ export class MainBandInfoComponent implements OnInit {
 
   genres = allMusicGenres.map((genreId) => this.translationService.translateMusicGenre(genreId));
   cities = allCities.map((cityId) => this.translationService.translateCity(Countries.Russia, cityId));
+  filteredCities = this.cities.slice();
+  onDestroy$ = new Subject<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,12 +36,28 @@ export class MainBandInfoComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+
+    this.form.get('cityFilter').valueChanges
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((search) => this.filterBanks(search));
+  }
+
+  filterBanks(search: string) {
+    if (!search) {
+      this.filteredCities = this.cities.slice();
+    } else {
+      search = search.toLowerCase();
+      this.filteredCities
+        = this.cities
+        .filter(city => city.toLowerCase().indexOf(search) > -1);
+    }
   }
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
       name: [this.info ? this.info.name : null, [Validators.required]],
       description: [this.info ? this.info.description : null, []],
+      cityFilter: [null, []],
       city: [this.info ? this.info.city : null, [Validators.required]],
       genres: [this.info ? this.info.genres : [], [Validators.required]]
     });
@@ -44,5 +65,10 @@ export class MainBandInfoComponent implements OnInit {
 
   onSubmit() {
     this.saveClick.emit(this.form.value);
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

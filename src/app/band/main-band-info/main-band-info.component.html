@@ -19,8 +19,14 @@
     <mat-form-field>
         <mat-label>City</mat-label>
         <mat-select formControlName="city">
+            <mat-option>
+                <ngx-mat-select-search
+                        placeholderLabel="Введите город"
+                        noEntriesFoundLabel="Город не найден"
+                        formControlName="cityFilter"></ngx-mat-select-search>
+            </mat-option>
             <mat-option
-                    *ngFor="let city of cities"
+                    *ngFor="let city of filteredCities"
                     [value]="city">
                 {{city}}
             </mat-option>

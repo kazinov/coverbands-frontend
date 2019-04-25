@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MainBandInfo } from '../band.model';
 
 @Component({
   selector: 'app-create-band',
   templateUrl: './create-band.component.html',
-  styleUrls: ['./create-band.component.scss']
+  styleUrls: ['./create-band.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateBandComponent implements OnInit {
   addBandForm: FormGroup;
