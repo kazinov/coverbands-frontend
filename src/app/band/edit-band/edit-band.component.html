@@ -1,13 +1,62 @@
 <div class="app-form-wrapper">
     <h3 class="app-form-header">Изменить профиль</h3>
 
-    <mat-tab-group>
-        <mat-tab label="Общее">
+    <mat-accordion>
+        <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Общая информация
+                </mat-panel-title>
+            </mat-expansion-panel-header>
             <app-main-band-info></app-main-band-info>
-        </mat-tab>
-        <mat-tab label="Каверы">
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Каверы
+                </mat-panel-title>
+            </mat-expansion-panel-header>
             <app-covers-info></app-covers-info>
-        </mat-tab>
-    </mat-tab-group>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Контакты
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            Контакты
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Фото
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            Фото
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Аудио
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            Аудио
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Видео
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            Видео
+        </mat-expansion-panel>
+
+    </mat-accordion>
 
 </div>
+
+
