@@ -9,6 +9,9 @@ import { allMusicGenres } from '../../core/music-genres/all-music.genres';
 import { allCities } from '../../core/cities/all-cities';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import omit from 'lodash-es/omit';
+
+const cityFilterFieldName = 'cityFilter';
 
 @Component({
   selector: 'app-main-band-info',
@@ -37,7 +40,7 @@ export class MainBandInfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buildForm();
 
-    this.form.get('cityFilter').valueChanges
+    this.form.get(cityFilterFieldName).valueChanges
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((search) => this.filterBanks(search));
   }
@@ -57,14 +60,14 @@ export class MainBandInfoComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       name: [this.info ? this.info.name : null, [Validators.required]],
       description: [this.info ? this.info.description : null, []],
-      cityFilter: [null, []],
+      [cityFilterFieldName]: [null, []],
       city: [this.info ? this.info.city : null, [Validators.required]],
       genres: [this.info ? this.info.genres : [], [Validators.required]]
     });
   }
 
   onSubmit() {
-    this.saveClick.emit(this.form.value);
+    this.saveClick.emit(omit(this.form.value, cityFilterFieldName));
   }
 
   ngOnDestroy(): void {
