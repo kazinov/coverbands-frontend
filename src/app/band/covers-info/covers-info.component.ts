@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { CoverInfo } from './cover-info.model';
 
 @Component({
@@ -12,7 +12,9 @@ export class CoversInfoComponent implements OnInit {
   @Input() covers: CoverInfo[] = [];
   @Output() addCover = new EventEmitter<CoverInfo>();
   @Output() removeCover = new EventEmitter<CoverInfo>();
-  form: FormGroup;
+  formGroup: FormGroup;
+  // https://stackoverflow.com/questions/49788215/angular-material-reseting-reactiveform-shows-validation-error
+  @ViewChild('form') form: FormGroupDirective;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -22,10 +24,17 @@ export class CoversInfoComponent implements OnInit {
   }
 
   onSubmit() {
-    const cover: CoverInfo = this.form.value;
+    const cover: CoverInfo = this.formGroup.value;
+    if (this.covers
+      .some((value: CoverInfo) =>
+        value.band === cover.band && value.song === cover.song)) {
+      return;
+    }
+
     this.covers.push(cover);
     this.addCover.emit(cover);
-    this.form.reset();
+    this.formGroup.reset();
+    this.form.resetForm();
   }
 
   onCoverRemoved(cover: CoverInfo) {
@@ -40,7 +49,7 @@ export class CoversInfoComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.form = this.formBuilder.group({
+    this.formGroup = this.formBuilder.group({
       band: ['', [Validators.required]],
       song: ['', []]
     });

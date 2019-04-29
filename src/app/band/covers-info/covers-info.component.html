@@ -1,6 +1,7 @@
 <div class="add-bands-container">
     <h4>Добавте песни, которые вы играете</h4>
-    <form [formGroup]="form"
+    <form [formGroup]="formGroup"
+          #form="ngForm"
           class="add-bands-form"
           novalidate
           (submit)="onSubmit()">
@@ -8,20 +9,20 @@
             <input matInput
                    placeholder="Enter the band name"
                    formControlName="band">
-            <mat-error *ngIf="form.get('band').invalid">Required field</mat-error>
+            <mat-error *ngIf="formGroup.get('band').invalid">Required field</mat-error>
         </mat-form-field>
 
         <mat-form-field class="margin-right-md">
             <input matInput
                    placeholder="Enter the song name"
                    formControlName="song">
-            <mat-error *ngIf="form.get('song').invalid">Required field</mat-error>
+            <mat-error *ngIf="formGroup.get('song').invalid">Required field</mat-error>
         </mat-form-field>
 
         <div>
             <button type="submit"
                     mat-raised-button
-                    [disabled]="form.invalid">Добавить</button>
+                    [disabled]="formGroup.invalid">Добавить</button>
         </div>
     </form>
     <div class="covers-container">
