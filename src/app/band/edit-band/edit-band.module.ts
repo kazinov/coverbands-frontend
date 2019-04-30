@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainBandInfoModule } from '../main-band-info/main-band-info.module';
 import { EditBandComponent } from './edit-band.component';
-import { MatExpansionModule } from '@angular/material';
+import { MatExpansionModule, MatProgressSpinnerModule } from '@angular/material';
 import { CoversInfoModule } from '../covers-info/covers-info.module';
 
 @NgModule({
@@ -10,7 +10,8 @@ import { CoversInfoModule } from '../covers-info/covers-info.module';
     CommonModule,
     MainBandInfoModule,
     CoversInfoModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     EditBandComponent

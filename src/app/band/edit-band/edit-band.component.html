@@ -1,7 +1,7 @@
 <div class="app-form-wrapper">
     <h3 class="app-form-header">Изменить профиль</h3>
 
-    <mat-accordion>
+    <mat-accordion *ngIf="band$ | async">
         <mat-expansion-panel expanded="true">
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -9,6 +9,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-main-band-info
+                    *ngIf="!!(band$ | async)"
+                    [info]="band$ | async"
                     (saveClick)="onMainInfoSave($event)">
             </app-main-band-info>
         </mat-expansion-panel>
@@ -18,7 +20,9 @@
                     Каверы
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-covers-info (addCover)="onAddCover($event)"></app-covers-info>
+            <app-covers-info
+                    [covers]="covers$ | async"
+                    (addCover)="onAddCover($event)"></app-covers-info>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
@@ -58,6 +62,12 @@
         </mat-expansion-panel>
 
     </mat-accordion>
+
+    <div class="spinner-spacer"
+         *ngIf="!(band$ | async)">
+        <mat-spinner>
+        </mat-spinner>
+    </div>
 
 </div>
 
