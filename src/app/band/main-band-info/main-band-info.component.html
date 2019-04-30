@@ -12,7 +12,10 @@
     <mat-form-field>
             <textarea matInput
                       placeholder="Расскажите о проекте"
-                      formControlName="description"></textarea>
+                      formControlName="description"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="8"></textarea>
         <mat-error *ngIf="form.get('description').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
