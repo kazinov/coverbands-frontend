@@ -7,16 +7,16 @@
           (submit)="onSubmit()">
         <mat-form-field class="margin-right-md">
             <input matInput
-                   placeholder="Enter the band name"
+                   placeholder="Исполнитель"
                    formControlName="band">
-            <mat-error *ngIf="formGroup.get('band').invalid">Required field</mat-error>
+            <mat-error *ngIf="formGroup.get('band').invalid">Обязательное поле</mat-error>
         </mat-form-field>
 
         <mat-form-field class="margin-right-md">
             <input matInput
-                   placeholder="Enter the song name"
+                   placeholder="Название песни"
                    formControlName="song">
-            <mat-error *ngIf="formGroup.get('song').invalid">Required field</mat-error>
+            <mat-error *ngIf="formGroup.get('song').invalid">Обязательное поле</mat-error>
         </mat-form-field>
 
         <div>
@@ -28,10 +28,11 @@
     <div class="covers-container">
         <mat-chip-list>
             <mat-chip
-                    [color]="'accent'"
+                    color="primary"
                     *ngFor="let cover of covers"
                     [removable]="true"
-                    (removed)="onCoverRemoved(cover)">
+                    (removed)="onCoverRemoved(cover)"
+                    selected="true">
                 {{cover.band + (cover.song ? (' - '+ cover.song): '')}}
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MainBandInfo } from '../band.model';
-import { CoverInfo } from '../covers-info/cover-info.model';
+import { MainBandInfo } from '../main-band-info.model';
+import { CoverInfo } from '../../core/bands/bands.model';
 
 @Component({
   selector: 'app-edit-band',

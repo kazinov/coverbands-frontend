@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MainBandInfo } from '../band.model';
 import { Store } from '@ngrx/store';
 import { MusicGenresModuleState } from '../../core/music-genres/music-genres.reducer';
 import { Countries } from '../../core/countries/counries.model';
@@ -11,6 +10,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
 import { SelectorOption } from '../../shared/utils/selector-option';
+import { MainBandInfo } from '../main-band-info.model';
 
 const cityFilterFieldName = 'cityFilter';
 

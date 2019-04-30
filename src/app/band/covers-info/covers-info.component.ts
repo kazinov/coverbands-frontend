@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { CoverInfo } from './cover-info.model';
+import { CoverInfo } from '../../core/bands/bands.model';
 
 @Component({
   selector: 'app-covers-info',

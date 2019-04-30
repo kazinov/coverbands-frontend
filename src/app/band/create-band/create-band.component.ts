@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MainBandInfo } from '../band.model';
+import { MainBandInfo } from '../main-band-info.model';
 
 @Component({
   selector: 'app-create-band',
