@@ -1,0 +1,23 @@
+<form [formGroup]="form"
+      class="flex-column spacer"
+      novalidate
+      (submit)="onSubmit()">
+    <mat-form-field>
+        <input matInput
+               placeholder="Емейл"
+               formControlName="email">
+        <mat-error *ngIf="form.get('email').invalid">Неверный формат емейла</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               placeholder="Телефон"
+               formControlName="phone">
+    </mat-form-field>
+
+    <div class="save-button-container">
+        <button type="submit"
+                mat-raised-button
+                [disabled]="form.invalid"
+                color="primary">Сохранить</button>
+    </div>
+</form>

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
@@ -8,7 +7,6 @@ import { SelectorOption } from '../../shared/utils/selector-option';
 import { MainBandInfo } from '../main-band-info.model';
 import { allCities } from '../../core/cities/all-cities';
 import { Countries } from '../../core/countries/counries.model';
-import { MusicGenresModuleState } from '../../core/music-genres/music-genres.reducer';
 import { TranslationService } from '../../core/translation/translation.service';
 import { allMusicGenres } from '../../core/music-genres/all-music.genres';
 
@@ -43,7 +41,6 @@ export class MainBandInfoComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<MusicGenresModuleState>,
     private translationService: TranslationService
   ) {
   }
