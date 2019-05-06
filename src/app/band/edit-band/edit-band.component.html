@@ -14,6 +14,25 @@
                     (saveClick)="onMainInfoSave($event)">
             </app-main-band-info>
         </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Контакты
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            Контакты
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Цены
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            Цены
+        </mat-expansion-panel>
+
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -23,15 +42,6 @@
             <app-covers-info
                     [covers]="covers$ | async"
                     (addCover)="onAddCover($event)"></app-covers-info>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Контакты
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            Контакты
         </mat-expansion-panel>
 
         <mat-expansion-panel>
