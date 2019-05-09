@@ -4,20 +4,28 @@
       (submit)="onSubmit()">
     <mat-form-field>
         <input matInput
+               type="email"
                placeholder="Емейл"
                formControlName="email">
         <mat-error *ngIf="form.get('email').invalid">Неверный формат емейла</mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput
+               type="tel"
                placeholder="Телефон"
-               formControlName="phone">
+               formControlName="phone"
+               [imask]="{mask: phoneConfig.mask, lazy: false}"
+               [unmask]="true">
+        <mat-error *ngIf="form.get('phone').invalid">
+            Неверный формат телефонного номера
+        </mat-error>
     </mat-form-field>
 
     <div class="save-button-container">
         <button type="submit"
                 mat-raised-button
-                [disabled]="form.invalid"
-                color="primary">Сохранить</button>
+                [disabled]="form.invalid || noValues"
+                color="primary">Сохранить
+        </button>
     </div>
 </form>

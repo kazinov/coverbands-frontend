@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BandContactsComponent } from './band-contacts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {IMaskModule} from 'angular-imask';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/ma
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    IMaskModule
   ],
   declarations: [
     BandContactsComponent
