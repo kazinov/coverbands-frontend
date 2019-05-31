@@ -5,14 +5,17 @@ import { BandContacts } from './band-contacts.model';
 interface PhoneFormInputConfig {
   mask: string,
   validationRegex: RegExp,
-  code: string
+  phoneCode: string
 }
 
+const russianPhoneCode = '+7';
 const russianPhoneConfig = {
-  mask: '+{7}(000)000-00-00',
-  validationRegex: /(^[0-9]{11}$)|(^7$)/,
-  code: '7'
+  mask: `${russianPhoneCode}(000)000-00-00`,
+  validationRegex: /(^[0-9]{10}$)/,
+  phoneCode: russianPhoneCode
 };
+const emailFormName = 'email';
+const phoneNumberFormName = 'phoneNumber';
 
 @Component({
   selector: 'app-band-contacts',
@@ -33,19 +36,23 @@ export class BandContactsComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
-      email: [this.contacts ? this.contacts.email : null, [Validators.email]],
-      phone: [this.contacts ? this.contacts.phone : null,
+      [emailFormName]: [this.contacts ? this.contacts.email : null, [Validators.email]],
+      [phoneNumberFormName]: [this.contacts ? this.contacts.phoneNumber : null,
         [Validators.pattern(this.phoneConfig.validationRegex)]]
     });
   }
 
   onSubmit() {
-    this.saveClick.emit(this.form.value);
+    this.saveClick.emit({
+      email: this.form.value[emailFormName],
+      phoneCode: this.phoneConfig.phoneCode,
+      phoneNumber: this.form.value[phoneNumberFormName]
+    });
   }
 
   get noValues() {
-    return !this.form.value.email && (
-      !this.form.value.phone || (this.form.value.phone === this.phoneConfig.code)
+    return !this.form.value[emailFormName] && (
+      !this.form.value[phoneNumberFormName]
     );
   }
 

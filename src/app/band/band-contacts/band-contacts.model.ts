@@ -5,6 +5,7 @@ export interface BandLink {
 
 export interface BandContacts {
   email?: string;
-  phone?: string;
+  phoneCode?: string
+  phoneNumber?: string;
   links?: BandLink[];
 }

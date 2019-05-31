@@ -30,7 +30,10 @@ const dummyBand: Band = {
       band: 'Nirvana',
       song: 'Smells like teen spirit'
     },
-  ]
+  ],
+  email: "coverband@gmail.com",
+  phoneCode: "+7",
+  phoneNumber: "9214456456"
 };
 
 @Component({

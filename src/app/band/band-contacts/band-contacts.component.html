@@ -13,10 +13,10 @@
         <input matInput
                type="tel"
                placeholder="Телефон"
-               formControlName="phone"
+               formControlName="phoneNumber"
                [imask]="{mask: phoneConfig.mask, lazy: false}"
                [unmask]="true">
-        <mat-error *ngIf="form.get('phone').invalid">
+        <mat-error *ngIf="form.get('phoneNumber').invalid">
             Неверный формат телефонного номера
         </mat-error>
     </mat-form-field>
