@@ -6,7 +6,13 @@ export interface CoverInfo {
   song: string
 }
 
+export interface BandLink {
+  link: string,
+  description: string
+}
+
 export interface Band extends MainBandInfo, BandContacts {
   id: string;
   covers?: CoverInfo[];
+  links?: BandLink[];
 }

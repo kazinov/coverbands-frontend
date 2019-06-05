@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BandContactsComponent } from './band-contacts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
 import {IMaskModule} from 'angular-imask';
+import { BandLinksComponent } from './band-links.component';
 
 @NgModule({
   imports: [
@@ -17,11 +17,11 @@ import {IMaskModule} from 'angular-imask';
     MatTableModule
   ],
   declarations: [
-    BandContactsComponent
+    BandLinksComponent
   ],
   exports: [
-    BandContactsComponent
+    BandLinksComponent
   ]
 })
-export class BandContactsModule {
+export class BandLinksModule {
 }

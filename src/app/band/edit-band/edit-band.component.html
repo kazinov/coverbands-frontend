@@ -21,7 +21,22 @@
                     Контакты
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-band-contacts></app-band-contacts>
+            <app-band-contacts *ngIf="!!(band$ | async)"
+            [contacts]="band$ | async"
+            (saveClick)="onContactsSave($event)">
+            </app-band-contacts>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Ссылки
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-band-links *ngIf="!!(links$ | async)"
+                               [links]="links$ | async"
+                               (linksChange)="onLinksSave($event)">
+            </app-band-links>
         </mat-expansion-panel>
 
         <mat-expansion-panel>

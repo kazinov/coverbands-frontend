@@ -27,14 +27,14 @@ export class BandContactsComponent implements OnInit {
   @Input() contacts: BandContacts;
   @Output() saveClick = new EventEmitter<BandContacts>();
   form: FormGroup;
-
   phoneConfig: PhoneFormInputConfig = russianPhoneConfig;
+  linksTableColumns: string[] = ['link', 'description'];
 
   ngOnInit() {
-    this.buildForm();
+    this.buildForms();
   }
 
-  private buildForm(): void {
+  private buildForms(): void {
     this.form = this.formBuilder.group({
       [emailFormName]: [this.contacts ? this.contacts.email : null, [Validators.email]],
       [phoneNumberFormName]: [this.contacts ? this.contacts.phoneNumber : null,

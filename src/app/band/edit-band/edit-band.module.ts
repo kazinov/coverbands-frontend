@@ -5,6 +5,7 @@ import { EditBandComponent } from './edit-band.component';
 import { MatExpansionModule, MatProgressSpinnerModule } from '@angular/material';
 import { CoversInfoModule } from '../covers-info/covers-info.module';
 import { BandContactsModule } from '../band-contacts/band-contacts.module';
+import { BandLinksModule } from '../band-links/band-links.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { BandContactsModule } from '../band-contacts/band-contacts.module';
     BandContactsModule,
     CoversInfoModule,
     MatExpansionModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BandLinksModule
   ],
   declarations: [
     EditBandComponent

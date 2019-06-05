@@ -1,0 +1,43 @@
+<div class="app-info-block">Добавьте ссылки на ваш сайт и социальные сети</div>
+<form [formGroup]="linksForm"
+      #linksFormGroup="ngForm"
+      class="add-link-form"
+      novalidate
+      (submit)="onLinkSubmit()">
+    <mat-form-field class="margin-right-md">
+        <input matInput
+               placeholder="Ссылка"
+               formControlName="link">
+        <mat-error *ngIf="linksForm.get('link').invalid">Обязательное поле</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="margin-right-md">
+        <input matInput
+               placeholder="Описание"
+               formControlName="description">
+        <mat-error *ngIf="linksForm.get('description').invalid">Обязательное поле</mat-error>
+    </mat-form-field>
+
+    <div>
+        <button type="submit"
+                mat-raised-button
+                [disabled]="linksForm.invalid">Добавить
+        </button>
+    </div>
+</form>
+
+<table mat-table [dataSource]="links" class="mat-elevation-z1 links-table">
+
+    <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef> Ссылка</th>
+        <td mat-cell *matCellDef="let element"> {{element.link}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Описание</th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="linksTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: linksTableColumns;"></tr>
+</table>

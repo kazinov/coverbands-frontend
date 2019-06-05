@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MainBandInfo } from '../main-band-info.model';
-import { Band, CoverInfo } from '../../core/bands/bands.model';
+import { Band, BandLink, CoverInfo } from '../../core/bands/bands.model';
 import { Observable, timer } from 'rxjs';
 import { Cities } from '../../core/cities/cities.data';
 import { MusicGenres } from '../../core/music-genres/music-genres.data';
 import { map, shareReplay, tap } from 'rxjs/operators';
+import { BandContacts } from '../band-contacts/band-contacts.model';
 
 const dummyBand: Band = {
   id: '123',
@@ -33,7 +34,17 @@ const dummyBand: Band = {
   ],
   email: "coverband@gmail.com",
   phoneCode: "+7",
-  phoneNumber: "9214456456"
+  phoneNumber: "9214456456",
+  links: [
+    {
+      link: "https://vk.com/ustochnuk",
+      description: "Мы вконтакте"
+    },
+    {
+      link: "https://www.facebook.com/groups/wg.wohnung.frankfurt/?fref=nf",
+      description: "Мы в facebook"
+    }
+  ]
 };
 
 @Component({
@@ -45,13 +56,16 @@ const dummyBand: Band = {
 export class EditBandComponent implements OnInit {
   band$: Observable<Band> = timer(1000)
     .pipe(
-      tap(() => console.log('before return')),
       map(() => dummyBand),
       shareReplay()
     );
   covers$: Observable<CoverInfo[]> = this.band$
     .pipe(
       map((band) => band ? band.covers : null)
+    );
+  links$: Observable<BandLink[]> = this.band$
+    .pipe(
+      map((band) => band ? band.links : null)
     );
 
   constructor() {
@@ -62,6 +76,14 @@ export class EditBandComponent implements OnInit {
 
   onMainInfoSave(info: MainBandInfo) {
     console.log('onMainInfoSave', info);
+  }
+
+  onContactsSave(contacts: BandContacts) {
+    console.log('onContactsSave', contacts);
+  }
+
+  onLinksSave(links: BandLink[]) {
+    console.log('links', links);
   }
 
   onAddCover(cover: CoverInfo) {

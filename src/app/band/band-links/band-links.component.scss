@@ -1,0 +1,24 @@
+@import "~src/app/shared/styles/common";
+
+:host {
+  .add-link-form {
+    display: flex;
+    align-items: baseline;
+
+    mat-form-field {
+      flex: 1;
+    }
+
+    ::ng-deep {
+      .mat-form-field-infix {
+        width: initial;
+      }
+    }
+  }
+
+  .links-table {
+    width: 100%;
+    margin-top: $margin-md;
+    margin-bottom: $margin-lg;
+  }
+}
