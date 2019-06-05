@@ -21,4 +21,11 @@
     margin-top: $margin-md;
     margin-bottom: $margin-lg;
   }
+
+  .mat-column-link {
+    a {
+      width: 100%;
+    }
+  }
+
 }

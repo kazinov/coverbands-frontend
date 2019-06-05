@@ -11,8 +11,8 @@ import { BandLink } from '../../core/bands/bands.model';
 export class BandLinksComponent implements OnInit {
   @Input() links: BandLink[];
   @Output() linksChange = new EventEmitter<BandLink[]>();
-  linksForm: FormGroup;
-  @ViewChild('linksFormGroup') linksFormGroup: FormGroupDirective;
+  form: FormGroup;
+  @ViewChild('linksFormGroup') formGroup: FormGroupDirective;
   linksTableColumns: string[] = ['link', 'description'];
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class BandLinksComponent implements OnInit {
   }
 
   private buildForms(): void {
-    this.linksForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       link: ['', [Validators.required]],
       description: ['', []]
     });
@@ -29,11 +29,12 @@ export class BandLinksComponent implements OnInit {
   onLinkSubmit() {
     this.links = [
       ...this.links,
-      this.linksForm.value
+      this.form.value
     ];
 
-    console.log('links', this.links);
     this.linksChange.emit(this.links);
+    this.form.reset();
+    this.formGroup.resetForm();
   }
 
   constructor(

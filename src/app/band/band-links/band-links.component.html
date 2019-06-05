@@ -1,5 +1,5 @@
-<div class="app-info-block">Добавьте ссылки на ваш сайт и социальные сети</div>
-<form [formGroup]="linksForm"
+<h4 class="app-info-block">Добавьте ссылки на ваш сайт и социальные сети</h4>
+<form [formGroup]="form"
       #linksFormGroup="ngForm"
       class="add-link-form"
       novalidate
@@ -8,36 +8,39 @@
         <input matInput
                placeholder="Ссылка"
                formControlName="link">
-        <mat-error *ngIf="linksForm.get('link').invalid">Обязательное поле</mat-error>
+        <mat-error *ngIf="form.get('link').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
     <mat-form-field class="margin-right-md">
         <input matInput
                placeholder="Описание"
                formControlName="description">
-        <mat-error *ngIf="linksForm.get('description').invalid">Обязательное поле</mat-error>
+        <mat-error *ngIf="form.get('description').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
     <div>
         <button type="submit"
                 mat-raised-button
-                [disabled]="linksForm.invalid">Добавить
+                [disabled]="form.invalid">Добавить
         </button>
     </div>
 </form>
 
-<table mat-table [dataSource]="links" class="mat-elevation-z1 links-table">
+<mat-table [dataSource]="links" class="mat-elevation-z1 links-table">
 
     <ng-container matColumnDef="link">
-        <th mat-header-cell *matHeaderCellDef> Ссылка</th>
-        <td mat-cell *matCellDef="let element"> {{element.link}} </td>
+        <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <a [href]="element.link"
+            target="_blank">{{element.link}}</a>
+        </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Описание</th>
-        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        <mat-header-cell *matHeaderCellDef> Описание</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="linksTableColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: linksTableColumns;"></tr>
-</table>
+    <mat-header-row *matHeaderRowDef="linksTableColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: linksTableColumns;"></mat-row>
+</mat-table>
