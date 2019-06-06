@@ -13,7 +13,7 @@ export class BandLinksComponent implements OnInit {
   @Output() linksChange = new EventEmitter<BandLink[]>();
   form: FormGroup;
   @ViewChild('linksFormGroup') formGroup: FormGroupDirective;
-  linksTableColumns: string[] = ['link', 'description'];
+  linksTableColumns: string[] = ['link', 'description', 'remove'];
 
   ngOnInit() {
     this.buildForms();
@@ -35,6 +35,19 @@ export class BandLinksComponent implements OnInit {
     this.linksChange.emit(this.links);
     this.form.reset();
     this.formGroup.resetForm();
+  }
+
+  onLinkDelete(linkToDelete: BandLink) {
+    this.links = this.links
+      .filter((link) => {
+        return !(link.description === linkToDelete.description
+        && link.link === linkToDelete.link);
+      });
+    this.linksChange.emit(this.links);
+  }
+
+  get linksExist() {
+    return this.links && this.links.length;
   }
 
   constructor(

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTableModule } from '@angular/material';
 import {IMaskModule} from 'angular-imask';
 import { BandLinksComponent } from './band-links.component';
 
@@ -14,7 +14,8 @@ import { BandLinksComponent } from './band-links.component';
     MatInputModule,
     MatButtonModule,
     IMaskModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule
   ],
   declarations: [
     BandLinksComponent
