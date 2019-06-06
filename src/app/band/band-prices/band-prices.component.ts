@@ -12,6 +12,7 @@ export class BandPricesComponent implements OnInit {
   @Input() prices: BandPrices;
   @Output() pricesChange = new EventEmitter<BandPrices>();
   addPriceFrom: FormGroup;
+  form: FormGroup;
   @ViewChild('formGroup') formGroup: FormGroupDirective;
   tableColumns: string[] = ['value', 'service', 'remove'];
 
@@ -21,6 +22,11 @@ export class BandPricesComponent implements OnInit {
 
   private buildForms(): void {
     this.addPriceFrom = this.formBuilder.group({
+      value: ['', [Validators.required]],
+      service: ['', []]
+    });
+
+    this.form = this.formBuilder.group({
       value: ['', [Validators.required]],
       service: ['', []]
     });
@@ -49,6 +55,11 @@ export class BandPricesComponent implements OnInit {
   get pricesExist() {
     return this.prices && this.prices.prices && this.prices.prices.length;
   }
+
+  onSubmit() {
+    console.log('onSubmit')
+  }
+
 
   constructor(
     private formBuilder: FormBuilder

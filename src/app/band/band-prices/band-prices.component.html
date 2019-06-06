@@ -1,3 +1,33 @@
+<form [formGroup]="form"
+      novalidate
+      class="flex-column spacer"
+      (submit)="onSubmit()">
+
+    <mat-form-field>
+        <input matInput
+               type="number"
+               placeholder="Стоимость выступления"
+               formControlName="value">
+        <mat-error *ngIf="form.get('value').invalid">Обязательное поле</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+            <textarea matInput
+                      placeholder="Длительность выступления и другие детали"
+                      formControlName="service"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="8"></textarea>
+    </mat-form-field>
+    <div class="app-save-button-container">
+        <button type="submit"
+                mat-raised-button
+                [disabled]="form.invalid"
+                color="primary">Сохранить
+        </button>
+    </div>
+</form>
+
+
 <h4 class="app-info-block">Добавьте стоимость других услуг, опций</h4>
 <form [formGroup]="addPriceFrom"
       #formGroup="ngForm"
@@ -19,7 +49,7 @@
         <mat-error *ngIf="addPriceFrom.get('service').invalid">Обязательное поле</mat-error>
     </mat-form-field>
 
-    <div>
+    <div  class="app-save-button-container">
         <button type="submit"
                 mat-raised-button
                 [disabled]="addPriceFrom.invalid">Добавить
@@ -47,7 +77,8 @@
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell mat-cell *matCellDef="let element">
                 <button mat-button color="primary"
-                        (click)="onLinkDelete(element)">Удалить</button>
+                        (click)="onLinkDelete(element)">Удалить
+                </button>
             </mat-cell>
         </ng-container>
 
