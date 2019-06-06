@@ -8,6 +8,7 @@
                type="number"
                placeholder="Стоимость выступления"
                formControlName="value">
+        <span matSuffix>&nbsp; руб. &nbsp;</span>
         <mat-error *ngIf="form.get('value').invalid">Обязательное поле</mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -18,6 +19,67 @@
                       cdkAutosizeMinRows="2"
                       cdkAutosizeMaxRows="8"></textarea>
     </mat-form-field>
+
+
+    <h4 class="app-info-block">Добавьте стоимость других услуг, опций</h4>
+    <form [formGroup]="addPriceFrom"
+          #formGroup="ngForm"
+          class="app-one-line-form"
+          novalidate
+          (submit)="onPriceSubmit()">
+        <mat-form-field class="margin-right-md">
+            <input matInput
+                   type="number"
+                   placeholder="Цена"
+                   formControlName="value">
+            <span matSuffix>&nbsp; руб. &nbsp;</span>
+            <mat-error *ngIf="addPriceFrom.get('value').invalid">Обязательное поле</mat-error>
+        </mat-form-field>
+        <mat-form-field class="margin-right-md">
+            <input matInput
+                   placeholder="Описание"
+                   formControlName="service">
+            <mat-error *ngIf="addPriceFrom.get('service').invalid">Обязательное поле</mat-error>
+        </mat-form-field>
+
+        <div  class="app-save-button-container">
+            <button type="submit"
+                    mat-raised-button
+                    [disabled]="addPriceFrom.invalid">Добавить
+            </button>
+        </div>
+    </form>
+
+    <div class="app-form-table-container mat-elevation-z1">
+        <mat-table *ngIf="pricesExist"
+                   [dataSource]="prices.prices" class="app-form-table">
+
+            <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef> Цена</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{element.value}} руб.
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="service">
+                <mat-header-cell *matHeaderCellDef> Описание</mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element"> {{element.service}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="remove">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element">
+                    <button mat-button color="primary"
+                            (click)="onLinkDelete(element)">Удалить
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+        </mat-table>
+    </div>
+
     <div class="app-save-button-container">
         <button type="submit"
                 mat-raised-button
@@ -27,62 +89,3 @@
     </div>
 </form>
 
-
-<h4 class="app-info-block">Добавьте стоимость других услуг, опций</h4>
-<form [formGroup]="addPriceFrom"
-      #formGroup="ngForm"
-      class="app-one-line-form"
-      novalidate
-      (submit)="onPriceSubmit()">
-    <mat-form-field class="margin-right-md">
-        <input matInput
-               type="number"
-               placeholder="Цена"
-               formControlName="value">
-        <span matSuffix>&nbsp; руб. &nbsp;</span>
-        <mat-error *ngIf="addPriceFrom.get('value').invalid">Обязательное поле</mat-error>
-    </mat-form-field>
-    <mat-form-field class="margin-right-md">
-        <input matInput
-               placeholder="Описание"
-               formControlName="service">
-        <mat-error *ngIf="addPriceFrom.get('service').invalid">Обязательное поле</mat-error>
-    </mat-form-field>
-
-    <div  class="app-save-button-container">
-        <button type="submit"
-                mat-raised-button
-                [disabled]="addPriceFrom.invalid">Добавить
-        </button>
-    </div>
-</form>
-
-<div class="app-form-table-container mat-elevation-z1">
-    <mat-table *ngIf="pricesExist"
-               [dataSource]="prices.prices" class="app-form-table">
-
-        <ng-container matColumnDef="value">
-            <mat-header-cell *matHeaderCellDef> Цена</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                {{element.value}} руб.
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="service">
-            <mat-header-cell *matHeaderCellDef> Описание</mat-header-cell>
-            <mat-cell mat-cell *matCellDef="let element"> {{element.service}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="remove">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell mat-cell *matCellDef="let element">
-                <button mat-button color="primary"
-                        (click)="onLinkDelete(element)">Удалить
-                </button>
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
-    </mat-table>
-</div>
