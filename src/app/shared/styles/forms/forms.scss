@@ -41,9 +41,15 @@
     flex: 1;
   }
 
-  ::ng-deep {
-    .mat-form-field-infix {
-      width: initial;
+  .mat-form-field-infix {
+    width: initial;
+  }
+
+  @media only screen and (max-width: $mobile-device-width) {
+   flex-direction: column;
+    margin-bottom: $margin-md;
+    .mat-form-field {
+      width: 100%;
     }
   }
 }
