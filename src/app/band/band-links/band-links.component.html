@@ -1,7 +1,7 @@
 <h4 class="app-info-block">Добавьте ссылки на ваш сайт и социальные сети</h4>
 <form [formGroup]="form"
-      #linksFormGroup="ngForm"
-      class="add-link-form"
+      #formGroup="ngForm"
+      class="app-one-line-form"
       novalidate
       (submit)="onLinkSubmit()">
     <mat-form-field class="margin-right-md">
@@ -26,30 +26,32 @@
     </div>
 </form>
 
-<mat-table *ngIf="linksExist"
-        [dataSource]="links" class="mat-elevation-z1 links-table">
+<div class="app-form-table-container mat-elevation-z1">
+    <mat-table *ngIf="linksExist"
+               [dataSource]="links" class="app-form-table">
 
-    <ng-container matColumnDef="link">
-        <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <a [href]="element.link"
-            target="_blank">{{element.link}}</a>
-        </mat-cell>
-    </ng-container>
+        <ng-container matColumnDef="link">
+            <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <a [href]="element.link"
+                   target="_blank">{{element.link}}</a>
+            </mat-cell>
+        </ng-container>
 
-    <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef> Описание</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
-    </ng-container>
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef> Описание</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+        </ng-container>
 
-    <ng-container matColumnDef="remove">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let element">
-            <button mat-button color="primary"
-            (click)="onLinkDelete(element)">Удалить</button>
-        </mat-cell>
-    </ng-container>
+        <ng-container matColumnDef="remove">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+                <button mat-button color="primary"
+                        (click)="onLinkDelete(element)">Удалить</button>
+            </mat-cell>
+        </ng-container>
 
-    <mat-header-row *matHeaderRowDef="linksTableColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: linksTableColumns;"></mat-row>
-</mat-table>
+        <mat-header-row *matHeaderRowDef="linksTableColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: linksTableColumns;"></mat-row>
+    </mat-table>
+</div>

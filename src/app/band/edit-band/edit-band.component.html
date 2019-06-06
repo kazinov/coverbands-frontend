@@ -45,7 +45,9 @@
                     Цены
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            Цены
+            <app-band-prices *ngIf="!!(band$ | async)"
+                             [prices]="band$ | async"
+                             (pricesChange)="onPricesSave($event)"></app-band-prices>
         </mat-expansion-panel>
 
         <mat-expansion-panel>

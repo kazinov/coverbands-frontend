@@ -6,6 +6,7 @@ import { Cities } from '../../core/cities/cities.data';
 import { MusicGenres } from '../../core/music-genres/music-genres.data';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { BandContacts } from '../band-contacts/band-contacts.model';
+import { BandPrices } from '../band-prices/band-prices.model';
 
 const dummyBand: Band = {
   id: '123',
@@ -84,6 +85,10 @@ export class EditBandComponent implements OnInit {
 
   onLinksSave(links: BandLink[]) {
     console.log('links', links);
+  }
+
+  onPricesSave(prices: BandPrices) {
+    console.log('prices', prices);
   }
 
   onAddCover(cover: CoverInfo) {
