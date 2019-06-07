@@ -52,7 +52,7 @@
 
     <div class="app-form-table-container mat-elevation-z1">
         <mat-table *ngIf="pricesExist"
-                   [dataSource]="prices.prices" class="app-form-table">
+                   [dataSource]="pricesDirty" class="app-form-table">
 
             <ng-container matColumnDef="value">
                 <mat-header-cell *matHeaderCellDef> Цена</mat-header-cell>
@@ -83,9 +83,8 @@
     <div class="app-save-button-container">
         <button type="submit"
                 mat-raised-button
-                [disabled]="form.invalid"
+                [disabled]="form.invalid || form.pristine"
                 color="primary">Сохранить
         </button>
     </div>
 </form>
-
