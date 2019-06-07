@@ -7,6 +7,7 @@ import { CoversInfoModule } from '../covers-info/covers-info.module';
 import { BandContactsModule } from '../band-contacts/band-contacts.module';
 import { BandLinksModule } from '../band-links/band-links.module';
 import { BandPricesModule } from '../band-prices/band-prices.module';
+import { EditBandImagesModule } from '../edit-band-images/edit-band-images.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BandPricesModule } from '../band-prices/band-prices.module';
     MatExpansionModule,
     MatProgressSpinnerModule,
     BandLinksModule,
-    BandPricesModule
+    BandPricesModule,
+    EditBandImagesModule
   ],
   declarations: [
     EditBandComponent
