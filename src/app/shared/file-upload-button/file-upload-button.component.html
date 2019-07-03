@@ -1,0 +1,9 @@
+<div class="container">
+  <button mat-raised-button color="primary" (click)="input.click()">Upload</button>
+  <input hidden
+         type="file"
+         #input
+         [accept]="accept"
+         [attr.multiple]="multiple ? '' : null"
+         (change)="onFilesAttached($event)">
+</div>
