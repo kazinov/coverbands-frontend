@@ -9,7 +9,7 @@
 <div class="controls-container" *ngIf="!maxImagesReached">
     <app-file-upload-button
             [accept]="'.jpg,.gif,.png,.jpeg,.jpe'"
-            [multiple]="multipleUpload"
+            [multiple]="isMutlipleUploadEnabled"
             (filesAttached)="onImagesAttached($event)"
     ></app-file-upload-button>
 </div>

@@ -4,6 +4,7 @@
         [imagesUrls]="[]"
         max="1"
         [isLoading]="isProfileImageLoading"
+        [cropperSettings]="profileImageCropperSettings"
         (imagesAttached)="onProfileImageAttached($event)"
         (imageDelete)="onProfileImageDelete($event)"
 ></app-images-uploader>

@@ -1,6 +1,10 @@
 <h1 mat-dialog-title>Отредактируйте изображение</h1>
 <div mat-dialog-content>
-    Картинка
+    <div class="crop-image">
+        <img-cropper #cropper
+                     [image]="imageData"
+                     [settings]="cropperSettings"></img-cropper>
+    </div>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onCancelClick()">Отмена</button>

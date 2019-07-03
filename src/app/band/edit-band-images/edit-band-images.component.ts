@@ -1,5 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Band } from '../../core/bands/bands.model';
+import { ImageCropperHelper } from '../../shared/utils/image-cropper-helper';
+
+const profileImageCropperSettings = ImageCropperHelper.getDefaultCropperSettings();
+profileImageCropperSettings.canvasWidth = 600;
+profileImageCropperSettings.canvasHeight = 300;
+profileImageCropperSettings.width = 300;
+profileImageCropperSettings.height = 300;
+profileImageCropperSettings.keepAspect = true;
+profileImageCropperSettings.cropperDrawSettings.lineDash = false;
 
 @Component({
   selector: 'app-edit-band-images',
@@ -12,6 +21,8 @@ export class EditBandImagesComponent implements OnInit {
 
   isProfileImageLoading = false;
   isImageLoading = false;
+
+  profileImageCropperSettings = profileImageCropperSettings;
 
   ngOnInit() {
   }
