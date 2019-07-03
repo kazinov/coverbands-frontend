@@ -1,3 +1,17 @@
+@import '~@angular/material/theming';
+
+$app-primary: mat-palette($mat-indigo);
+$app-accent:  mat-palette($mat-light-blue);
+$app-warn:    mat-palette($mat-amber);
+$app-grey: mat-palette($mat-grey);
+$app-red: mat-palette($mat-red);
+
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);
+$grey: mat-color($app-grey);
+$red: mat-color($app-red);
+
 $margin-sm: 8px;
 $margin-md: 16px;
 $margin-lg: 24px;

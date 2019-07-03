@@ -1,5 +1,8 @@
 <div class="images-container">
-    <img *ngFor="let imageUrl of imagesUrls" [src]="imageUrl">
+    <div class="image-container" *ngFor="let imageUrl of imagesUrls">
+        <img [src]="imageUrl">
+        <mat-icon class="remove-button">cancel</mat-icon>
+    </div>
 </div>
 <div class="controls-container">
     <app-file-upload-button
