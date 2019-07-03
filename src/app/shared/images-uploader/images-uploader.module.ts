@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImagesUploaderComponent } from './images-uploader.component';
 import { FileUploadButtonModule } from '../file-upload-button/file-upload-button.module';
-import { MatButtonModule, MatDialogModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ImageCropDialogComponent } from './image-crop-dialog/image-crop-dialog.component';
 
 @NgModule({

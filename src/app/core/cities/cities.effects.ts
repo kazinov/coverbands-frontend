@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { loadCitiesAction, loadCitiesFailureAction, loadCitiesSuccessAction } from './cities.actions';
 import { CitiesService } from './cities.service';
 import { CitiesModuleState } from './cities.reducer';

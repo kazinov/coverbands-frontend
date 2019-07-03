@@ -11,7 +11,7 @@ import {
 import { MusicGenresModuleState } from './music-genres.reducer';
 import { MusicGenresService } from './music-genres.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MusicGenresSelectors } from './music-genres.selectors';
 import { EMPTY } from 'rxjs';
 
