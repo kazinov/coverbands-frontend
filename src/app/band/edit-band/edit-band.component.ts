@@ -45,6 +45,13 @@ const dummyBand: Band = {
       link: "https://www.facebook.com/groups/wg.wohnung.frankfurt/?fref=nf",
       description: "Мы в facebook"
     }
+  ],
+  profileImage: '/assets/images/eminem.jpg',
+  images: [
+    '/assets/images/eminem.jpg',
+    '/assets/images/korn.jpg',
+    '/assets/images/metallica.jpeg',
+    '/assets/images/nirvana.jpg',
   ]
 };
 

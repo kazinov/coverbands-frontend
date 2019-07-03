@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditBandImagesComponent } from './edit-band-images.component';
-import { FileUploadButtonModule } from '../../shared/file-upload-button/file-upload-button.module';
+import { ImagesUploaderModule } from '../../shared/images-uploader/images-uploader.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FileUploadButtonModule
+    ImagesUploaderModule
   ],
   declarations: [
     EditBandImagesComponent

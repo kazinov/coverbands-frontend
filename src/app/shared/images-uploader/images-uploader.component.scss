@@ -1,0 +1,16 @@
+@import "~src/app/shared/styles/common";
+
+.images-container {
+  display: flex;
+  flex-wrap: wrap;
+  img {
+    height: 100px;
+    margin-right: $margin-sm;
+    margin-bottom: $margin-sm;
+  }
+}
+
+.controls-container {
+  display: flex;
+  justify-content: flex-end;
+}

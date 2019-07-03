@@ -17,4 +17,6 @@ export interface Band
   id: string;
   covers?: CoverInfo[];
   links?: BandLink[];
+  profileImage?: string;
+  images?: string[];
 }

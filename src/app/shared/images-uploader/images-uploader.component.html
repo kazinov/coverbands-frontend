@@ -1,0 +1,9 @@
+<div class="images-container">
+    <img *ngFor="let imageUrl of imagesUrls" [src]="imageUrl">
+</div>
+<div class="controls-container">
+    <app-file-upload-button
+            [accept]="'.jpg,.gif,.png,.jpeg,.jpe'"
+            [multiple]="multipleUpload"
+    ></app-file-upload-button>
+</div>

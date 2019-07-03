@@ -67,7 +67,7 @@
                     Фото
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-edit-band-images></app-edit-band-images>
+            <app-edit-band-images [band]="band$ | async"></app-edit-band-images>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
