@@ -10,11 +10,17 @@ import { Band } from '../../core/bands/bands.model';
 export class EditBandImagesComponent implements OnInit {
   @Input() band: Band;
 
+  isLoading = false;
+
   ngOnInit() {
   }
 
   onImagesAttached(images: File[]) {
     console.error('onImagesAttached', images);
+  }
+
+  onImageDelete(imageUrl: string) {
+    console.error('onImageDelete', imageUrl);
   }
 
   constructor() {

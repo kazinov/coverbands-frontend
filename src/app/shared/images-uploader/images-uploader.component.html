@@ -1,12 +1,21 @@
 <div class="images-container">
     <div class="image-container" *ngFor="let imageUrl of imagesUrls">
         <img [src]="imageUrl">
-        <mat-icon class="remove-button">cancel</mat-icon>
+        <mat-icon class="remove-button"
+                  (click)="imageDelete.emit(imageUrl)">cancel
+        </mat-icon>
     </div>
 </div>
-<div class="controls-container">
+<div class="controls-container" *ngIf="!maxImagesReached">
     <app-file-upload-button
             [accept]="'.jpg,.gif,.png,.jpeg,.jpe'"
             [multiple]="multipleUpload"
+            (filesAttached)="imagesAttached.emit($event)"
     ></app-file-upload-button>
+</div>
+
+<div class="spinner-container"
+     *ngIf="isLoading">
+    <mat-spinner>
+    </mat-spinner>
 </div>
