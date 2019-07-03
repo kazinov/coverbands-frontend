@@ -1,8 +1,19 @@
+<h4 class="app-info-block">Основное фото профиля</h4>
+<app-images-uploader
+        *ngIf="band"
+        [imagesUrls]="[band.profileImage]"
+        max="1"
+        [isLoading]="isProfileImageLoading"
+        (imagesAttached)="onProfileImageAttached($event)"
+        (imageDelete)="onProfileImageDelete($event)"
+></app-images-uploader>
+
+<h4 class="app-info-block">Загрузите другие фото</h4>
 <app-images-uploader
         *ngIf="band"
         [imagesUrls]="band.images"
         max="5"
-        [isLoading]="isLoading"
+        [isLoading]="isImageLoading"
         (imagesAttached)="onImagesAttached($event)"
         (imageDelete)="onImageDelete($event)"
 ></app-images-uploader>

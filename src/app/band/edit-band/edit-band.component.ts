@@ -51,7 +51,7 @@ const dummyBand: Band = {
     '/assets/images/eminem.jpg',
     '/assets/images/korn.jpg',
     '/assets/images/metallica.jpeg',
-    '/assets/images/nirvana.jpg',
+    '/assets/images/nirvana.jpg'
   ]
 };
 

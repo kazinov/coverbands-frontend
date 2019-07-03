@@ -10,9 +10,18 @@ import { Band } from '../../core/bands/bands.model';
 export class EditBandImagesComponent implements OnInit {
   @Input() band: Band;
 
-  isLoading = false;
+  isProfileImageLoading = false;
+  isImageLoading = false;
 
   ngOnInit() {
+  }
+
+  onProfileImageAttached(images: File[]) {
+    console.error('onProfileImageAttached', images);
+  }
+
+  onProfileImageDelete(imageUrl: string) {
+    console.error('onProfileImageDelete', imageUrl);
   }
 
   onImagesAttached(images: File[]) {
