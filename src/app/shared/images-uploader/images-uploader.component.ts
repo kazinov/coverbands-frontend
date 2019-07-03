@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ImageCropDialogComponent } from './image-crop-dialog/image-crop-dialog.component';
 
 @Component({
   selector: 'app-images-uploader',
@@ -21,6 +23,20 @@ export class ImagesUploaderComponent implements OnInit {
 
   }
 
-  constructor() {
+  onImagesAttached(images: File[]) {
+    this.openDialog();
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ImageCropDialogComponent, {
+      width: '250px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
+  }
+
+  constructor(public dialog: MatDialog) {
   }
 }

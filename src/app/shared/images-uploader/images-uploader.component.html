@@ -10,7 +10,7 @@
     <app-file-upload-button
             [accept]="'.jpg,.gif,.png,.jpeg,.jpe'"
             [multiple]="multipleUpload"
-            (filesAttached)="imagesAttached.emit($event)"
+            (filesAttached)="onImagesAttached($event)"
     ></app-file-upload-button>
 </div>
 

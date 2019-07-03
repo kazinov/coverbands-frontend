@@ -1,7 +1,7 @@
 <h4 class="app-info-block">Основное фото профиля</h4>
 <app-images-uploader
         *ngIf="band"
-        [imagesUrls]="[band.profileImage]"
+        [imagesUrls]="[]"
         max="1"
         [isLoading]="isProfileImageLoading"
         (imagesAttached)="onProfileImageAttached($event)"
