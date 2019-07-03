@@ -14,7 +14,7 @@ export class CoversInfoComponent implements OnInit {
   @Output() removeCover = new EventEmitter<CoverInfo>();
   formGroup: FormGroup;
   // https://stackoverflow.com/questions/49788215/angular-material-reseting-reactiveform-shows-validation-error
-  @ViewChild('form') form: FormGroupDirective;
+  @ViewChild('form', { static: true }) form: FormGroupDirective;
 
   constructor(private formBuilder: FormBuilder) {
   }

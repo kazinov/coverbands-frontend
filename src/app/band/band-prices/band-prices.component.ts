@@ -14,7 +14,7 @@ export class BandPricesComponent implements OnInit {
   @Output() pricesChange = new EventEmitter<BandPrices>();
   addPriceFrom: FormGroup;
   form: FormGroup;
-  @ViewChild('formGroup') formGroup: FormGroupDirective;
+  @ViewChild('formGroup', { static: true }) formGroup: FormGroupDirective;
   tableColumns: string[] = ['value', 'service', 'remove'];
   pricesDirty: Price[] = [];
 

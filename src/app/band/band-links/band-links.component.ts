@@ -12,7 +12,7 @@ export class BandLinksComponent implements OnInit {
   @Input() links: BandLink[];
   @Output() linksChange = new EventEmitter<BandLink[]>();
   form: FormGroup;
-  @ViewChild('formGroup') formGroup: FormGroupDirective;
+  @ViewChild('formGroup', { static: true }) formGroup: FormGroupDirective;
   linksTableColumns: string[] = ['link', 'description', 'remove'];
 
   ngOnInit() {

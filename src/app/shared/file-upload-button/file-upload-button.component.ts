@@ -33,7 +33,7 @@ export class FileUploadButtonComponent implements OnInit {
   @Input() accept: string;
   @Input() multiple = false;
   @Output() filesAttached = new EventEmitter<File[]>();
-  @ViewChild('input') input: ElementRef;
+  @ViewChild('input', { static: true }) input: ElementRef;
   private regexp;
   constructor() { }
 

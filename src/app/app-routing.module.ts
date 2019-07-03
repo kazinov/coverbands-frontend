@@ -6,11 +6,11 @@ const routes: Routes = [
   {path: '', redirectTo: AppPaths.Home, pathMatch: 'full'},
   {
     path: AppPaths.Home,
-    loadChildren: './home/home.module#HomeModule'
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
     path: AppPaths.Band,
-    loadChildren: './band/band.module#BandModule'
+    loadChildren: () => import('./band/band.module').then(m => m.BandModule)
   },
 ];
 
