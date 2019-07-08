@@ -100,16 +100,58 @@ export class EditBandComponent implements OnInit, OnDestroy {
   }
 
   onProfileImageAttached(image: File) {
+    // TODO: replace with real implementation
+    this.fakeUploadImage(image, (base64) => {
+      this.fakeEmitBandChange((band: Band) => {
+        band.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
+        return band;
+      })
+    });
+  }
+
+  onProfileImageDelete(imageUrl: string) {
+    // TODO: replace with real implementation
+    this.fakeEmitBandChange((band: Band) => {
+      band.profileImage = null;
+      return band;
+    });
+  }
+
+  onImagesAttached(images: File[]) {
+    // TODO: replace with real implementation
+    images.forEach((image: File) => this.fakeUploadImage(image, (base64) => {
+      this.fakeEmitBandChange((band: Band) => {
+        band.images.push(this.domSanitizer.bypassSecurityTrustUrl(base64) as any);
+        return band;
+      });
+    }));
+  }
+
+  onImageDelete(imageUrl: string) {
+    // TODO: replace with real implementation
+    this.fakeEmitBandChange((band: Band) => {
+      band.images = band.images.filter((image: string) => image !== imageUrl);
+      return band;
+    });
+  }
+
+  // TODO: remove when backend implemented
+  private fakeUploadImage(image: File, onUpload: (base64: string) => void) {
     FileHelper.readFileAsDataURL(image)
       .pipe(
         takeUntil(this.ngUnsubscribe$)
       )
-      .subscribe((base64) => {
-        const clone: Band = cloneDeep(this.band$.getValue());
-        clone.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
-        this.band$.next(clone);
-        this.changeDetectorRef.markForCheck();
+      .subscribe((base64: string) => {
+        onUpload(base64);
       })
+  }
+
+  // TODO: remove when backend implemented
+  private fakeEmitBandChange(changeBand: (band: Band) => Band) {
+    let clone: Band = cloneDeep(this.band$.getValue());
+    clone = changeBand(clone);
+    this.band$.next(clone);
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {

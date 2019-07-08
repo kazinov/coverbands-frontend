@@ -11,6 +11,8 @@ profileImageCropperSettings.minWidth = 200;
 profileImageCropperSettings.minHeight = 200;
 profileImageCropperSettings.keepAspect = true;
 
+export const MAX_BAND_IMAGES = 5;
+
 @Component({
   selector: 'app-edit-band-images',
   templateUrl: './edit-band-images.component.html',
@@ -20,9 +22,13 @@ profileImageCropperSettings.keepAspect = true;
 export class EditBandImagesComponent implements OnInit {
   @Input() band: Band;
   @Output() profileImageAttached = new EventEmitter<File>();
+  @Output() profileImageDelete = new EventEmitter<string>();
+  @Output() imagesAttached = new EventEmitter<File[]>();
+  @Output() imageDelete = new EventEmitter<string>();
 
   isProfileImageLoading = false;
   isImageLoading = false;
+  maxImages = MAX_BAND_IMAGES;
 
   profileImageCropperSettings = profileImageCropperSettings;
 
@@ -36,15 +42,15 @@ export class EditBandImagesComponent implements OnInit {
   }
 
   onProfileImageDelete(imageUrl: string) {
-    console.error('onProfileImageDelete', imageUrl);
+    this.profileImageDelete.emit(imageUrl);
   }
 
   onImagesAttached(images: File[]) {
-    console.error('onImagesAttached', images);
+    this.imagesAttached.emit(images);
   }
 
   onImageDelete(imageUrl: string) {
-    console.error('onImageDelete', imageUrl);
+    this.imageDelete.emit(imageUrl);
   }
 
   constructor() {

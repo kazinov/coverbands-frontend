@@ -13,7 +13,7 @@
 <app-images-uploader
         *ngIf="band"
         [imagesUrls]="band.images"
-        max="5"
+        [max]="maxImages"
         [isLoading]="isImageLoading"
         (imagesAttached)="onImagesAttached($event)"
         (imageDelete)="onImageDelete($event)"

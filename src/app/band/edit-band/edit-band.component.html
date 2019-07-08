@@ -70,6 +70,9 @@
             <app-edit-band-images
                     [band]="band$ | async"
                     (profileImageAttached)="onProfileImageAttached($event)"
+                    (profileImageDelete)="onProfileImageDelete($event)"
+                    (imagesAttached)="onImagesAttached($event)"
+                    (imageDelete)="onImageDelete($event)"
             ></app-edit-band-images>
         </mat-expansion-panel>
 
