@@ -7,7 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ImageCropDialogComponent } from './image-crop-dialog/image-crop-dialog.component';
-import { ImageCropperModule } from 'ngx-img-cropper';
+import { ImageCropperModule } from '../image-cropper/image-cropper.module';
 
 @NgModule({
   imports: [

@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CropperSettings, ImageCropperComponent } from 'ngx-img-cropper';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { FileHelper } from '../../utils/file-helper';
 import { tap } from 'rxjs/internal/operators/tap';
+import { CropperSettings } from '../../image-cropper/cropper-settings';
+import { ImageCropperComponent } from '../../image-cropper/image-cropper.component';
 
 export interface ImageCropDialogData {
   file: File;

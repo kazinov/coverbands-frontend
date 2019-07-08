@@ -5,10 +5,10 @@ import {
   ImageCropDialogData,
   ImageCropDialogResult
 } from './image-crop-dialog/image-crop-dialog.component';
-import { CropperSettings } from 'ngx-img-cropper';
 import { of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { resizeImage, ResizeImageSettings } from '../utils/resizing.utils';
+import { CropperSettings } from '../image-cropper/cropper-settings';
 
 @Component({
   selector: 'app-images-uploader',
