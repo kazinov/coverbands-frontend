@@ -14,6 +14,7 @@ export class ImageCropperHelper {
     settings.touchRadius = 20;
     settings.keepAspect = false;
     settings.fileType = IMAGE_CROPPER_DEFAULT_FILE_TYPE;
+    settings.preserveSize = true;
     const cropperColor = 'rgba(63, 81, 181, 0.8)';
     const fillColor = 'rgba(0, 0, 0, 0.8)';
     settings.cropperDrawSettings = {

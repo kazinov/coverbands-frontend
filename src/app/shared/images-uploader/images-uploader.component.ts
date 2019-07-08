@@ -47,6 +47,7 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
 
   resizeImage(image: File, onResized: (resized: File) => void) {
     this.isResizing = true;
+    this.changeDetectorRef.markForCheck();
     resizeImage(image, this.resizeSettings)
       .pipe(
         takeUntil(this.ngUnsubscribe$),
