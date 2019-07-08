@@ -10,6 +10,7 @@ import { BandPrices } from '../band-prices/band-prices.model';
 import { FileHelper } from '../../shared/utils/file-helper';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ImagesUploadResults } from '../../shared/images-uploader/images-uploader.component';
 
 const dummyBand: Band = {
   id: '123',
@@ -99,9 +100,10 @@ export class EditBandComponent implements OnInit, OnDestroy {
     console.log('onAddCover', cover);
   }
 
-  onProfileImageAttached(image: File) {
+  onProfileImageAttached(results: ImagesUploadResults) {
+    console.error('onProfileImageAttached', results)
     // TODO: replace with real implementation
-    this.fakeUploadImage(image, (base64) => {
+    this.fakeUploadImage(results.imageVersions[1], (base64) => {
       this.fakeEmitBandChange((band: Band) => {
         band.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
         return band;
@@ -117,9 +119,9 @@ export class EditBandComponent implements OnInit, OnDestroy {
     });
   }
 
-  onImageAttached(image: File) {
+  onImageAttached(results: ImagesUploadResults) {
     // TODO: replace with real implementation
-    this.fakeUploadImage(image, (base64) => {
+    this.fakeUploadImage(results.imageVersions[0], (base64) => {
       this.fakeEmitBandChange((band: Band) => {
         band.images.push(this.domSanitizer.bypassSecurityTrustUrl(base64) as any);
         return band;

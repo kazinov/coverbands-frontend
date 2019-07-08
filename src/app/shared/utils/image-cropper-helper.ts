@@ -19,7 +19,7 @@ export class ImageCropperHelper {
     settings.cropOnResize = false;
     const fillColor = 'rgba(0, 0, 0, 0.8)';
     const cropperColor = 'rgba(63, 81, 181, 0.8)';
-    const strokeColor = 'rgba(255, 255, 255, 1)'
+    const strokeColor = 'rgba(255, 255, 255, 1)';
     settings.cropperDrawSettings = {
       strokeWidth: 1,
       dragIconStrokeWidth: 1,

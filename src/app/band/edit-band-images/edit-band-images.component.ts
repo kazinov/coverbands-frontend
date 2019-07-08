@@ -2,22 +2,23 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Band } from '../../core/bands/bands.model';
 import { ImageCropperHelper } from '../../shared/utils/image-cropper-helper';
 import { ResizeImageSettings, Side } from '../../shared/utils/resizing.utils';
+import { ImagesUploadResults } from '../../shared/images-uploader/images-uploader.component';
 
-const BAND_PROFILE_IMAGE_HEIGHT = 300;
+const BAND_PROFILE_THUMB_IMAGE_WIDTH = 200;
 const BAND_IMAGE_HEIGHT = 500;
 
 const PROFILE_IMAGE_CROPPER_SETTINGS = ImageCropperHelper.getDefaultCropperSettings();
 PROFILE_IMAGE_CROPPER_SETTINGS.canvasWidth = 600;
 PROFILE_IMAGE_CROPPER_SETTINGS.canvasHeight = 300;
-PROFILE_IMAGE_CROPPER_SETTINGS.width = BAND_PROFILE_IMAGE_HEIGHT;
-PROFILE_IMAGE_CROPPER_SETTINGS.height = BAND_PROFILE_IMAGE_HEIGHT;
+PROFILE_IMAGE_CROPPER_SETTINGS.width = 300;
+PROFILE_IMAGE_CROPPER_SETTINGS.height = 300;
 PROFILE_IMAGE_CROPPER_SETTINGS.minWidth = 200;
 PROFILE_IMAGE_CROPPER_SETTINGS.minHeight = 200;
 PROFILE_IMAGE_CROPPER_SETTINGS.keepAspect = true;
 
-const PROFILE_IMAGE_RESIZE_SETTINGS: ResizeImageSettings = {
+const PROFILE_IMAGE_THUMBNAIL_RESIZE_SETTINGS: ResizeImageSettings = {
   side: Side.Height,
-  size: BAND_PROFILE_IMAGE_HEIGHT
+  size: BAND_PROFILE_THUMB_IMAGE_WIDTH
 };
 
 const BAND_IMAGE_RESIZE_SETTINGS: ResizeImageSettings = {
@@ -35,9 +36,9 @@ export const MAX_BAND_IMAGES = 5;
 })
 export class EditBandImagesComponent implements OnInit {
   @Input() band: Band;
-  @Output() profileImageAttached = new EventEmitter<File>();
+  @Output() profileImageAttached = new EventEmitter<ImagesUploadResults>();
   @Output() profileImageDelete = new EventEmitter<string>();
-  @Output() imageAttached = new EventEmitter<File>();
+  @Output() imageAttached = new EventEmitter<ImagesUploadResults>();
   @Output() imageDelete = new EventEmitter<string>();
 
   isProfileImageLoading = false;
@@ -45,23 +46,23 @@ export class EditBandImagesComponent implements OnInit {
   maxImages = MAX_BAND_IMAGES;
 
   profileImageCropperSettings = PROFILE_IMAGE_CROPPER_SETTINGS;
-  profileImageResizeSettings = PROFILE_IMAGE_RESIZE_SETTINGS;
-  bandImageResizeSettings = BAND_IMAGE_RESIZE_SETTINGS;
+  profileImageResizeSettings = [BAND_IMAGE_RESIZE_SETTINGS, PROFILE_IMAGE_THUMBNAIL_RESIZE_SETTINGS];
+  bandImageResizeSettings = [BAND_IMAGE_RESIZE_SETTINGS];
 
 
   ngOnInit() {
   }
 
-  onProfileImageAttached(image: File) {
-      this.profileImageAttached.emit(image);
+  onProfileImageAttached(results: ImagesUploadResults) {
+      this.profileImageAttached.emit(results);
   }
 
   onProfileImageDelete(imageUrl: string) {
     this.profileImageDelete.emit(imageUrl);
   }
 
-  onImageAttached(image: File) {
-    this.imageAttached.emit(image);
+  onImageAttached(results: ImagesUploadResults) {
+    this.imageAttached.emit(results);
   }
 
   onImageDelete(imageUrl: string) {

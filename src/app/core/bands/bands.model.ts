@@ -18,5 +18,6 @@ export interface Band
   covers?: CoverInfo[];
   links?: BandLink[];
   profileImage?: string;
+  profileImageThumb?: string;
   images?: string[];
 }

@@ -5,10 +5,14 @@ import {
   ImageCropDialogData,
   ImageCropDialogResult
 } from './image-crop-dialog/image-crop-dialog.component';
-import { of, Subject } from 'rxjs';
+import { forkJoin, of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { resizeImage, ResizeImageSettings } from '../utils/resizing.utils';
 import { CropperSettings } from '../image-cropper/cropper-settings';
+
+export interface ImagesUploadResults {
+  imageVersions: File[];
+}
 
 @Component({
   selector: 'app-images-uploader',
@@ -17,16 +21,16 @@ import { CropperSettings } from '../image-cropper/cropper-settings';
 })
 export class ImagesUploaderComponent implements OnInit, OnDestroy {
   @Input() imagesUrls: string[];
-  @Input() multipleUpload = false;
   @Input() max = 0;
   @Input() isLoading = false;
   @Input() cropperSettings: CropperSettings;
-  @Input() resizeSettings: ResizeImageSettings;
-  @Output() imageAttached = new EventEmitter<File>();
+  @Input() resizeSettings: ResizeImageSettings[];
+  @Output() imageAttached = new EventEmitter<ImagesUploadResults>();
   @Output() imageDelete = new EventEmitter<string>();
   ngUnsubscribe$ = new Subject<void>();
   croppingDialogRef: MatDialogRef<any>;
   isResizing = false;
+  multipleUpload = false;
 
   get maxImagesReached() {
     return !!this.max && this.imagesUrls && this.imagesUrls.length >= this.max;
@@ -43,16 +47,22 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
     if (this.cropperSettings) {
       this.openCroppingDialog(images[0]);
     } else {
-      this.resizeImage(images[0], null, (resizedImage: File) => {
-        this.imageAttached.emit(resizedImage);
+      this.resizeImage(images[0], null, (resizedImages: File[]) => {
+        this.imageAttached.emit({
+          imageVersions: resizedImages
+        });
       });
     }
   }
 
-  resizeImage(image: File, dataUrl: string, onResized: (resized: File) => void) {
+  resizeImage(image: File, dataUrl: string, onResized: (resized: File[]) => void) {
     this.isResizing = true;
     this.changeDetectorRef.markForCheck();
-    resizeImage(image, dataUrl, this.resizeSettings)
+
+    const resizeObservables = this.resizeSettings
+      .map((settings) => resizeImage(image, dataUrl, settings));
+
+    forkJoin(...resizeObservables)
       .pipe(
         takeUntil(this.ngUnsubscribe$),
         catchError((error) => {
@@ -60,9 +70,9 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
           return of();
         })
       )
-      .subscribe((resizedImage: File) => {
+      .subscribe((resizedImages: File[]) => {
         this.isResizing = false;
-        onResized(resizedImage);
+        onResized(resizedImages);
         this.changeDetectorRef.markForCheck();
       });
   }
@@ -78,8 +88,10 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
 
     this.croppingDialogRef.afterClosed().subscribe((result: ImageCropDialogResult) => {
       if (result) {
-        this.resizeImage(result.file, result.dataUrl, (resizedImage: File) => {
-          this.imageAttached.emit(resizedImage);
+        this.resizeImage(result.file, result.dataUrl, (resizedImages: File[]) => {
+          this.imageAttached.emit({
+            imageVersions: resizedImages
+          });
         });
       }
     });
