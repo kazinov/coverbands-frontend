@@ -7,8 +7,9 @@ profileImageCropperSettings.canvasWidth = 600;
 profileImageCropperSettings.canvasHeight = 300;
 profileImageCropperSettings.width = 300;
 profileImageCropperSettings.height = 300;
+profileImageCropperSettings.minWidth = 200;
+profileImageCropperSettings.minHeight = 200;
 profileImageCropperSettings.keepAspect = true;
-profileImageCropperSettings.cropperDrawSettings.lineDash = false;
 
 @Component({
   selector: 'app-edit-band-images',

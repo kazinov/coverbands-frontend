@@ -15,7 +15,7 @@ export interface ImageCropDialogData {
   styleUrls: ['./image-crop-dialog.component.scss']
 })
 export class ImageCropDialogComponent implements OnInit, OnDestroy {
-  imageData: { image?: any; } = {};
+  imageData: { image?: string; } = {};
   ngUnsubscribe$ = new Subject<void>();
   @ViewChild('cropper', {static: true}) cropper: ImageCropperComponent;
 
@@ -28,10 +28,11 @@ export class ImageCropDialogComponent implements OnInit, OnDestroy {
   }
 
   onLoadClick() {
-    // TODO: convert base64 to Blob
-    // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
-    // https://ourcodeworld.com/articles/read/322/how-to-convert-a-base64-image-into-a-image-file-and-upload-it-with-an-asynchronous-form-using-jquery
-    this.dialogRef.close(this.imageData.image);
+    fetch(this.imageData.image)
+      .then(res => res.blob())
+      .then((blob) => {
+        this.dialogRef.close(blob);
+      });
   }
 
   ngOnInit(): void {

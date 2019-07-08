@@ -57,6 +57,8 @@ export class FileUploadButtonComponent implements OnInit {
       }
       this.filesAttached.emit(filesArray);
     }
+
+    this.inputElement.value = '';
   }
 
 }

@@ -1,6 +1,7 @@
 import { Bounds, CropperSettings } from 'ngx-img-cropper';
 import { CroppingArea } from '../types/cropping-area';
 
+export const IMAGE_CROPPER_DEFAULT_FILE_TYPE = 'image/jpeg';
 export class ImageCropperHelper {
   static getDefaultCropperSettings() {
     const settings = new CropperSettings();
@@ -10,8 +11,9 @@ export class ImageCropperHelper {
     settings.height = 100;
     settings.canvasWidth = 300;
     settings.canvasHeight = 200;
-    settings.touchRadius = 10;
+    settings.touchRadius = 20;
     settings.keepAspect = false;
+    settings.fileType = IMAGE_CROPPER_DEFAULT_FILE_TYPE;
     const cropperColor = 'rgba(63, 81, 181, 0.8)';
     const fillColor = 'rgba(0, 0, 0, 0.8)';
     settings.cropperDrawSettings = {
@@ -22,7 +24,7 @@ export class ImageCropperHelper {
       dragIconFillColor: cropperColor,
       fillColor: cropperColor,
       backgroundFillColor: fillColor,
-      lineDash: true
+      lineDash: false
     };
     settings.noFileInput = true;
     return settings;
