@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Band } from '../../core/bands/bands.model';
 import { ImageCropperHelper } from '../../shared/utils/image-cropper-helper';
 
@@ -19,6 +19,7 @@ profileImageCropperSettings.keepAspect = true;
 })
 export class EditBandImagesComponent implements OnInit {
   @Input() band: Band;
+  @Output() profileImageAttached = new EventEmitter<File>();
 
   isProfileImageLoading = false;
   isImageLoading = false;
@@ -29,7 +30,9 @@ export class EditBandImagesComponent implements OnInit {
   }
 
   onProfileImageAttached(images: File[]) {
-    console.error('onProfileImageAttached', images);
+    if (images && images.length) {
+      this.profileImageAttached.emit(images[0]);
+    }
   }
 
   onProfileImageDelete(imageUrl: string) {

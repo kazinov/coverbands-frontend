@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ImageCropDialogComponent } from './image-crop-dialog/image-crop-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ImageCropDialogComponent, ImageCropDialogData } from './image-crop-dialog/image-crop-dialog.component';
 import { CropperSettings } from 'ngx-img-cropper';
-import { FileHelper } from '../utils/file-helper';
-import { map, take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -20,6 +18,7 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
   @Output() imagesAttached = new EventEmitter<File[]>();
   @Output() imageDelete = new EventEmitter<string>();
   ngUnsubscribe$ = new Subject<void>();
+  croppingDialogRef: MatDialogRef<any>;
 
   get maxImagesReached() {
     return !!this.max && this.imagesUrls && this.imagesUrls.length >= this.max;
@@ -38,26 +37,19 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
   }
 
   openCroppingDialog(image: File) {
-    return FileHelper.readFileAsDataURL(image)
-      .pipe(
-        take(1),
-        map((data: string) => {
-          const dialogRef = this.dialog.open(ImageCropDialogComponent, {
-            width: '600px',
-            data: {
-              fileData: data,
-              cropperSettings: this.cropperSettings
-            }
-          });
+    this.croppingDialogRef = this.dialog.open(ImageCropDialogComponent, {
+      width: '600px',
+      data: {
+        file: image,
+        cropperSettings: this.cropperSettings
+      } as ImageCropDialogData
+    });
 
-          dialogRef.afterClosed().subscribe(result => {
-
-            console.log('The dialog was closed', result);
-          });
-        }),
-        takeUntil(this.ngUnsubscribe$)
-      )
-      .subscribe();
+    this.croppingDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.imagesAttached.emit([result]);
+      }
+    });
   }
 
   get isMutlipleUploadEnabled() {
@@ -70,5 +62,8 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+    if (this.croppingDialogRef) {
+      this.croppingDialogRef.close();
+    }
   }
 }
