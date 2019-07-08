@@ -11,6 +11,11 @@ export interface ImageCropDialogData {
   cropperSettings: CropperSettings;
 }
 
+export interface ImageCropDialogResult {
+  file: File;
+  dataUrl: string;
+}
+
 @Component({
   selector: 'app-image-crop-dialog',
   templateUrl: 'image-crop-dialog.component.html',
@@ -31,11 +36,17 @@ export class ImageCropDialogComponent implements OnInit, OnDestroy {
   }
 
   onLoadClick() {
-    fetch(this.imageData.image)
+    fetch(
+      this.cropper.cropper.getCroppedImage(true).src
+    )
       .then(res => res.blob())
       .then((blob) => {
         this.dialogRef.close(
-          new File([blob], this.data.file.name)
+          {
+            file: new File([blob], this.data.file.name),
+            dataUrl: this.imageData.image
+          } as ImageCropDialogResult
+
         );
       });
   }

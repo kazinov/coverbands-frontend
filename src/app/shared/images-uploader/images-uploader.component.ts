@@ -1,6 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ImageCropDialogComponent, ImageCropDialogData } from './image-crop-dialog/image-crop-dialog.component';
+import {
+  ImageCropDialogComponent,
+  ImageCropDialogData,
+  ImageCropDialogResult
+} from './image-crop-dialog/image-crop-dialog.component';
 import { CropperSettings } from 'ngx-img-cropper';
 import { of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
@@ -39,16 +43,16 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
     if (this.cropperSettings) {
       this.openCroppingDialog(images[0]);
     } else {
-      this.resizeImage(images[0], (resizedImage: File) => {
+      this.resizeImage(images[0], null, (resizedImage: File) => {
         this.imageAttached.emit(resizedImage);
       });
     }
   }
 
-  resizeImage(image: File, onResized: (resized: File) => void) {
+  resizeImage(image: File, dataUrl: string, onResized: (resized: File) => void) {
     this.isResizing = true;
     this.changeDetectorRef.markForCheck();
-    resizeImage(image, this.resizeSettings)
+    resizeImage(image, dataUrl, this.resizeSettings)
       .pipe(
         takeUntil(this.ngUnsubscribe$),
         catchError((error) => {
@@ -72,9 +76,9 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
       } as ImageCropDialogData
     });
 
-    this.croppingDialogRef.afterClosed().subscribe((result: File) => {
+    this.croppingDialogRef.afterClosed().subscribe((result: ImageCropDialogResult) => {
       if (result) {
-        this.resizeImage(result, (resizedImage: File) => {
+        this.resizeImage(result.file, result.dataUrl, (resizedImage: File) => {
           this.imageAttached.emit(resizedImage);
         });
       }

@@ -2,7 +2,8 @@ import * as pica from 'pica';
 import { FileHelper } from './file-helper';
 import { from, Observable, of, Subject } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
-export const picaInstance = pica({ features: [ 'js'] });
+
+export const picaInstance = pica({features: ['js']});
 
 function toOnloadObservable(image: HTMLImageElement) {
   const subject = new Subject<Event>();
@@ -16,6 +17,7 @@ function toOnloadObservable(image: HTMLImageElement) {
   };
   return subject;
 }
+
 export enum Side {
   Width,
   Height
@@ -28,19 +30,23 @@ export interface ResizeImageSettings {
 
 export function resizeImage(
   image: File,
+  dataUrl: string,
   setting: ResizeImageSettings
 ): Observable<File> {
 
-  const sourceImg: HTMLImageElement = document.createElement("img");
+  const sourceImg: HTMLImageElement = document.createElement('img');
   sourceImg.classList.add('resizing-image-from');
   sourceImg.setAttribute('hidden', 'hidden');
-  const sourceCanvas = document.createElement("canvas");
+  const sourceCanvas = document.createElement('canvas');
   sourceCanvas.classList.add('resizing-canvas-to');
   sourceCanvas.setAttribute('hidden', 'hidden');
-  return FileHelper.readFileAsDataURL(image)
+
+  return (dataUrl
+    ? of(dataUrl)
+    : FileHelper.readFileAsDataURL(image))
     .pipe(
       switchMap((dataUrl: string) => {
-        sourceImg.setAttribute("src", dataUrl);
+        sourceImg.setAttribute('src', dataUrl);
         document.body.appendChild(sourceImg);
         return toOnloadObservable(sourceImg);
       }),
@@ -48,7 +54,7 @@ export function resizeImage(
         document.body.appendChild(sourceCanvas);
 
         if ((setting.side === Side.Width && sourceImg.width <= setting.size)
-        || (setting.side === Side.Height && sourceImg.height <= setting.size)) {
+          || (setting.side === Side.Height && sourceImg.height <= setting.size)) {
           console.error('no need to resize')
           return of(image);
         }
@@ -59,8 +65,8 @@ export function resizeImage(
         const canvasHeight = setting.side === Side.Height
           ? setting.size
           : (setting.size / sourceImg.width) * sourceImg.height;
-        sourceCanvas.setAttribute("width", canvasWidth + '');
-        sourceCanvas.setAttribute("height", canvasHeight + '');
+        sourceCanvas.setAttribute('width', canvasWidth + '');
+        sourceCanvas.setAttribute('height', canvasHeight + '');
 
         return from(picaInstance.resize(sourceImg, sourceCanvas, {
           unsharpAmount: 80,
