@@ -120,6 +120,7 @@ export class ImageCropperComponent
   }
 
   public ngOnDestroy() {
+    this.removeDragListeners();
     if (this.settings.dynamicSizing && this.windowListener) {
       window.removeEventListener('resize', this.windowListener);
     }
