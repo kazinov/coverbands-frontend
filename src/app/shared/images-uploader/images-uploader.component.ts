@@ -15,7 +15,7 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
   @Input() max = 0;
   @Input() isLoading = false;
   @Input() cropperSettings: CropperSettings;
-  @Output() imagesAttached = new EventEmitter<File[]>();
+  @Output() imageAttached = new EventEmitter<File>();
   @Output() imageDelete = new EventEmitter<string>();
   ngUnsubscribe$ = new Subject<void>();
   croppingDialogRef: MatDialogRef<any>;
@@ -29,10 +29,13 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
   }
 
   onImagesAttached(images: File[]) {
+    if (!images.length) {
+      return;
+    }
     if (this.cropperSettings && images.length) {
       this.openCroppingDialog(images[0]);
     } else {
-      this.imagesAttached.emit(images);
+      this.imageAttached.emit(images[0]);
     }
   }
 
@@ -47,7 +50,7 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
 
     this.croppingDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.imagesAttached.emit([result]);
+        this.imageAttached.emit(result);
       }
     });
   }

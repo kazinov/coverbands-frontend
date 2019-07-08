@@ -117,14 +117,14 @@ export class EditBandComponent implements OnInit, OnDestroy {
     });
   }
 
-  onImagesAttached(images: File[]) {
+  onImageAttached(image: File) {
     // TODO: replace with real implementation
-    images.forEach((image: File) => this.fakeUploadImage(image, (base64) => {
+    this.fakeUploadImage(image, (base64) => {
       this.fakeEmitBandChange((band: Band) => {
         band.images.push(this.domSanitizer.bypassSecurityTrustUrl(base64) as any);
         return band;
       });
-    }));
+    });
   }
 
   onImageDelete(imageUrl: string) {

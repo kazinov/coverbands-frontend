@@ -5,7 +5,7 @@
         max="1"
         [isLoading]="isProfileImageLoading"
         [cropperSettings]="profileImageCropperSettings"
-        (imagesAttached)="onProfileImageAttached($event)"
+        (imageAttached)="onProfileImageAttached($event)"
         (imageDelete)="onProfileImageDelete($event)"
 ></app-images-uploader>
 
@@ -15,6 +15,6 @@
         [imagesUrls]="band.images"
         [max]="maxImages"
         [isLoading]="isImageLoading"
-        (imagesAttached)="onImagesAttached($event)"
+        (imageAttached)="onImageAttached($event)"
         (imageDelete)="onImageDelete($event)"
 ></app-images-uploader>

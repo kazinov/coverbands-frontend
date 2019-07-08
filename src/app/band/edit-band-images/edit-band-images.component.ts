@@ -23,7 +23,7 @@ export class EditBandImagesComponent implements OnInit {
   @Input() band: Band;
   @Output() profileImageAttached = new EventEmitter<File>();
   @Output() profileImageDelete = new EventEmitter<string>();
-  @Output() imagesAttached = new EventEmitter<File[]>();
+  @Output() imageAttached = new EventEmitter<File>();
   @Output() imageDelete = new EventEmitter<string>();
 
   isProfileImageLoading = false;
@@ -35,18 +35,16 @@ export class EditBandImagesComponent implements OnInit {
   ngOnInit() {
   }
 
-  onProfileImageAttached(images: File[]) {
-    if (images && images.length) {
-      this.profileImageAttached.emit(images[0]);
-    }
+  onProfileImageAttached(image: File) {
+      this.profileImageAttached.emit(image);
   }
 
   onProfileImageDelete(imageUrl: string) {
     this.profileImageDelete.emit(imageUrl);
   }
 
-  onImagesAttached(images: File[]) {
-    this.imagesAttached.emit(images);
+  onImageAttached(image: File) {
+    this.imageAttached.emit(image);
   }
 
   onImageDelete(imageUrl: string) {
