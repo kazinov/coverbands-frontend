@@ -1,15 +1,29 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Band } from '../../core/bands/bands.model';
 import { ImageCropperHelper } from '../../shared/utils/image-cropper-helper';
+import { ResizeImageSettings, Side } from '../../shared/utils/resizing.utils';
 
-const profileImageCropperSettings = ImageCropperHelper.getDefaultCropperSettings();
-profileImageCropperSettings.canvasWidth = 600;
-profileImageCropperSettings.canvasHeight = 300;
-profileImageCropperSettings.width = 300;
-profileImageCropperSettings.height = 300;
-profileImageCropperSettings.minWidth = 200;
-profileImageCropperSettings.minHeight = 200;
-profileImageCropperSettings.keepAspect = true;
+const BAND_PROFILE_IMAGE_HEIGHT = 300;
+const BAND_IMAGE_HEIGHT = 500;
+
+const PROFILE_IMAGE_CROPPER_SETTINGS = ImageCropperHelper.getDefaultCropperSettings();
+PROFILE_IMAGE_CROPPER_SETTINGS.canvasWidth = 600;
+PROFILE_IMAGE_CROPPER_SETTINGS.canvasHeight = 300;
+PROFILE_IMAGE_CROPPER_SETTINGS.width = BAND_PROFILE_IMAGE_HEIGHT;
+PROFILE_IMAGE_CROPPER_SETTINGS.height = BAND_PROFILE_IMAGE_HEIGHT;
+PROFILE_IMAGE_CROPPER_SETTINGS.minWidth = 200;
+PROFILE_IMAGE_CROPPER_SETTINGS.minHeight = 200;
+PROFILE_IMAGE_CROPPER_SETTINGS.keepAspect = true;
+
+const PROFILE_IMAGE_RESIZE_SETTINGS: ResizeImageSettings = {
+  side: Side.Height,
+  size: BAND_PROFILE_IMAGE_HEIGHT
+};
+
+const BAND_IMAGE_RESIZE_SETTINGS: ResizeImageSettings = {
+  side: Side.Height,
+  size: BAND_IMAGE_HEIGHT
+};
 
 export const MAX_BAND_IMAGES = 5;
 
@@ -30,7 +44,10 @@ export class EditBandImagesComponent implements OnInit {
   isImageLoading = false;
   maxImages = MAX_BAND_IMAGES;
 
-  profileImageCropperSettings = profileImageCropperSettings;
+  profileImageCropperSettings = PROFILE_IMAGE_CROPPER_SETTINGS;
+  profileImageResizeSettings = PROFILE_IMAGE_RESIZE_SETTINGS;
+  bandImageResizeSettings = BAND_IMAGE_RESIZE_SETTINGS;
+
 
   ngOnInit() {
   }
