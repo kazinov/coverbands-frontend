@@ -20,12 +20,32 @@ function toOnloadObservable(image: HTMLImageElement) {
 
 export enum Side {
   Width,
-  Height
+  Height,
+  Max
 }
 
 export interface ResizeImageSettings {
   side: Side,
   size: number;
+}
+
+interface Sizes {
+  width: number;
+  height: number;
+}
+
+function getSizesBySide(byHeight: boolean, size: number, sourceWidth, sourceHeight): Sizes {
+  if (byHeight) {
+    return {
+      width: (size / sourceHeight) * sourceWidth,
+      height: size
+    };
+  } else {
+    return {
+      width: size,
+      height: (size / sourceWidth) * sourceHeight,
+    };
+  }
 }
 
 export function resizeImage(
@@ -54,19 +74,32 @@ export function resizeImage(
         document.body.appendChild(sourceCanvas);
 
         if ((setting.side === Side.Width && sourceImg.width <= setting.size)
-          || (setting.side === Side.Height && sourceImg.height <= setting.size)) {
+          || (setting.side === Side.Height && sourceImg.height <= setting.size)
+          || (setting.side === Side.Max && sourceImg.height <= setting.size && sourceImg.width <= setting.size)) {
           console.error('no need to resize')
           return of(image);
         }
 
-        const canvasWidth = setting.side === Side.Width
-          ? setting.size
-          : (setting.size / sourceImg.height) * sourceImg.width;
-        const canvasHeight = setting.side === Side.Height
-          ? setting.size
-          : (setting.size / sourceImg.width) * sourceImg.height;
-        sourceCanvas.setAttribute('width', canvasWidth + '');
-        sourceCanvas.setAttribute('height', canvasHeight + '');
+        let sizes: Sizes;
+
+        switch (setting.side) {
+          case Side.Height:
+            sizes = getSizesBySide(true, setting.size, sourceImg.width, sourceImg.height);
+            break;
+          case Side.Width:
+            sizes = getSizesBySide(false, setting.size, sourceImg.width, sourceImg.height);
+            break;
+          case Side.Max:
+            if (sourceImg.height > sourceImg.width) {
+              sizes = getSizesBySide(true, setting.size, sourceImg.width, sourceImg.height);
+            } else {
+              sizes = getSizesBySide(false, setting.size, sourceImg.width, sourceImg.height);
+            }
+            break;
+        }
+
+        sourceCanvas.setAttribute('width', sizes.width + '');
+        sourceCanvas.setAttribute('height', sizes.height + '');
 
         return from(picaInstance.resize(sourceImg, sourceCanvas, {
           unsharpAmount: 80,

@@ -5,7 +5,7 @@ import { ResizeImageSettings, Side } from '../../shared/utils/resizing.utils';
 import { ImagesUploadResults } from '../../shared/images-uploader/images-uploader.component';
 
 const BAND_PROFILE_THUMB_IMAGE_WIDTH = 200;
-const BAND_IMAGE_HEIGHT = 500;
+const BAND_IMAGE_HEIGHT = 600;
 
 const PROFILE_IMAGE_CROPPER_SETTINGS = ImageCropperHelper.getDefaultCropperSettings();
 PROFILE_IMAGE_CROPPER_SETTINGS.canvasWidth = 600;
@@ -17,12 +17,12 @@ PROFILE_IMAGE_CROPPER_SETTINGS.minHeight = 200;
 PROFILE_IMAGE_CROPPER_SETTINGS.keepAspect = true;
 
 const PROFILE_IMAGE_THUMBNAIL_RESIZE_SETTINGS: ResizeImageSettings = {
-  side: Side.Height,
+  side: Side.Width,
   size: BAND_PROFILE_THUMB_IMAGE_WIDTH
 };
 
 const BAND_IMAGE_RESIZE_SETTINGS: ResizeImageSettings = {
-  side: Side.Height,
+  side: Side.Max,
   size: BAND_IMAGE_HEIGHT
 };
 
