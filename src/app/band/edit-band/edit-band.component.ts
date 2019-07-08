@@ -130,7 +130,14 @@ export class EditBandComponent implements OnInit, OnDestroy {
   onImageDelete(imageUrl: string) {
     // TODO: replace with real implementation
     this.fakeEmitBandChange((band: Band) => {
-      band.images = band.images.filter((image: string) => image !== imageUrl);
+      band.images = band.images.filter((image: string) => {
+        if ((image as any).changingThisBreaksApplicationSecurity
+        && (imageUrl as any).changingThisBreaksApplicationSecurity) {
+          return (image as any).changingThisBreaksApplicationSecurity
+            !== (imageUrl as any).changingThisBreaksApplicationSecurity
+        }
+        return image !== imageUrl;
+      });
       return band;
     });
   }
