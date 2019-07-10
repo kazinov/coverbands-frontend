@@ -38,6 +38,9 @@ export class EditArtistVideosComponent implements OnInit {
   }
 
   onLinkSubmit() {
+    const formValue: VideoLink = this.form.value;
+
+
     this.videos = [
       ...(this.videos || []),
       this.form.value
