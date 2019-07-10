@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { IMaskModule } from 'angular-imask';
 import { EditArtistVideosComponent } from '@artist-admin/edit-artist/edit-artist-videos/edit-artist-videos.component';
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule, MatTooltipModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material';
     MatTableModule,
     MatIconModule,
     MatSelectModule,
+    MatTooltipModule
   ],
   declarations: [
     EditArtistVideosComponent

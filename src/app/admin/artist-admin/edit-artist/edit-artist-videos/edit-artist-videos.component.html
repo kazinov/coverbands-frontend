@@ -1,11 +1,11 @@
 <h4 class="app-info-block">Добавьте ссылки на ваши видео</h4>
-<form [formGroup]="form"
-      #formGroup="ngForm"
+<form #formGroup="ngForm"
+      (submit)="onLinkSubmit()"
+      [formGroup]="form"
       class="app-one-line-form"
-      novalidate
-      (submit)="onLinkSubmit()">
+      novalidate>
 
-  <mat-form-field class="video-providers-field">
+  <mat-form-field class="video-providers-field margin-right-md">
     <mat-select formControlName="provider">
       <mat-option
         *ngFor="let provider of videoProviders"
@@ -16,17 +16,28 @@
     <mat-error *ngIf="form.get('provider').invalid">Обязательное поле</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="margin-right-md">
-    <input matInput
-           placeholder="Ссылка"
-           formControlName="link">
+  <mat-form-field class="margin-right-md ">
+    <input formControlName="link"
+           matInput
+           placeholder="Ссылка">
     <mat-error *ngIf="form.get('link').invalid">Обязательное поле</mat-error>
   </mat-form-field>
 
+  <button mat-icon-button
+          matTooltip="Где взять ссылку?"
+          matTooltipPosition="above"
+          class="margin-right-sm"
+          type="button">
+    <mat-icon
+      class="help-icon"
+      color="primary">help
+    </mat-icon>
+  </button>
+
   <div>
-    <button type="submit"
+    <button [disabled]="form.invalid"
             mat-raised-button
-            [disabled]="form.invalid">Добавить
+            type="submit">Добавить
     </button>
   </div>
 </form>
@@ -45,9 +56,9 @@
 
     <ng-container matColumnDef="remove">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <button mat-button color="primary"
-                (click)="onLinkDelete(element)">Удалить
+      <mat-cell *matCellDef="let element" mat-cell>
+        <button (click)="onLinkDelete(element)" color="primary"
+                mat-button>Удалить
         </button>
       </mat-cell>
     </ng-container>

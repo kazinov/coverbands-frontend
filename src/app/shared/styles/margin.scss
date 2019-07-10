@@ -1,5 +1,10 @@
 @import "variables";
 
 .margin-right-md {
-  margin-right: $margin-md;
+  margin-right: $margin-md !important;
 }
+
+.margin-right-sm {
+  margin-right: $margin-sm !important;
+}
+
