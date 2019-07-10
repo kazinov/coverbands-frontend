@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MainBandInfo } from '../main-band-info.model';
 import { Artist, BandLink, CoverInfo } from '../../core/bands/bands.model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Cities } from '../../core/cities/cities.data';
@@ -80,7 +79,7 @@ export class EditBandComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  onMainInfoSave(info: MainBandInfo) {
+  onMainInfoSave(info: Artist) {
     console.log('onMainInfoSave', info);
   }
 

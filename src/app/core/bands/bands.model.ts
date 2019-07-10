@@ -1,4 +1,3 @@
-import { MainBandInfo } from '../../band/main-band-info.model';
 import { BandContacts } from '../../band/band-contacts/band-contacts.model';
 import { BandPrices } from '../../band/band-prices/band-prices.model';
 
@@ -13,8 +12,12 @@ export interface BandLink {
 }
 
 export interface Artist
-  extends MainBandInfo, BandContacts, BandPrices {
+  extends BandContacts, BandPrices {
   id: string;
+  name: string;
+  description?: string;
+  city: string;
+  genres: string[];
   covers?: CoverInfo[];
   links?: BandLink[];
   profileImage?: string;

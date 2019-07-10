@@ -4,11 +4,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
 import { SelectorOption } from '../../shared/utils/selector-option';
-import { MainBandInfo } from '../main-band-info.model';
 import { allCities } from '../../core/cities/all-cities';
 import { Countries } from '../../core/countries/counries.model';
 import { TranslationService } from '../../core/translation/translation.service';
 import { allMusicGenres } from '../../core/music-genres/all-music.genres';
+import { Artist } from '../../core/bands/bands.model';
 
 const cityFilterFieldName = 'cityFilter';
 
@@ -20,8 +20,8 @@ const cityFilterFieldName = 'cityFilter';
 })
 export class MainBandInfoComponent implements OnInit, OnDestroy {
   @Input() saveButtonText = 'Сохранить';
-  @Input() info: MainBandInfo;
-  @Output() saveClick = new EventEmitter<MainBandInfo>();
+  @Input() artist: Artist;
+  @Output() saveClick = new EventEmitter<Artist>();
   form: FormGroup;
 
   genres: SelectorOption[]
@@ -66,11 +66,11 @@ export class MainBandInfoComponent implements OnInit, OnDestroy {
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
-      name: [this.info ? this.info.name : null, [Validators.required]],
-      description: [this.info ? this.info.description : null, []],
+      name: [this.artist ? this.artist.name : null, [Validators.required]],
+      description: [this.artist ? this.artist.description : null, []],
       [cityFilterFieldName]: [null, []],
-      city: [this.info ? this.info.city : null, [Validators.required]],
-      genres: [this.info ? this.info.genres : [], [Validators.required]]
+      city: [this.artist ? this.artist.city : null, [Validators.required]],
+      genres: [this.artist ? this.artist.genres : [], [Validators.required]]
     });
   }
 

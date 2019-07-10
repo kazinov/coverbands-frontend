@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MainBandInfo } from '../main-band-info.model';
+import { Artist } from '../../core/bands/bands.model';
 
 @Component({
   selector: 'app-create-band',
@@ -9,23 +8,13 @@ import { MainBandInfo } from '../main-band-info.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateBandComponent implements OnInit {
-  addBandForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.buildForm();
   }
 
-  private buildForm(): void {
-    this.addBandForm = this.formBuilder.group({
-      bandName: ['', [Validators.required]],
-      song: ['', []]
-    });
-  }
-
-  onSaveClick(data: MainBandInfo) {
+  onSaveClick(data: Artist) {
     console.log('main info', data);
   }
 }

@@ -10,7 +10,7 @@
             </mat-expansion-panel-header>
             <app-main-band-info
                     *ngIf="!!(band$ | async)"
-                    [info]="band$ | async"
+                    [artist]="band$ | async"
                     (saveClick)="onMainInfoSave($event)">
             </app-main-band-info>
         </mat-expansion-panel>
