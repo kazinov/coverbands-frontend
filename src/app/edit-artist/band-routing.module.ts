@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BandPaths } from './band-paths';
-import { CreateBandComponent } from './create-band/create-band.component';
 import { EditArtistComponent } from './edit-artist/edit-artist.component';
+import { CreateBandComponent } from './create-artist/create-band.component';
 
 export const bandRoutes: Routes = [
   {path: '', redirectTo: BandPaths.Create, pathMatch: 'full'},
