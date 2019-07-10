@@ -1,6 +1,11 @@
 @import "app/shared/styles/common";
 
 :host {
+
+  .video-providers-field {
+    max-width: 100px;
+  }
+
   .mat-column-link {
     a {
       width: 100%;

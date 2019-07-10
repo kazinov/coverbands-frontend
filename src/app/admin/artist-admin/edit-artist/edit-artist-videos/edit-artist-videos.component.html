@@ -4,42 +4,55 @@
       class="app-one-line-form"
       novalidate
       (submit)="onLinkSubmit()">
-    <mat-form-field class="margin-right-md">
-        <input matInput
-               placeholder="Ссылка"
-               formControlName="link">
-        <mat-error *ngIf="form.get('link').invalid">Обязательное поле</mat-error>
-    </mat-form-field>
 
-    <div>
-        <button type="submit"
-                mat-raised-button
-                [disabled]="form.invalid">Добавить
-        </button>
-    </div>
+  <mat-form-field class="video-providers-field">
+    <mat-select formControlName="provider">
+      <mat-option
+        *ngFor="let provider of videoProviders"
+        [value]="provider.id">
+        {{provider.label}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('provider').invalid">Обязательное поле</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="margin-right-md">
+    <input matInput
+           placeholder="Ссылка"
+           formControlName="link">
+    <mat-error *ngIf="form.get('link').invalid">Обязательное поле</mat-error>
+  </mat-form-field>
+
+  <div>
+    <button type="submit"
+            mat-raised-button
+            [disabled]="form.invalid">Добавить
+    </button>
+  </div>
 </form>
 
 <div class="app-form-table-container mat-elevation-z1">
-    <mat-table *ngIf="linksExist"
-               [dataSource]="videos" class="app-form-table">
+  <mat-table *ngIf="linksExist"
+             [dataSource]="videos" class="app-form-table">
 
-        <ng-container matColumnDef="link">
-            <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <a [href]="element.link"
-                   target="_blank">{{element.link}}</a>
-            </mat-cell>
-        </ng-container>
+    <ng-container matColumnDef="link">
+      <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a [href]="element.link"
+           target="_blank">{{element.link}}</a>
+      </mat-cell>
+    </ng-container>
 
-        <ng-container matColumnDef="remove">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell mat-cell *matCellDef="let element">
-                <button mat-button color="primary"
-                        (click)="onLinkDelete(element)">Удалить</button>
-            </mat-cell>
-        </ng-container>
+    <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <button mat-button color="primary"
+                (click)="onLinkDelete(element)">Удалить
+        </button>
+      </mat-cell>
+    </ng-container>
 
-        <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
-    </mat-table>
+    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+  </mat-table>
 </div>
