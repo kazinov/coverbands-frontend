@@ -4,12 +4,12 @@ import { Currencies } from '../../core/currencies/currencies.model';
 import { Artist, Price } from '../../core/bands/bands.model';
 
 @Component({
-  selector: 'app-band-prices',
-  templateUrl: './band-prices.component.html',
-  styleUrls: ['./band-prices.component.scss'],
+  selector: 'app-edit-artist-prices',
+  templateUrl: './edit-artist-prices.component.html',
+  styleUrls: ['./edit-artist-prices.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BandPricesComponent implements OnInit {
+export class EditArtistPricesComponent implements OnInit {
   @Input() prices: Artist;
   @Output() pricesChange = new EventEmitter<Partial<Artist>>();
   addPriceFrom: FormGroup;

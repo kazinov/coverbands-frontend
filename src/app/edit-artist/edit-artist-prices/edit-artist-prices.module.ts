@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import {IMaskModule} from 'angular-imask';
-import { BandPricesComponent } from './band-prices.component';
+import { EditArtistPricesComponent } from './edit-artist-prices.component';
 
 @NgModule({
   imports: [
@@ -22,11 +22,11 @@ import { BandPricesComponent } from './band-prices.component';
     MatIconModule
   ],
   declarations: [
-    BandPricesComponent
+    EditArtistPricesComponent
   ],
   exports: [
-    BandPricesComponent
+    EditArtistPricesComponent
   ]
 })
-export class BandPricesModule {
+export class EditArtistPricesModule {
 }

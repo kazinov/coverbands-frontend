@@ -8,7 +8,7 @@ import { CoversInfoModule } from '../covers-info/covers-info.module';
 import { EditBandImagesModule } from '../edit-band-images/edit-band-images.module';
 import { EditArtistContactsModule } from '../edit-artist-contacts/edit-artist-contacts.module';
 import { EditArtistLinksModule } from '../edit-artist-links/edit-artist-links.module';
-import { BandPricesModule } from '../edit-artist-prices/band-prices.module';
+import { EditArtistPricesModule } from '../edit-artist-prices/edit-artist-prices.module';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { BandPricesModule } from '../edit-artist-prices/band-prices.module';
     MatExpansionModule,
     MatProgressSpinnerModule,
     EditArtistLinksModule,
-    BandPricesModule,
+    EditArtistPricesModule,
     EditBandImagesModule
   ],
   declarations: [
