@@ -7,7 +7,9 @@
     "paths": {
       "@shared/*": ["app/shared/*"],
       "@core/*": ["app/core/*"],
-      "@home/*": ["app/home/*"]
+      "@home/*": ["app/home/*"],
+      "@admin/*": ["app/admin/*"],
+      "@artist-admin/*": ["app/admin/artist-admin/*"]
     }
   },
   "exclude": [

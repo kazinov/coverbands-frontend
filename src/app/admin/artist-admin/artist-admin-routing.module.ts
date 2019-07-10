@@ -5,15 +5,25 @@ import { ArtistAdminPaths } from './artist-admin-paths';
 import { EditArtistComponent } from './edit-artist/edit-artist/edit-artist.component';
 
 export const artistAdminRoutes: Routes = [
-  {path: '', redirectTo: ArtistAdminPaths.Create, pathMatch: 'full'},
   {
-    path: ArtistAdminPaths.Create,
-    component: CreateArtistComponent
+    path: '',
+    children: [
+      {
+        path: '',
+        redirectTo: ArtistAdminPaths.Create,
+        pathMatch: 'full'
+      },
+      {
+        path: ArtistAdminPaths.Create,
+        component: CreateArtistComponent
+      },
+      {
+        path: ArtistAdminPaths.Edit + '/:id',
+        component: EditArtistComponent
+      }
+    ],
+
   },
-  {
-    path: ArtistAdminPaths.Edit + '/:id',
-    component: EditArtistComponent
-  }
 ];
 
 @NgModule({
