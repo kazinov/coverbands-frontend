@@ -9,6 +9,7 @@ import { Countries } from '@core/countries/counries.model';
 import { TranslationService } from '@core/translation/translation.service';
 import { allMusicGenres } from '@core/music-genres/all-music.genres';
 import { Artist } from '@core/artist/artist.model';
+import { ArtistTypes } from '@core/artist-types/artist-types.model';
 
 const cityFilterFieldName = 'cityFilter';
 
@@ -21,6 +22,7 @@ const cityFilterFieldName = 'cityFilter';
 export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   @Input() saveButtonText = 'Сохранить';
   @Input() artist: Artist;
+  @Input() hideDescription: boolean;
   @Output() saveClick = new EventEmitter<Partial<Artist>>();
   form: FormGroup;
 
@@ -75,7 +77,9 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.saveClick.emit(omit(this.form.value, cityFilterFieldName));
+    const result: Partial<Artist> = omit(this.form.value, cityFilterFieldName);
+    result.type = ArtistTypes.LiveMusic;
+    this.saveClick.emit(result);
   }
 
   ngOnDestroy(): void {

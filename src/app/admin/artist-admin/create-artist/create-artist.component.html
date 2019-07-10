@@ -1,5 +1,7 @@
 <div class="app-form-wrapper">
     <h3 class="app-form-header">Create a band</h3>
-    <app-edit-artist-main-info (saveClick)="onSaveClick($event)">
+    <app-edit-artist-main-info
+      [hideDescription]="true"
+      (saveClick)="onSaveClick($event)">
     </app-edit-artist-main-info>
 </div>
