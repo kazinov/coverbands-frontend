@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Band } from '../../core/bands/bands.model';
+import { Artist } from '../../core/bands/bands.model';
 import { ImageCropperHelper } from '../../shared/utils/image-cropper-helper';
 import { ResizeImageSettings, Side } from '../../shared/utils/resizing.utils';
 import { ImagesUploadResults } from '../../shared/images-uploader/images-uploader.component';
@@ -35,7 +35,7 @@ export const MAX_BAND_IMAGES = 5;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditBandImagesComponent implements OnInit {
-  @Input() band: Band;
+  @Input() band: Artist;
   @Output() profileImageAttached = new EventEmitter<ImagesUploadResults>();
   @Output() profileImageDelete = new EventEmitter<string>();
   @Output() imageAttached = new EventEmitter<ImagesUploadResults>();

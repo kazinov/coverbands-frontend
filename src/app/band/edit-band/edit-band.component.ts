@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MainBandInfo } from '../main-band-info.model';
-import { Band, BandLink, CoverInfo } from '../../core/bands/bands.model';
+import { Artist, BandLink, CoverInfo } from '../../core/bands/bands.model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Cities } from '../../core/cities/cities.data';
 import { MusicGenres } from '../../core/music-genres/music-genres.data';
@@ -12,7 +12,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesUploadResults } from '../../shared/images-uploader/images-uploader.component';
 
-const dummyBand: Band = {
+const dummyBand: Artist = {
   id: '123',
   name: 'Кавер Бэнд',
   description: `Красивый женский вокал. Исключительно живое и качественное звучание.
@@ -104,7 +104,7 @@ export class EditBandComponent implements OnInit, OnDestroy {
     console.error('onProfileImageAttached', results)
     // TODO: replace with real implementation
     this.fakeUploadImage(results.imageVersions[1], (base64) => {
-      this.fakeEmitBandChange((band: Band) => {
+      this.fakeEmitBandChange((band: Artist) => {
         band.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
         return band;
       })
@@ -113,7 +113,7 @@ export class EditBandComponent implements OnInit, OnDestroy {
 
   onProfileImageDelete(imageUrl: string) {
     // TODO: replace with real implementation
-    this.fakeEmitBandChange((band: Band) => {
+    this.fakeEmitBandChange((band: Artist) => {
       band.profileImage = null;
       return band;
     });
@@ -122,7 +122,7 @@ export class EditBandComponent implements OnInit, OnDestroy {
   onImageAttached(results: ImagesUploadResults) {
     // TODO: replace with real implementation
     this.fakeUploadImage(results.imageVersions[0], (base64) => {
-      this.fakeEmitBandChange((band: Band) => {
+      this.fakeEmitBandChange((band: Artist) => {
         band.images.push(this.domSanitizer.bypassSecurityTrustUrl(base64) as any);
         return band;
       });
@@ -131,7 +131,7 @@ export class EditBandComponent implements OnInit, OnDestroy {
 
   onImageDelete(imageUrl: string) {
     // TODO: replace with real implementation
-    this.fakeEmitBandChange((band: Band) => {
+    this.fakeEmitBandChange((band: Artist) => {
       band.images = band.images.filter((image: string) => {
         if ((image as any).changingThisBreaksApplicationSecurity
         && (imageUrl as any).changingThisBreaksApplicationSecurity) {
@@ -156,8 +156,8 @@ export class EditBandComponent implements OnInit, OnDestroy {
   }
 
   // TODO: remove when backend implemented
-  private fakeEmitBandChange(changeBand: (band: Band) => Band) {
-    let clone: Band = cloneDeep(this.band$.getValue());
+  private fakeEmitBandChange(changeBand: (band: Artist) => Artist) {
+    let clone: Artist = cloneDeep(this.band$.getValue());
     clone = changeBand(clone);
     this.band$.next(clone);
     this.changeDetectorRef.markForCheck();

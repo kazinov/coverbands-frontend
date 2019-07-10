@@ -12,7 +12,7 @@ export interface BandLink {
   description: string
 }
 
-export interface Band
+export interface Artist
   extends MainBandInfo, BandContacts, BandPrices {
   id: string;
   covers?: CoverInfo[];
