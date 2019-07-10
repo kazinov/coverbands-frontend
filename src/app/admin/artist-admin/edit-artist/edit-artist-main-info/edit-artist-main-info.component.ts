@@ -8,7 +8,7 @@ import { allCities } from '@core/cities/all-cities';
 import { Countries } from '@core/countries/counries.model';
 import { TranslationService } from '@core/translation/translation.service';
 import { allMusicGenres } from '@core/music-genres/all-music.genres';
-import { Artist } from '@core/bands/bands.model';
+import { Artist } from '@core/artist/artist.model';
 
 const cityFilterFieldName = 'cityFilter';
 

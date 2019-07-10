@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Artist, BandLink, CoverInfo } from '@core/bands/bands.model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Cities } from '@core/cities/cities.data';
 import { MusicGenres } from '@core/music-genres/music-genres.data';
@@ -8,6 +7,7 @@ import { FileHelper } from '@shared/utils/file-helper';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
+import { Artist, BandLink, CoverInfo } from '@core/artist/artist.model';
 
 const dummyBand: Artist = {
   id: '123',

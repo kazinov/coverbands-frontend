@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { CoverInfo } from '@core/bands/bands.model';
+import { CoverInfo } from '@core/artist/artist.model';
 
 @Component({
   selector: 'app-edit-artist-covers',
