@@ -8,11 +8,11 @@
                     Общая информация
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-main-band-info
+            <app-edit-main-artist-info
                     *ngIf="!!(band$ | async)"
                     [artist]="band$ | async"
                     (saveClick)="onMainInfoSave($event)">
-            </app-main-band-info>
+            </app-edit-main-artist-info>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
