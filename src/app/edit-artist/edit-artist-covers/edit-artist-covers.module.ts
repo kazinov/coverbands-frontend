@@ -6,7 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { CoversInfoComponent } from '../covers-info/covers-info.component';
+import { EditArtistCoversComponent } from './edit-artist-covers.component';
 
 @NgModule({
   imports: [
@@ -20,11 +20,11 @@ import { CoversInfoComponent } from '../covers-info/covers-info.component';
     MatIconModule
   ],
   declarations: [
-    CoversInfoComponent
+    EditArtistCoversComponent
   ],
   exports: [
-    CoversInfoComponent
+    EditArtistCoversComponent
   ]
 })
-export class CoversInfoModule {
+export class EditArtistCoversModule {
 }

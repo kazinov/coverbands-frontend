@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { CoverInfo } from '../../core/bands/bands.model';
 
 @Component({
-  selector: 'app-covers-info',
-  templateUrl: './covers-info.component.html',
-  styleUrls: ['./covers-info.component.scss'],
+  selector: 'app-edit-artist-covers',
+  templateUrl: './edit-artist-covers.component.html',
+  styleUrls: ['./edit-artist-covers.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CoversInfoComponent implements OnInit {
+export class EditArtistCoversComponent implements OnInit {
   @Input() covers: CoverInfo[] = [];
   @Output() addCover = new EventEmitter<CoverInfo>();
   @Output() removeCover = new EventEmitter<CoverInfo>();

@@ -8,14 +8,14 @@ import { EditBandImagesModule } from '../edit-band-images/edit-band-images.modul
 import { EditArtistContactsModule } from '../edit-artist-contacts/edit-artist-contacts.module';
 import { EditArtistLinksModule } from '../edit-artist-links/edit-artist-links.module';
 import { EditArtistPricesModule } from '../edit-artist-prices/edit-artist-prices.module';
-import { CoversInfoModule } from '../edit-artist-covers/covers-info.module';
+import { EditArtistCoversModule } from '../edit-artist-covers/edit-artist-covers.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MainBandInfoModule,
     EditArtistContactsModule,
-    CoversInfoModule,
+    EditArtistCoversModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
     EditArtistLinksModule,
