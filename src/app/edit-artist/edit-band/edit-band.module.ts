@@ -5,10 +5,10 @@ import { EditBandComponent } from './edit-band.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CoversInfoModule } from '../covers-info/covers-info.module';
-import { BandLinksModule } from '../band-links/band-links.module';
 import { BandPricesModule } from '../band-prices/band-prices.module';
 import { EditBandImagesModule } from '../edit-band-images/edit-band-images.module';
 import { EditArtistContactsModule } from '../edit-artist-contacts/edit-artist-contacts.module';
+import { BandLinksModule } from '../edit-artist-links/band-links.module';
 
 @NgModule({
   imports: [
