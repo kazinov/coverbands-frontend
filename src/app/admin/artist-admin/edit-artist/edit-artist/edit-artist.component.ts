@@ -7,7 +7,7 @@ import { FileHelper } from '@shared/utils/file-helper';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
-import { Artist, BandLink, CoverInfo } from '@core/artist/artist.model';
+import { Artist, Link, CoverInfo } from '@core/artist/artist.model';
 
 const dummyBand: Artist = {
   id: '123',
@@ -68,7 +68,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     .pipe(
       map((band) => band ? band.covers : null)
     );
-  links$: Observable<BandLink[]> = this.band$
+  links$: Observable<Link[]> = this.band$
     .pipe(
       map((band) => band ? band.links : null)
     );
@@ -85,7 +85,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     console.log('onContactsSave', contacts);
   }
 
-  onLinksSave(links: BandLink[]) {
+  onLinksSave(links: Link[]) {
     console.log('links', links);
   }
 

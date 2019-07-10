@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { BandLink } from '@core/artist/artist.model';
+import { Link } from '@core/artist/artist.model';
 
 @Component({
   selector: 'app-edit-artist-links',
@@ -9,8 +9,8 @@ import { BandLink } from '@core/artist/artist.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistLinksComponent implements OnInit {
-  @Input() links: BandLink[];
-  @Output() linksChange = new EventEmitter<BandLink[]>();
+  @Input() links: Link[];
+  @Output() linksChange = new EventEmitter<Link[]>();
   form: FormGroup;
   @ViewChild('formGroup', { static: true }) formGroup: FormGroupDirective;
   linksTableColumns: string[] = ['link', 'description', 'remove'];
@@ -37,7 +37,7 @@ export class EditArtistLinksComponent implements OnInit {
     this.formGroup.resetForm();
   }
 
-  onLinkDelete(linkToDelete: BandLink) {
+  onLinkDelete(linkToDelete: Link) {
     this.links = (this.links || [])
       .filter((link) => {
         return !(link.description === linkToDelete.description

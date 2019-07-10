@@ -5,7 +5,7 @@ export interface CoverInfo {
   song: string
 }
 
-export interface BandLink {
+export interface Link {
   link: string,
   description: string
 }
@@ -23,7 +23,7 @@ export interface Artist {
   city?: string;
   genres?: string[];
   covers?: CoverInfo[];
-  links?: BandLink[];
+  links?: Link[];
   profileImage?: string;
   profileImageThumb?: string;
   images?: string[];
