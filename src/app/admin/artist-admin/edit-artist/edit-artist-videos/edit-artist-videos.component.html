@@ -20,7 +20,8 @@
     <input formControlName="link"
            matInput
            placeholder="Ссылка">
-    <mat-error *ngIf="form.get('link').invalid">Обязательное поле</mat-error>
+    <mat-error *ngIf="linkRequiredError">Обязательное поле</mat-error>
+    <mat-error *ngIf="videoEmbedFormatError">Неверный формат кода для вставки</mat-error>
   </mat-form-field>
 
   <button mat-icon-button

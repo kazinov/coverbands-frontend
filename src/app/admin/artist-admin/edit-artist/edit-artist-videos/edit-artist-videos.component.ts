@@ -4,6 +4,8 @@ import { VideoLink } from '@core/artist/artist.model';
 import { ALL_VIDEO_PROVIDERS, VideoProviders } from '@core/models/video-providers.model';
 import { SelectorOption } from '@shared/utils/selector-option';
 import { TranslationService } from '@core/translation/translation.service';
+import { parseEmbeddedVideoSrc } from '@shared/utils/parse-embedded-video-src';
+import { videoEmbedFormatValidator } from '@artist-admin/edit-artist/edit-artist-videos/video-embed-format.validator';
 
 const DEFAULT_PROVIDER = VideoProviders.Youtube;
 
@@ -33,13 +35,13 @@ export class EditArtistVideosComponent implements OnInit {
   private buildForms(): void {
     this.form = this.formBuilder.group({
       provider: [DEFAULT_PROVIDER, [Validators.required]],
-      link: ['', [Validators.required]]
+      link: ['', [videoEmbedFormatValidator, Validators.required]]
     });
   }
 
   onLinkSubmit() {
     const formValue: VideoLink = this.form.value;
-
+    formValue.link = parseEmbeddedVideoSrc(formValue.link);
 
     this.videos = [
       ...(this.videos || []),
@@ -65,6 +67,19 @@ export class EditArtistVideosComponent implements OnInit {
 
   get linksExist() {
     return this.videos && this.videos.length;
+  }
+
+  get linkRequiredError() {
+    const val = this.form.get('link');
+    return val.invalid && (val.errors as any).required;
+  }
+
+  get videoEmbedFormatError() {
+    if (this.linkRequiredError) {
+      return false;
+    }
+    const val = this.form.get('link');
+    return val.invalid && (val.errors as any).invalidVideoEmbedFormat;
   }
 
   constructor(
