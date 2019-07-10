@@ -19,6 +19,14 @@ export class CitiesSelectors {
     selectors.selectEntities
   );
 
+  areCitiesLoadedForCountry = createSelector(
+    this.selectCitiesEntities,
+    (
+      cities: Dictionary<CitiesOfCountry>,
+      props: { countryId }
+    ) => cities[props.countryId]
+  );
+
   citiesForCountrySelectorFactory = (countryId: Countries) => {
     return createSelector(
       this.selectCitiesEntities,
@@ -32,12 +40,4 @@ export class CitiesSelectors {
       (cities: string[]) => cities && !!cities.length
     );
   }
-
-  areCitiesLoadedForCountry = createSelector(
-    this.selectCitiesEntities,
-    (
-      cities: Dictionary<CitiesOfCountry>,
-      props: { countryId }
-    ) => cities[props.countryId]
-  );
 }

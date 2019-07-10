@@ -23,7 +23,7 @@ export class ImageCropperHelper {
     settings.cropperDrawSettings = {
       strokeWidth: 1,
       dragIconStrokeWidth: 1,
-      strokeColor: strokeColor,
+      strokeColor,
       dragIconStrokeColor: strokeColor,
       dragIconFillColor: cropperColor,
       fillColor: cropperColor,

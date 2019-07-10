@@ -98,13 +98,13 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onProfileImageAttached(results: ImagesUploadResults) {
-    console.error('onProfileImageAttached', results)
+    console.error('onProfileImageAttached', results);
     // TODO: replace with real implementation
     this.fakeUploadImage(results.imageVersions[1], (base64) => {
       this.fakeEmitBandChange((band: Artist) => {
         band.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
         return band;
-      })
+      });
     });
   }
 
@@ -133,7 +133,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
         if ((image as any).changingThisBreaksApplicationSecurity
         && (imageUrl as any).changingThisBreaksApplicationSecurity) {
           return (image as any).changingThisBreaksApplicationSecurity
-            !== (imageUrl as any).changingThisBreaksApplicationSecurity
+            !== (imageUrl as any).changingThisBreaksApplicationSecurity;
         }
         return image !== imageUrl;
       });
@@ -149,7 +149,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       )
       .subscribe((base64: string) => {
         onUpload(base64);
-      })
+      });
   }
 
   // TODO: remove when backend implemented

@@ -25,7 +25,7 @@ export enum Side {
 }
 
 export interface ResizeImageSettings {
-  side: Side,
+  side: Side;
   size: number;
 }
 
@@ -65,8 +65,8 @@ export function resizeImage(
     ? of(dataUrl)
     : FileHelper.readFileAsDataURL(image))
     .pipe(
-      switchMap((dataUrl: string) => {
-        sourceImg.setAttribute('src', dataUrl);
+      switchMap((url: string) => {
+        sourceImg.setAttribute('src', url);
         document.body.appendChild(sourceImg);
         return toOnloadObservable(sourceImg);
       }),
@@ -76,7 +76,7 @@ export function resizeImage(
         if ((setting.side === Side.Width && sourceImg.width <= setting.size)
           || (setting.side === Side.Height && sourceImg.height <= setting.size)
           || (setting.side === Side.Max && sourceImg.height <= setting.size && sourceImg.width <= setting.size)) {
-          console.error('no need to resize')
+          console.error('no need to resize');
           return of(image);
         }
 
@@ -111,7 +111,7 @@ export function resizeImage(
               return from(picaInstance.toBlob(result, 'image/jpeg', 1));
             }),
             map((blob: Blob) => {
-              return new File([blob], image.name)
+              return new File([blob], image.name);
             }),
           );
       }),

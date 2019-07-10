@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Artist } from '@core/artist/artist.model';
 
 interface PhoneFormInputConfig {
-  mask: string,
-  validationRegex: RegExp,
-  phoneCode: string
+  mask: string;
+  validationRegex: RegExp;
+  phoneCode: string;
 }
 
 const russianPhoneCode = '+7';

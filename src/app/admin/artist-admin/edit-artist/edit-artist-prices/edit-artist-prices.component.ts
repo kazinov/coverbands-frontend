@@ -73,7 +73,7 @@ export class EditArtistPricesComponent implements OnInit {
         value: this.form.value.value,
         currency: this.form.value.value ? Currencies.RussianRuble : undefined,
         service: this.form.value.service
-      }
+      };
     }
 
     if (this.pricesDirty.length) {
@@ -82,7 +82,7 @@ export class EditArtistPricesComponent implements OnInit {
           value: price.value,
           currency: Currencies.RussianRuble,
           service: price.service
-        } as Price))
+        } as Price));
     }
 
     this.pricesChange.emit(result);

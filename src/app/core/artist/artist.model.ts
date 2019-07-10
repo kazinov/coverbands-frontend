@@ -2,13 +2,13 @@ import { Currencies } from '../currencies/currencies.model';
 import { ArtistTypes } from '@core/artist-types/artist-types.model';
 
 export interface CoverInfo {
-  band: string,
-  song: string
+  band: string;
+  song: string;
 }
 
 export interface Link {
-  link: string,
-  description: string
+  link: string;
+  description: string;
 }
 
 export interface Price {
@@ -30,7 +30,7 @@ export interface Artist {
   profileImageThumb?: string;
   images?: string[];
   email?: string;
-  phoneCode?: string
+  phoneCode?: string;
   phoneNumber?: string;
   oneShowPrice?: Price;
   prices?: Price[];

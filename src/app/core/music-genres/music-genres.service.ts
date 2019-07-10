@@ -10,7 +10,7 @@ const getMusicGenresUrl
 export class MusicGenresService {
 
   loadMusicGenres(): Observable<string[] | HttpErrorResponse> {
-    return of(allMusicGenres)
+    return of(allMusicGenres);
     // return this.httpClient.get<string[]>(
     //   getMusicGenresUrl()
     // );

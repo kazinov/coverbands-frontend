@@ -11,7 +11,7 @@ const getCitiesUrl
 export class CitiesService {
 
   loadCities(countryId: Countries): Observable<string[] | HttpErrorResponse> {
-    return of(allCities)
+    return of(allCities);
     // return this.httpClient.get<string[]>(
     //   getCitiesUrl()
     // );

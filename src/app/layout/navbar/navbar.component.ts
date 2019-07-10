@@ -20,11 +20,11 @@ export class NavbarComponent {
     );
 
   get editBandUrl() {
-    return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.Edit}/123`
+    return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.Edit}/123`;
   }
 
   get createBandUrl() {
-    return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.Create}`
+    return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.Create}`;
   }
 
   constructor(private breakpointObserver: BreakpointObserver) {}
