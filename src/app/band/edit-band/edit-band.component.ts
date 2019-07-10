@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Cities } from '../../core/cities/cities.data';
 import { MusicGenres } from '../../core/music-genres/music-genres.data';
 import { map, takeUntil } from 'rxjs/operators';
-import { BandContacts } from '../band-contacts/band-contacts.model';
 import { BandPrices } from '../band-prices/band-prices.model';
 import { FileHelper } from '../../shared/utils/file-helper';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -83,7 +82,7 @@ export class EditBandComponent implements OnInit, OnDestroy {
     console.log('onMainInfoSave', info);
   }
 
-  onContactsSave(contacts: BandContacts) {
+  onContactsSave(contacts: Artist) {
     console.log('onContactsSave', contacts);
   }
 

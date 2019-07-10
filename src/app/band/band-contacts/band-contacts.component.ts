@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BandContacts } from './band-contacts.model';
+import { Artist } from '../../core/bands/bands.model';
 
 interface PhoneFormInputConfig {
   mask: string,
@@ -24,8 +24,8 @@ const phoneNumberFormName = 'phoneNumber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BandContactsComponent implements OnInit {
-  @Input() contacts: BandContacts;
-  @Output() saveClick = new EventEmitter<BandContacts>();
+  @Input() artist: Artist;
+  @Output() saveClick = new EventEmitter<Artist>();
   form: FormGroup;
   phoneConfig: PhoneFormInputConfig = russianPhoneConfig;
   linksTableColumns: string[] = ['link', 'description'];
@@ -36,8 +36,8 @@ export class BandContactsComponent implements OnInit {
 
   private buildForms(): void {
     this.form = this.formBuilder.group({
-      [emailFormName]: [this.contacts ? this.contacts.email : null, [Validators.email]],
-      [phoneNumberFormName]: [this.contacts ? this.contacts.phoneNumber : null,
+      [emailFormName]: [this.artist ? this.artist.email : null, [Validators.email]],
+      [phoneNumberFormName]: [this.artist ? this.artist.phoneNumber : null,
         [Validators.pattern(this.phoneConfig.validationRegex)]]
     });
   }

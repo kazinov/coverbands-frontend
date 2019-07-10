@@ -22,8 +22,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-band-contacts *ngIf="!!(band$ | async)"
-            [contacts]="band$ | async"
-            (saveClick)="onContactsSave($event)">
+                               [artist]="band$ | async"
+                               (saveClick)="onContactsSave($event)">
             </app-band-contacts>
         </mat-expansion-panel>
 
@@ -34,8 +34,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-band-links *ngIf="!!(links$ | async)"
-                               [links]="links$ | async"
-                               (linksChange)="onLinksSave($event)">
+                            [links]="links$ | async"
+                            (linksChange)="onLinksSave($event)">
             </app-band-links>
         </mat-expansion-panel>
 
