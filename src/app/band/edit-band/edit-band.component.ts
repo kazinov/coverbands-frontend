@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Cities } from '../../core/cities/cities.data';
 import { MusicGenres } from '../../core/music-genres/music-genres.data';
 import { map, takeUntil } from 'rxjs/operators';
-import { BandPrices } from '../band-prices/band-prices.model';
 import { FileHelper } from '../../shared/utils/file-helper';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -90,7 +89,7 @@ export class EditBandComponent implements OnInit, OnDestroy {
     console.log('links', links);
   }
 
-  onPricesSave(prices: BandPrices) {
+  onPricesSave(prices: Artist) {
     console.log('prices', prices);
   }
 

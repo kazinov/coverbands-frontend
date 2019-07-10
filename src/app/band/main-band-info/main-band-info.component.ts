@@ -21,7 +21,7 @@ const cityFilterFieldName = 'cityFilter';
 export class MainBandInfoComponent implements OnInit, OnDestroy {
   @Input() saveButtonText = 'Сохранить';
   @Input() artist: Artist;
-  @Output() saveClick = new EventEmitter<Artist>();
+  @Output() saveClick = new EventEmitter<Partial<Artist>>();
   form: FormGroup;
 
   genres: SelectorOption[]

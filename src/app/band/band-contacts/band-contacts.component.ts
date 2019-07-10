@@ -25,7 +25,7 @@ const phoneNumberFormName = 'phoneNumber';
 })
 export class BandContactsComponent implements OnInit {
   @Input() artist: Artist;
-  @Output() saveClick = new EventEmitter<Artist>();
+  @Output() saveClick = new EventEmitter<Partial<Artist>>();
   form: FormGroup;
   phoneConfig: PhoneFormInputConfig = russianPhoneConfig;
   linksTableColumns: string[] = ['link', 'description'];

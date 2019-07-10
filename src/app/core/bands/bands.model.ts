@@ -1,4 +1,4 @@
-import { BandPrices } from '../../band/band-prices/band-prices.model';
+import { Currencies } from '../currencies/currencies.model';
 
 export interface CoverInfo {
   band: string,
@@ -10,8 +10,13 @@ export interface BandLink {
   description: string
 }
 
-export interface Artist
-  extends BandPrices {
+export interface Price {
+  value: number;
+  currency: Currencies;
+  service: string;
+}
+
+export interface Artist {
   id?: string;
   name?: string;
   description?: string;
@@ -25,4 +30,6 @@ export interface Artist
   email?: string;
   phoneCode?: string
   phoneNumber?: string;
+  oneShowPrice?: Price;
+  prices?: Price[];
 }

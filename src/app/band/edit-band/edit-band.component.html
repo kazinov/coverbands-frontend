@@ -68,7 +68,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-edit-band-images
-                    [band]="band$ | async"
+                    [artist]="band$ | async"
                     (profileImageAttached)="onProfileImageAttached($event)"
                     (profileImageDelete)="onProfileImageDelete($event)"
                     (imageAttached)="onImageAttached($event)"

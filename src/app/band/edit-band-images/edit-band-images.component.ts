@@ -35,7 +35,7 @@ export const MAX_BAND_IMAGES = 5;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditBandImagesComponent implements OnInit {
-  @Input() band: Artist;
+  @Input() artist: Artist;
   @Output() profileImageAttached = new EventEmitter<ImagesUploadResults>();
   @Output() profileImageDelete = new EventEmitter<string>();
   @Output() imageAttached = new EventEmitter<ImagesUploadResults>();

@@ -1,7 +1,7 @@
 <h4 class="app-info-block">Основное фото профиля</h4>
 <app-images-uploader
-        *ngIf="band"
-        [imagesUrls]="band.profileImage ? [band.profileImage]: null"
+        *ngIf="artist"
+        [imagesUrls]="artist.profileImage ? [artist.profileImage]: null"
         max="1"
         [isLoading]="isProfileImageLoading"
         [cropperSettings]="profileImageCropperSettings"
@@ -12,8 +12,8 @@
 
 <h4 class="app-info-block">Загрузите другие фото</h4>
 <app-images-uploader
-        *ngIf="band"
-        [imagesUrls]="band.images"
+        *ngIf="artist"
+        [imagesUrls]="artist.images"
         [max]="maxImages"
         [isLoading]="isImageLoading"
         [resizeSettings]="bandImageResizeSettings"

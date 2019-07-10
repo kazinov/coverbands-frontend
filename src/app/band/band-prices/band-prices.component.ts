@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { BandPrices, Price } from './band-prices.model';
 import { Currencies } from '../../core/currencies/currencies.model';
+import { Artist, Price } from '../../core/bands/bands.model';
 
 @Component({
   selector: 'app-band-prices',
@@ -10,8 +10,8 @@ import { Currencies } from '../../core/currencies/currencies.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BandPricesComponent implements OnInit {
-  @Input() prices: BandPrices;
-  @Output() pricesChange = new EventEmitter<BandPrices>();
+  @Input() prices: Artist;
+  @Output() pricesChange = new EventEmitter<Partial<Artist>>();
   addPriceFrom: FormGroup;
   form: FormGroup;
   @ViewChild('formGroup', { static: true }) formGroup: FormGroupDirective;
@@ -63,7 +63,7 @@ export class BandPricesComponent implements OnInit {
   }
 
   onSubmit() {
-    const result: BandPrices = {
+    const result: Partial<Artist> = {
       oneShowPrice: null,
       prices: null
     };
