@@ -38,16 +38,18 @@
 
     <ng-container matColumnDef="video">
       <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <a [href]="element"
-           target="_blank">{{element}}</a>
+      <mat-cell *matCellDef="let link">
+        <app-embedded-video
+          [width]="250"
+          [src]="link"
+        ></app-embedded-video>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="remove">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let element" mat-cell>
-        <button (click)="onLinkDelete(element)" color="primary"
+      <mat-cell *matCellDef="let link" mat-cell>
+        <button (click)="onLinkDelete(link)" color="primary"
                 mat-button>Удалить
         </button>
       </mat-cell>

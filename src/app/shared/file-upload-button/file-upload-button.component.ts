@@ -1,4 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 
 function globStringToRegex(str) {
   // parsing of the file type parameter (from angular-file-upload)
@@ -27,7 +36,8 @@ function globStringToRegex(str) {
 @Component({
   selector: 'app-file-upload-button',
   templateUrl: './file-upload-button.component.html',
-  styleUrls: ['./file-upload-button.component.scss']
+  styleUrls: ['./file-upload-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadButtonComponent implements OnInit {
   @Input() accept: string;

@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
   ImageCropDialogComponent,
@@ -17,7 +26,8 @@ export interface ImagesUploadResults {
 @Component({
   selector: 'app-images-uploader',
   templateUrl: './images-uploader.component.html',
-  styleUrls: ['./images-uploader.component.scss']
+  styleUrls: ['./images-uploader.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImagesUploaderComponent implements OnInit, OnDestroy {
   @Input() imagesUrls: string[];

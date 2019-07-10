@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { IMaskModule } from 'angular-imask';
 import { EditArtistVideosComponent } from '@artist-admin/edit-artist/edit-artist-videos/edit-artist-videos.component';
 import { MatSelectModule, MatTooltipModule } from '@angular/material';
+import { EmbeddedVideoModule } from '@shared/embedded-video/embedded-video.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { MatSelectModule, MatTooltipModule } from '@angular/material';
     MatTableModule,
     MatIconModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    EmbeddedVideoModule
   ],
   declarations: [
     EditArtistVideosComponent
