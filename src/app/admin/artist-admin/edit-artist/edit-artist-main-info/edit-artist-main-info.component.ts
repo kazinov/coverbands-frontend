@@ -8,7 +8,7 @@ import { TranslationService } from '@core/translation/translation.service';
 import { Artist } from '@core/artist/artist.model';
 import { ArtistTypes } from '@core/models/artist-types.model';
 import { ALL_MUSIC_GENRES } from '@core/models/music-genres.model';
-import { ALL_CITIES } from '@core/models/cities.model';
+import { ALL_RUSSIAN_CITIES } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
 
 const cityFilterFieldName = 'cityFilter';
@@ -33,7 +33,7 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   }));
 
   cities: SelectorOption[]
-    = ALL_CITIES.map((cityId) => ({
+    = ALL_RUSSIAN_CITIES.map((cityId) => ({
     id: cityId,
     label: this.translationService.translateCity(Countries.Russia, cityId)
   }));

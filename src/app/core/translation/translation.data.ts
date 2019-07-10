@@ -5,11 +5,11 @@ import { Countries } from '@core/models/countries.model';
 export const TranslationsRu = {
   cities: {
     [Countries.Russia]: {
-      [Cities.Kazan]: 'Казань',
-      [Cities.Krasnodar]: 'Краснодар',
-      [Cities.Moscow]: 'Москва',
-      [Cities.SaintPetersburg]: 'Санкт-Петербург',
-      [Cities.Yaroslavl]: 'Ярославль'
+      [Cities[Countries.Russia].Kazan]: 'Казань',
+      [Cities[Countries.Russia].Krasnodar]: 'Краснодар',
+      [Cities[Countries.Russia].Moscow]: 'Москва',
+      [Cities[Countries.Russia].SaintPetersburg]: 'Санкт-Петербург',
+      [Cities[Countries.Russia].Yaroslavl]: 'Ярославль'
     }
   },
   musicGenres: {

@@ -8,6 +8,7 @@ import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.com
 import { Artist, Link, CoverInfo } from '@core/artist/artist.model';
 import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
+import { Countries } from '@core/models/countries.model';
 
 const dummyBand: Artist = {
   id: '123',
@@ -18,7 +19,7 @@ const dummyBand: Artist = {
 Творческий подход к любым пожеланиям заказчика.
 Тонкое чувство настроения зрителя и его желаний.
 Драйв, эмоции и энергетика настоящего концерта`,
-  city: Cities.SaintPetersburg,
+  city: Cities[Countries.Russia].SaintPetersburg,
   genres: [MusicGenres.Pop],
   covers: [
     {

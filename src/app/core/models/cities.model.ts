@@ -1,10 +1,14 @@
+import { Countries } from '@core/models/countries.model';
+
 export const Cities = {
-  SaintPetersburg: 'saint-petersburg',
-  Moscow: 'moscow',
-  Kazan: 'kazan',
-  Krasnodar: 'krasnodar',
-  Yaroslavl: 'yaroslavl'
+  [Countries.Russia]: {
+    SaintPetersburg: 'saint-petersburg',
+    Moscow: 'moscow',
+    Kazan: 'kazan',
+    Krasnodar: 'krasnodar',
+    Yaroslavl: 'yaroslavl'
+  }
 };
 
-export const ALL_CITIES = Object.keys(Cities)
-  .map((key: string) => Cities[key]);
+export const ALL_RUSSIAN_CITIES = Object.keys(Cities[Countries.Russia])
+  .map((key: string) => Cities[Countries.Russia][key]);
