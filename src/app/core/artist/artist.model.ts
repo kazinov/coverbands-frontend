@@ -1,4 +1,5 @@
 import { Currencies } from '../currencies/currencies.model';
+import { ArtistTypes } from '@core/artist-types/artist-types.model';
 
 export interface CoverInfo {
   band: string,
@@ -18,6 +19,7 @@ export interface Price {
 
 export interface Artist {
   id?: string;
+  type?: ArtistTypes;
   name?: string;
   description?: string;
   city?: string;
