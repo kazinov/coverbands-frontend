@@ -7,13 +7,13 @@ import { EditArtistLinksModule } from '../edit-artist-links/edit-artist-links.mo
 import { EditArtistPricesModule } from '../edit-artist-prices/edit-artist-prices.module';
 import { EditArtistCoversModule } from '../edit-artist-covers/edit-artist-covers.module';
 import { EditArtistImagesModule } from '../edit-artist-images/edit-artist-images.module';
-import { EditMainArtistInfoModule } from '../edit-main-artist-info/edit-main-artist-info.module';
 import { EditArtistComponent } from './edit-artist.component';
+import { EditArtistMainInfoModule } from '../edit-artist-main-info/edit-artist-main-info.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    EditMainArtistInfoModule,
+    EditArtistMainInfoModule,
     EditArtistContactsModule,
     EditArtistCoversModule,
     MatExpansionModule,

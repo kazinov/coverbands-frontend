@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateBandComponent } from './create-band.component';
-import { EditMainArtistInfoModule } from '../edit-main-artist-info/edit-main-artist-info.module';
+import { EditArtistMainInfoModule } from '../edit-artist-main-info/edit-artist-main-info.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    EditMainArtistInfoModule
+    EditArtistMainInfoModule
   ],
   declarations: [
     CreateBandComponent

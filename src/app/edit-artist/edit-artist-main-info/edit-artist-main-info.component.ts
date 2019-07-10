@@ -13,12 +13,12 @@ import { Artist } from '../../core/bands/bands.model';
 const cityFilterFieldName = 'cityFilter';
 
 @Component({
-  selector: 'app-edit-main-artist-info',
-  templateUrl: './edit-main-artist-info.component.html',
-  styleUrls: ['./edit-main-artist-info.component.scss'],
+  selector: 'app-edit-artist-main-info',
+  templateUrl: './edit-artist-main-info.component.html',
+  styleUrls: ['./edit-artist-main-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditMainArtistInfoComponent implements OnInit, OnDestroy {
+export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   @Input() saveButtonText = 'Сохранить';
   @Input() artist: Artist;
   @Output() saveClick = new EventEmitter<Partial<Artist>>();

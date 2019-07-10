@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { EditMainArtistInfoComponent } from './edit-main-artist-info.component';
+import { EditArtistMainInfoComponent } from './edit-artist-main-info.component';
 
 @NgModule({
   imports: [
@@ -20,11 +20,11 @@ import { EditMainArtistInfoComponent } from './edit-main-artist-info.component';
     NgxMatSelectSearchModule
   ],
   declarations: [
-    EditMainArtistInfoComponent
+    EditArtistMainInfoComponent
   ],
   exports: [
-    EditMainArtistInfoComponent
+    EditArtistMainInfoComponent
   ]
 })
-export class EditMainArtistInfoModule {
+export class EditArtistMainInfoModule {
 }
