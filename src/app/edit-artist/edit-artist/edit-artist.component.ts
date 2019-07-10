@@ -57,12 +57,12 @@ const dummyBand: Artist = {
 };
 
 @Component({
-  selector: 'app-edit-band',
-  templateUrl: './edit-band.component.html',
-  styleUrls: ['./edit-band.component.scss'],
+  selector: 'app-edit-artist',
+  templateUrl: './edit-artist.component.html',
+  styleUrls: ['./edit-artist.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditBandComponent implements OnInit, OnDestroy {
+export class EditArtistComponent implements OnInit, OnDestroy {
   band$ = new BehaviorSubject(dummyBand);
   covers$: Observable<CoverInfo[]> = this.band$
     .pipe(
