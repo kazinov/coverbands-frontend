@@ -1,6 +1,6 @@
 import { props, union, createAction } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Countries } from '../countries/counries.model';
+import { Countries } from '@core/models/counries.model';
 
 export const loadCitiesAction = createAction('[Cities] load',
   props<{ countryId: Countries }>());

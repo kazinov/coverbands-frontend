@@ -5,11 +5,11 @@ import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
 import { SelectorOption } from '@shared/utils/selector-option';
 import { allCities } from '@core/cities/all-cities';
-import { Countries } from '@core/countries/counries.model';
 import { TranslationService } from '@core/translation/translation.service';
 import { allMusicGenres } from '@core/music-genres/all-music.genres';
 import { Artist } from '@core/artist/artist.model';
-import { ArtistTypes } from '@core/artist-types/artist-types.model';
+import { Countries } from '@core/models/counries.model';
+import { ArtistTypes } from '@core/models/artist-types.model';
 
 const cityFilterFieldName = 'cityFilter';
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { citiesAdapter, citiesFeatureName } from './cities.reducer';
 import { Dictionary, EntityState } from '@ngrx/entity';
 import { CitiesOfCountry } from './cities.model';
-import { Countries } from '../countries/counries.model';
+import { Countries } from '@core/models/counries.model';
 
 const selectors = citiesAdapter.getSelectors();
 

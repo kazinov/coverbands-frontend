@@ -1,4 +1,4 @@
-import { Countries } from '../countries/counries.model';
+import { Countries } from '@core/models/counries.model';
 
 export interface CitiesOfCountry {
   id: Countries;
