@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: AppPaths.Band,
-    loadChildren: () => import('./edit-artist/band.module').then(m => m.BandModule)
+    loadChildren: () => import('./artist-admin/band.module').then(m => m.BandModule)
   },
 ];
 

@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppPaths } from 'src/app/app-paths';
-import { BandPaths } from '../../edit-artist/band-paths';
+import { BandPaths } from '../../artist-admin/band-paths';
 
 @Component({
   selector: 'app-navbar',
