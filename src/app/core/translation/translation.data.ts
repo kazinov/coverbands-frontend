@@ -1,7 +1,6 @@
 import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
-import { VideoProviders } from '@core/models/video-providers.model';
 
 export const TranslationsRu = {
   cities: {
@@ -19,9 +18,5 @@ export const TranslationsRu = {
     [MusicGenres.Pop]: 'Поп',
     [MusicGenres.Rap]: 'Реп',
     [MusicGenres.Rock]: 'Рок',
-  },
-  videoProviders: {
-    [VideoProviders.Youtube]: 'Youtube',
-    [VideoProviders.Vk]: 'ВКонтакте'
   }
 };

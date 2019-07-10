@@ -5,21 +5,10 @@
       class="app-one-line-form"
       novalidate>
 
-  <mat-form-field class="video-providers-field margin-right-md">
-    <mat-select formControlName="provider">
-      <mat-option
-        *ngFor="let provider of videoProviders"
-        [value]="provider.id">
-        {{provider.label}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="form.get('provider').invalid">Обязательное поле</mat-error>
-  </mat-form-field>
-
   <mat-form-field class="margin-right-md ">
     <input formControlName="link"
            matInput
-           placeholder="Ссылка">
+           placeholder="Код для вставки">
     <mat-error *ngIf="linkRequiredError">Обязательное поле</mat-error>
     <mat-error *ngIf="videoEmbedFormatError">Неверный формат кода для вставки</mat-error>
   </mat-form-field>
@@ -51,7 +40,7 @@
       <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <a [href]="element.link"
-           target="_blank">{{element.link}}</a>
+           target="_blank">{{element}}</a>
       </mat-cell>
     </ng-container>
 

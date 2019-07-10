@@ -8,11 +8,6 @@ export interface Link {
   description: string;
 }
 
-export interface VideoLink {
-  link: string;
-  provider: string;
-}
-
 export interface Price {
   value: number;
   currency: string;
@@ -28,7 +23,7 @@ export interface Artist {
   genres?: string[];
   covers?: CoverInfo[];
   links?: Link[];
-  videos?: VideoLink[];
+  videos?: string[];
   profileImage?: string;
   profileImageThumb?: string;
   images?: string[];

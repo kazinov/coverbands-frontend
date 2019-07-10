@@ -5,11 +5,10 @@ import { FileHelper } from '@shared/utils/file-helper';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
-import { Artist, CoverInfo, Link, VideoLink } from '@core/artist/artist.model';
+import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
-import { VideoProviders } from '@core/models/video-providers.model';
 
 const dummyBand: Artist = {
   id: '123',
@@ -50,14 +49,8 @@ const dummyBand: Artist = {
     }
   ],
   videos: [
-    {
-      link: 'https://www.youtube.com/embed/M_4fyn_zsMo',
-      provider: VideoProviders.Youtube
-    },
-    {
-      link: 'https://www.youtube.com/embed/Lt5Cgx3hpeE',
-      provider: VideoProviders.Youtube
-    }
+    'https://www.youtube.com/embed/M_4fyn_zsMo',
+    'https://www.youtube.com/embed/Lt5Cgx3hpeE'
   ],
   profileImage: null,
   images: [
@@ -85,7 +78,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       map((band) => band ? band.links : null)
     );
 
-  videos$: Observable<VideoLink[]> = this.artist$
+  videos$: Observable<string[]> = this.artist$
     .pipe(
       map((band) => band ? band.videos : null)
     );
@@ -107,7 +100,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     console.log('links', links);
   }
 
-  onVideosSave(videos: VideoLink[]) {
+  onVideosSave(videos: string[]) {
     console.log('videos', videos);
   }
 

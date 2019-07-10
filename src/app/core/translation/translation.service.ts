@@ -11,7 +11,4 @@ export class TranslationService {
     return TranslationsRu.musicGenres[genreId];
   }
 
-  translateVideoProvider(provider: string) {
-    return TranslationsRu.videoProviders[provider];
-  }
 }
