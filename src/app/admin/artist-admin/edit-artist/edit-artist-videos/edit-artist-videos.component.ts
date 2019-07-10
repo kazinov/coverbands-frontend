@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { SelectorOption } from '@shared/utils/selector-option';
-import { TranslationService } from '@core/translation/translation.service';
 import { parseEmbeddedVideoSrc } from '@shared/utils/parse-embedded-video-src';
 import { videoEmbedFormatValidator } from '@artist-admin/edit-artist/edit-artist-videos/video-embed-format.validator';
+
+const EMBED_FORM_KEY = 'embed';
 
 @Component({
   selector: 'app-edit-artist-videos',
@@ -16,7 +16,7 @@ export class EditArtistVideosComponent implements OnInit {
   @Output() videosChange = new EventEmitter<string[]>();
   form: FormGroup;
   @ViewChild('formGroup', {static: true}) formGroup: FormGroupDirective;
-  tableColumns: string[] = ['link', 'remove'];
+  tableColumns: string[] = ['video', 'remove'];
 
   ngOnInit() {
     this.buildForms();
@@ -24,17 +24,14 @@ export class EditArtistVideosComponent implements OnInit {
 
   private buildForms(): void {
     this.form = this.formBuilder.group({
-      link: ['', [videoEmbedFormatValidator, Validators.required]]
+      [EMBED_FORM_KEY]: ['', [videoEmbedFormatValidator, Validators.required]]
     });
   }
 
   onLinkSubmit() {
-    const formValue: {link: string} = this.form.value;
-    formValue.link = parseEmbeddedVideoSrc(formValue.link);
-
     this.videos = [
       ...(this.videos || []),
-      this.form.value
+      parseEmbeddedVideoSrc(this.form.value.embed)
     ];
 
     this.videosChange.emit(this.videos);
@@ -55,7 +52,7 @@ export class EditArtistVideosComponent implements OnInit {
   }
 
   get linkRequiredError() {
-    const val = this.form.get('link');
+    const val = this.form.get(EMBED_FORM_KEY);
     return val.invalid && (val.errors as any).required;
   }
 
@@ -63,13 +60,12 @@ export class EditArtistVideosComponent implements OnInit {
     if (this.linkRequiredError) {
       return false;
     }
-    const val = this.form.get('link');
+    const val = this.form.get(EMBED_FORM_KEY);
     return val.invalid && (val.errors as any).invalidVideoEmbedFormat;
   }
 
   constructor(
-    private formBuilder: FormBuilder,
-    private translationService: TranslationService
+    private formBuilder: FormBuilder
   ) {
 
   }

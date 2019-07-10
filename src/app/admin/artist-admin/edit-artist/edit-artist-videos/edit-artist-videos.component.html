@@ -6,7 +6,7 @@
       novalidate>
 
   <mat-form-field class="margin-right-md ">
-    <input formControlName="link"
+    <input formControlName="embed"
            matInput
            placeholder="Код для вставки">
     <mat-error *ngIf="linkRequiredError">Обязательное поле</mat-error>
@@ -36,10 +36,10 @@
   <mat-table *ngIf="linksExist"
              [dataSource]="videos" class="app-form-table">
 
-    <ng-container matColumnDef="link">
+    <ng-container matColumnDef="video">
       <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <a [href]="element.link"
+        <a [href]="element"
            target="_blank">{{element}}</a>
       </mat-cell>
     </ng-container>
