@@ -1,7 +1,7 @@
 <div class="app-form-wrapper">
     <h3 class="app-form-header">Изменить профиль</h3>
 
-    <mat-accordion *ngIf="band$ | async">
+    <mat-accordion *ngIf="artist$ | async">
         <mat-expansion-panel expanded="true">
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -9,8 +9,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-edit-artist-main-info
-                    *ngIf="!!(band$ | async)"
-                    [artist]="band$ | async"
+                    [artist]="artist$ | async"
                     (saveClick)="onMainInfoSave($event)">
             </app-edit-artist-main-info>
         </mat-expansion-panel>
@@ -21,8 +20,7 @@
                     Контакты
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-edit-artist-contacts *ngIf="!!(band$ | async)"
-                                      [artist]="band$ | async"
+            <app-edit-artist-contacts [artist]="artist$ | async"
                                       (saveClick)="onContactsSave($event)">
             </app-edit-artist-contacts>
         </mat-expansion-panel>
@@ -33,8 +31,7 @@
                     Ссылки
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-edit-artist-links *ngIf="!!(links$ | async)"
-                                   [links]="links$ | async"
+            <app-edit-artist-links [links]="links$ | async"
                                    (linksChange)="onLinksSave($event)">
             </app-edit-artist-links>
         </mat-expansion-panel>
@@ -45,8 +42,7 @@
                     Цены
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-edit-artist-prices *ngIf="!!(band$ | async)"
-                                    [prices]="band$ | async"
+            <app-edit-artist-prices [prices]="artist$ | async"
                                     (pricesChange)="onPricesSave($event)"></app-edit-artist-prices>
         </mat-expansion-panel>
 
@@ -68,7 +64,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-edit-artist-images
-                    [artist]="band$ | async"
+                    [artist]="artist$ | async"
                     (profileImageAttached)="onProfileImageAttached($event)"
                     (profileImageDelete)="onProfileImageDelete($event)"
                     (imageAttached)="onImageAttached($event)"
@@ -82,13 +78,16 @@
                     Видео
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            Видео
+            <app-edit-artist-videos
+              [videos]="videos$ | async"
+              (videosChange)="onVideosSave($event)">
+            </app-edit-artist-videos>
         </mat-expansion-panel>
 
     </mat-accordion>
 
     <div class="spinner-spacer"
-         *ngIf="!(band$ | async)">
+         *ngIf="!(artist$ | async)">
         <mat-spinner>
         </mat-spinner>
     </div>

@@ -9,6 +9,7 @@ import { EditArtistCoversModule } from '../edit-artist-covers/edit-artist-covers
 import { EditArtistImagesModule } from '../edit-artist-images/edit-artist-images.module';
 import { EditArtistComponent } from './edit-artist.component';
 import { EditArtistMainInfoModule } from '../edit-artist-main-info/edit-artist-main-info.module';
+import { EditArtistVideosModule } from '@artist-admin/edit-artist/edit-artist-videos/edit-artist-videos.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { EditArtistMainInfoModule } from '../edit-artist-main-info/edit-artist-m
     MatProgressSpinnerModule,
     EditArtistLinksModule,
     EditArtistPricesModule,
-    EditArtistImagesModule
+    EditArtistImagesModule,
+    EditArtistVideosModule
   ],
   declarations: [
     EditArtistComponent

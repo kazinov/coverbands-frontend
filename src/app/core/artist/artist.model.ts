@@ -1,6 +1,3 @@
-import { Currencies } from '@core/models/currencies.model';
-import { ArtistTypes } from '@core/models/artist-types.model';
-
 export interface CoverInfo {
   band: string;
   song: string;
@@ -9,6 +6,11 @@ export interface CoverInfo {
 export interface Link {
   link: string;
   description: string;
+}
+
+export interface VideoLink {
+  link: string;
+  provider: string;
 }
 
 export interface Price {
@@ -26,6 +28,7 @@ export interface Artist {
   genres?: string[];
   covers?: CoverInfo[];
   links?: Link[];
+  videos?: VideoLink[];
   profileImage?: string;
   profileImageThumb?: string;
   images?: string[];

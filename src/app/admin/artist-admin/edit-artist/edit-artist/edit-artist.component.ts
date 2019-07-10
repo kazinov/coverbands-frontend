@@ -5,10 +5,11 @@ import { FileHelper } from '@shared/utils/file-helper';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
-import { Artist, Link, CoverInfo } from '@core/artist/artist.model';
+import { Artist, CoverInfo, Link, VideoLink } from '@core/artist/artist.model';
 import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
+import { VideoProviders } from '@core/models/video-providers.model';
 
 const dummyBand: Artist = {
   id: '123',
@@ -48,6 +49,16 @@ const dummyBand: Artist = {
       description: 'Мы в facebook'
     }
   ],
+  videos: [
+    {
+      link: 'https://www.youtube.com/embed/M_4fyn_zsMo',
+      provider: VideoProviders.Youtube
+    },
+    {
+      link: 'https://www.youtube.com/embed/Lt5Cgx3hpeE',
+      provider: VideoProviders.Youtube
+    }
+  ],
   profileImage: null,
   images: [
     '/assets/images/eminem.jpg',
@@ -64,15 +75,21 @@ const dummyBand: Artist = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistComponent implements OnInit, OnDestroy {
-  band$ = new BehaviorSubject(dummyBand);
-  covers$: Observable<CoverInfo[]> = this.band$
+  artist$ = new BehaviorSubject(dummyBand);
+  covers$: Observable<CoverInfo[]> = this.artist$
     .pipe(
       map((band) => band ? band.covers : null)
     );
-  links$: Observable<Link[]> = this.band$
+  links$: Observable<Link[]> = this.artist$
     .pipe(
       map((band) => band ? band.links : null)
     );
+
+  videos$: Observable<VideoLink[]> = this.artist$
+    .pipe(
+      map((band) => band ? band.videos : null)
+    );
+
   ngUnsubscribe$ = new Subject<void>();
 
   ngOnInit() {
@@ -88,6 +105,10 @@ export class EditArtistComponent implements OnInit, OnDestroy {
 
   onLinksSave(links: Link[]) {
     console.log('links', links);
+  }
+
+  onVideosSave(videos: VideoLink[]) {
+    console.log('videos', videos);
   }
 
   onPricesSave(prices: Artist) {
@@ -132,7 +153,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     this.fakeEmitBandChange((band: Artist) => {
       band.images = band.images.filter((image: string) => {
         if ((image as any).changingThisBreaksApplicationSecurity
-        && (imageUrl as any).changingThisBreaksApplicationSecurity) {
+          && (imageUrl as any).changingThisBreaksApplicationSecurity) {
           return (image as any).changingThisBreaksApplicationSecurity
             !== (imageUrl as any).changingThisBreaksApplicationSecurity;
         }
@@ -155,9 +176,9 @@ export class EditArtistComponent implements OnInit, OnDestroy {
 
   // TODO: remove when backend implemented
   private fakeEmitBandChange(changeBand: (band: Artist) => Artist) {
-    let clone: Artist = cloneDeep(this.band$.getValue());
+    let clone: Artist = cloneDeep(this.artist$.getValue());
     clone = changeBand(clone);
-    this.band$.next(clone);
+    this.artist$.next(clone);
     this.changeDetectorRef.markForCheck();
   }
 

@@ -1,0 +1,14 @@
+@import "app/shared/styles/common";
+
+:host {
+  .mat-column-link {
+    a {
+      width: 100%;
+    }
+  }
+
+  .mat-column-remove {
+    flex: 0 0 90px;
+  }
+
+}

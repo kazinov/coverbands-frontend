@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { IMaskModule } from 'angular-imask';
-import { EditArtistLinksComponent } from './edit-artist-links.component';
+import { EditArtistVideosComponent } from '@artist-admin/edit-artist/edit-artist-videos/edit-artist-videos.component';
 
 @NgModule({
   imports: [
@@ -22,11 +22,11 @@ import { EditArtistLinksComponent } from './edit-artist-links.component';
     MatIconModule
   ],
   declarations: [
-    EditArtistLinksComponent
+    EditArtistVideosComponent
   ],
   exports: [
-    EditArtistLinksComponent
+    EditArtistVideosComponent
   ]
 })
-export class EditArtistLinksModule {
+export class EditArtistVideosModule {
 }
