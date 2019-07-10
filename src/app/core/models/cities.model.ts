@@ -6,5 +6,5 @@ export const Cities = {
   Yaroslavl: 'yaroslavl'
 };
 
-export const allCities = Object.keys(Cities)
+export const ALL_CITIES = Object.keys(Cities)
   .map((key: string) => Cities[key]);

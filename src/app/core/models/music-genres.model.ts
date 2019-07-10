@@ -6,5 +6,5 @@ export const MusicGenres = {
   Jazz: 'jazz'
 };
 
-export const allMusicGenres = Object.keys(MusicGenres)
+export const ALL_MUSIC_GENRES = Object.keys(MusicGenres)
   .map((key: string) => MusicGenres[key]);

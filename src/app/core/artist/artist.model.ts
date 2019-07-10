@@ -13,13 +13,13 @@ export interface Link {
 
 export interface Price {
   value: number;
-  currency: Currencies;
+  currency: string;
   service: string;
 }
 
 export interface Artist {
   id?: string;
-  type?: ArtistTypes;
+  type?: string;
   name?: string;
   description?: string;
   city?: string;

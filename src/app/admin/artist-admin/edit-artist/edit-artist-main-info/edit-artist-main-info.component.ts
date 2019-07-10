@@ -8,8 +8,8 @@ import { TranslationService } from '@core/translation/translation.service';
 import { Artist } from '@core/artist/artist.model';
 import { Countries } from '@core/models/counries.model';
 import { ArtistTypes } from '@core/models/artist-types.model';
-import { allMusicGenres } from '@core/models/music-genres.model';
-import { allCities } from '@core/models/cities.model';
+import { ALL_MUSIC_GENRES } from '@core/models/music-genres.model';
+import { ALL_CITIES } from '@core/models/cities.model';
 
 const cityFilterFieldName = 'cityFilter';
 
@@ -27,13 +27,13 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   genres: SelectorOption[]
-    = allMusicGenres.map((genreId) => ({
+    = ALL_MUSIC_GENRES.map((genreId) => ({
     id: genreId,
     label: this.translationService.translateMusicGenre(genreId)
   }));
 
   cities: SelectorOption[]
-    = allCities.map((cityId) => ({
+    = ALL_CITIES.map((cityId) => ({
     id: cityId,
     label: this.translationService.translateCity(Countries.Russia, cityId)
   }));
