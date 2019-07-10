@@ -33,10 +33,10 @@
                     Ссылки
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-band-links *ngIf="!!(links$ | async)"
-                            [links]="links$ | async"
-                            (linksChange)="onLinksSave($event)">
-            </app-band-links>
+            <app-edit-artist-links *ngIf="!!(links$ | async)"
+                                   [links]="links$ | async"
+                                   (linksChange)="onLinksSave($event)">
+            </app-edit-artist-links>
         </mat-expansion-panel>
 
         <mat-expansion-panel>

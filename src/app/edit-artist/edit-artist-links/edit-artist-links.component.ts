@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { BandLink } from '../../core/bands/bands.model';
 
 @Component({
-  selector: 'app-band-links',
-  templateUrl: './band-links.component.html',
-  styleUrls: ['./band-links.component.scss'],
+  selector: 'app-edit-artist-links',
+  templateUrl: './edit-artist-links.component.html',
+  styleUrls: ['./edit-artist-links.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BandLinksComponent implements OnInit {
+export class EditArtistLinksComponent implements OnInit {
   @Input() links: BandLink[];
   @Output() linksChange = new EventEmitter<BandLink[]>();
   form: FormGroup;

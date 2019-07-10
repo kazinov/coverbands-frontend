@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import {IMaskModule} from 'angular-imask';
-import { BandLinksComponent } from './band-links.component';
+import { EditArtistLinksComponent } from './edit-artist-links.component';
 
 @NgModule({
   imports: [
@@ -22,11 +22,11 @@ import { BandLinksComponent } from './band-links.component';
     MatIconModule
   ],
   declarations: [
-    BandLinksComponent
+    EditArtistLinksComponent
   ],
   exports: [
-    BandLinksComponent
+    EditArtistLinksComponent
   ]
 })
-export class BandLinksModule {
+export class EditArtistLinksModule {
 }
