@@ -18,12 +18,12 @@ const emailFormName = 'email';
 const phoneNumberFormName = 'phoneNumber';
 
 @Component({
-  selector: 'app-band-contacts',
-  templateUrl: './band-contacts.component.html',
-  styleUrls: ['./band-contacts.component.scss'],
+  selector: 'app-edit-artist-contacts',
+  templateUrl: './edit-artist-contacts.component.html',
+  styleUrls: ['./edit-artist-contacts.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BandContactsComponent implements OnInit {
+export class EditArtistContactsComponent implements OnInit {
   @Input() artist: Artist;
   @Output() saveClick = new EventEmitter<Partial<Artist>>();
   form: FormGroup;

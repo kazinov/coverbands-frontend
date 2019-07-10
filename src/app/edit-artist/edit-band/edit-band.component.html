@@ -21,10 +21,10 @@
                     Контакты
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-band-contacts *ngIf="!!(band$ | async)"
-                               [artist]="band$ | async"
-                               (saveClick)="onContactsSave($event)">
-            </app-band-contacts>
+            <app-edit-artist-contacts *ngIf="!!(band$ | async)"
+                                      [artist]="band$ | async"
+                                      (saveClick)="onContactsSave($event)">
+            </app-edit-artist-contacts>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
