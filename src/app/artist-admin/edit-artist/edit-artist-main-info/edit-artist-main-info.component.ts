@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
-import { SelectorOption } from '../../shared/utils/selector-option';
-import { allCities } from '../../core/cities/all-cities';
-import { Countries } from '../../core/countries/counries.model';
-import { TranslationService } from '../../core/translation/translation.service';
-import { allMusicGenres } from '../../core/music-genres/all-music.genres';
-import { Artist } from '../../core/bands/bands.model';
+import { SelectorOption } from '@shared/utils/selector-option';
+import { allCities } from '@core/cities/all-cities';
+import { Countries } from '@core/countries/counries.model';
+import { TranslationService } from '@core/translation/translation.service';
+import { allMusicGenres } from '@core/music-genres/all-music.genres';
+import { Artist } from '@core/bands/bands.model';
 
 const cityFilterFieldName = 'cityFilter';
 

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Artist } from '../../core/bands/bands.model';
-import { ImageCropperHelper } from '../../shared/utils/image-cropper-helper';
-import { ResizeImageSettings, Side } from '../../shared/utils/resizing.utils';
-import { ImagesUploadResults } from '../../shared/images-uploader/images-uploader.component';
+import { Artist } from '@core/bands/bands.model';
+import { ImageCropperHelper } from '@shared/utils/image-cropper-helper';
+import { ResizeImageSettings, Side } from '@shared/utils/resizing.utils';
+import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
 
 const BAND_PROFILE_THUMB_IMAGE_WIDTH = 200;
 const BAND_IMAGE_HEIGHT = 600;

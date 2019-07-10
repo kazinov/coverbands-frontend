@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppPaths } from 'src/app/app-paths';
 import { ArtistAdminPaths } from '../../artist-admin/artist-admin-paths';
+import { AppPaths } from '../../app-paths';
 
 @Component({
   selector: 'app-navbar',

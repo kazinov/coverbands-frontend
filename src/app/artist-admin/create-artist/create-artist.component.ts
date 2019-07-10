@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Artist } from '../../core/bands/bands.model';
+import { Artist } from '@core/bands/bands.model';
 
 @Component({
   selector: 'app-create-artist',

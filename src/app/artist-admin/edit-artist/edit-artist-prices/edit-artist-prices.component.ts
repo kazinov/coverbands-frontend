@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { Currencies } from '../../core/currencies/currencies.model';
-import { Artist, Price } from '../../core/bands/bands.model';
+import { Currencies } from '@core/currencies/currencies.model';
+import { Artist, Price } from '@core/bands/bands.model';
 
 @Component({
   selector: 'app-edit-artist-prices',

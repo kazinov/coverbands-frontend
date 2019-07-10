@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Artist } from '../../core/bands/bands.model';
+import { Artist } from '@core/bands/bands.model';
 
 interface PhoneFormInputConfig {
   mask: string,

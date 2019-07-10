@@ -1,12 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "",
     "outDir": "../out-tsc/app",
     "types": [],
     "paths": {
       "@shared/*": ["app/shared/*"],
       "@core/*": ["app/core/*"],
-      "@band/*": ["app/band/*"],
       "@home/*": ["app/home/*"]
     }
   },
