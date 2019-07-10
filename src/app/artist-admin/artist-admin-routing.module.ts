@@ -1,17 +1,17 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { BandPaths } from './band-paths';
 import { EditArtistComponent } from './edit-artist/edit-artist.component';
 import { CreateArtistComponent } from './create-artist/create-artist.component';
+import { ArtistAdminPaths } from './artist-admin-paths';
 
 export const bandRoutes: Routes = [
-  {path: '', redirectTo: BandPaths.Create, pathMatch: 'full'},
+  {path: '', redirectTo: ArtistAdminPaths.Create, pathMatch: 'full'},
   {
-    path: BandPaths.Create,
+    path: ArtistAdminPaths.Create,
     component: CreateArtistComponent
   },
   {
-    path: BandPaths.Edit + '/:id',
+    path: ArtistAdminPaths.Edit + '/:id',
     component: EditArtistComponent
   }
 ];
@@ -19,5 +19,5 @@ export const bandRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(bandRoutes)]
 })
-export class BandRoutingModule {
+export class ArtistAdminRoutingModule {
 }

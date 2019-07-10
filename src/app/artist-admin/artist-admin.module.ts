@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import { BandRoutingModule } from './band-routing.module';
 import { CommonModule } from '@angular/common';
 import { EditArtistModule } from './edit-artist/edit-artist.module';
 import { CreateArtistModule } from './create-artist/create-artist.module';
+import { ArtistAdminRoutingModule } from './artist-admin-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    BandRoutingModule,
+    ArtistAdminRoutingModule,
     CreateArtistModule,
     EditArtistModule
   ]
 })
-export class BandModule {
+export class ArtistAdminModule {
 }

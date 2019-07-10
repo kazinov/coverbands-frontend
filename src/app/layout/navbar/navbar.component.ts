@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppPaths } from 'src/app/app-paths';
-import { BandPaths } from '../../artist-admin/band-paths';
+import { ArtistAdminPaths } from '../../artist-admin/artist-admin-paths';
 
 @Component({
   selector: 'app-navbar',
@@ -19,11 +19,11 @@ export class NavbarComponent {
     );
 
   get editBandUrl() {
-    return `/${AppPaths.Band}/${BandPaths.Edit}/123`
+    return `/${AppPaths.Band}/${ArtistAdminPaths.Edit}/123`
   }
 
   get createBandUrl() {
-    return `/${AppPaths.Band}/${BandPaths.Create}`
+    return `/${AppPaths.Band}/${ArtistAdminPaths.Create}`
   }
 
   constructor(private breakpointObserver: BreakpointObserver) {}
