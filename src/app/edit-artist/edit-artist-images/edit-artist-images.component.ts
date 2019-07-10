@@ -29,12 +29,12 @@ const BAND_IMAGE_RESIZE_SETTINGS: ResizeImageSettings = {
 export const MAX_BAND_IMAGES = 5;
 
 @Component({
-  selector: 'app-edit-band-images',
-  templateUrl: './edit-band-images.component.html',
-  styleUrls: ['./edit-band-images.component.scss'],
+  selector: 'app-edit-artist-images',
+  templateUrl: './edit-artist-images.component.html',
+  styleUrls: ['./edit-artist-images.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditBandImagesComponent implements OnInit {
+export class EditArtistImagesComponent implements OnInit {
   @Input() artist: Artist;
   @Output() profileImageAttached = new EventEmitter<ImagesUploadResults>();
   @Output() profileImageDelete = new EventEmitter<string>();

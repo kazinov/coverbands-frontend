@@ -67,13 +67,13 @@
                     Фото
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-edit-band-images
+            <app-edit-artist-images
                     [artist]="band$ | async"
                     (profileImageAttached)="onProfileImageAttached($event)"
                     (profileImageDelete)="onProfileImageDelete($event)"
                     (imageAttached)="onImageAttached($event)"
                     (imageDelete)="onImageDelete($event)"
-            ></app-edit-band-images>
+            ></app-edit-artist-images>
         </mat-expansion-panel>
 
         <mat-expansion-panel>

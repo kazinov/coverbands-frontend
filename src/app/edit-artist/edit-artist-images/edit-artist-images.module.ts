@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EditBandImagesComponent } from './edit-band-images.component';
 import { ImagesUploaderModule } from '../../shared/images-uploader/images-uploader.module';
+import { EditArtistImagesComponent } from './edit-artist-images.component';
 
 @NgModule({
   imports: [
@@ -9,11 +9,11 @@ import { ImagesUploaderModule } from '../../shared/images-uploader/images-upload
     ImagesUploaderModule
   ],
   declarations: [
-    EditBandImagesComponent
+    EditArtistImagesComponent
   ],
   exports: [
-    EditBandImagesComponent
+    EditArtistImagesComponent
   ]
 })
-export class EditBandImagesModule {
+export class EditArtistImagesModule {
 }
