@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditArtistMainInfoModule } from '../edit-artist-main-info/edit-artist-main-info.module';
-import { CreateBandComponent } from './create-band.component';
+import { CreateArtistComponent } from './create-artist.component';
 
 @NgModule({
   imports: [
@@ -9,11 +9,11 @@ import { CreateBandComponent } from './create-band.component';
     EditArtistMainInfoModule
   ],
   declarations: [
-    CreateBandComponent
+    CreateArtistComponent
   ],
   exports: [
-    CreateBandComponent
+    CreateArtistComponent
   ]
 })
-export class CreateBandModule {
+export class CreateArtistModule {
 }

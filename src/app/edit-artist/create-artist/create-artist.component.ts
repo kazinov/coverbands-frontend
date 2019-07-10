@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Artist } from '../../core/bands/bands.model';
 
 @Component({
-  selector: 'app-create-band',
-  templateUrl: './create-band.component.html',
-  styleUrls: ['./create-band.component.scss'],
+  selector: 'app-create-artist',
+  templateUrl: './create-artist.component.html',
+  styleUrls: ['./create-artist.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateBandComponent implements OnInit {
+export class CreateArtistComponent implements OnInit {
   constructor() {
   }
 
