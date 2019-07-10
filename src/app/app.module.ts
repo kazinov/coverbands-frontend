@@ -11,7 +11,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
-import { MusicGenresModule } from '@core/music-genres/music-genres.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CitiesModule } from '@core/cities/cities.module';
@@ -28,7 +27,6 @@ import { TranslationModule } from '@core/translation/translation.module';
     HttpClientModule,
     MatSnackBarModule,
     AppLayoutModule,
-    MusicGenresModule,
     CitiesModule,
     TranslationModule,
     StoreModule.forRoot(reducers, { metaReducers }),

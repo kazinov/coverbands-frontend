@@ -6,10 +6,10 @@ import omit from 'lodash-es/omit';
 import { SelectorOption } from '@shared/utils/selector-option';
 import { allCities } from '@core/cities/all-cities';
 import { TranslationService } from '@core/translation/translation.service';
-import { allMusicGenres } from '@core/music-genres/all-music.genres';
 import { Artist } from '@core/artist/artist.model';
 import { Countries } from '@core/models/counries.model';
 import { ArtistTypes } from '@core/models/artist-types.model';
+import { allMusicGenres } from '@core/models/music-genres.model';
 
 const cityFilterFieldName = 'cityFilter';
 
