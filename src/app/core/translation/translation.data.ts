@@ -1,6 +1,6 @@
-import { Cities } from '../cities/cities.data';
 import { Countries } from '@core/models/counries.model';
 import { MusicGenres } from '@core/models/music-genres.model';
+import { Cities } from '@core/models/cities.model';
 
 export const TranslationsRu = {
   cities: {

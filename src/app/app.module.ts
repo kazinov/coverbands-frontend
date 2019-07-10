@@ -13,7 +13,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CitiesModule } from '@core/cities/cities.module';
 import { TranslationModule } from '@core/translation/translation.module';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { TranslationModule } from '@core/translation/translation.module';
     HttpClientModule,
     MatSnackBarModule,
     AppLayoutModule,
-    CitiesModule,
     TranslationModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],

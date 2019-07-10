@@ -4,12 +4,12 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
 import { SelectorOption } from '@shared/utils/selector-option';
-import { allCities } from '@core/cities/all-cities';
 import { TranslationService } from '@core/translation/translation.service';
 import { Artist } from '@core/artist/artist.model';
 import { Countries } from '@core/models/counries.model';
 import { ArtistTypes } from '@core/models/artist-types.model';
 import { allMusicGenres } from '@core/models/music-genres.model';
+import { allCities } from '@core/models/cities.model';
 
 const cityFilterFieldName = 'cityFilter';
 
