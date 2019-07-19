@@ -50,6 +50,10 @@ const dummyBand: Artist = {
   ],
   videos: [
     'https://www.youtube.com/embed/M_4fyn_zsMo',
+    'https://www.youtube.com/embed/Lt5Cgx3hpeE',
+    'https://www.youtube.com/embed/M_4fyn_zsMo',
+    'https://www.youtube.com/embed/Lt5Cgx3hpeE',
+    'https://www.youtube.com/embed/M_4fyn_zsMo',
     'https://www.youtube.com/embed/Lt5Cgx3hpeE'
   ],
   profileImage: null,

@@ -37,7 +37,6 @@
              [dataSource]="videos" class="app-form-table">
 
     <ng-container matColumnDef="video">
-      <mat-header-cell *matHeaderCellDef> Ссылка</mat-header-cell>
       <mat-cell *matCellDef="let link">
         <app-embedded-video
           [width]="340"
@@ -47,7 +46,6 @@
     </ng-container>
 
     <ng-container matColumnDef="remove">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let link" mat-cell>
         <button (click)="onLinkDelete(link)" color="primary"
                 mat-button>Удалить
@@ -55,7 +53,6 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
   </mat-table>
 </div>
