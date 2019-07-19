@@ -6,9 +6,12 @@
       novalidate>
 
   <mat-form-field class="margin-right-md ">
-    <input formControlName="embed"
-           matInput
-           placeholder="Код для вставки">
+    <textarea matInput
+              placeholder="Код для вставки"
+              formControlName="embed"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="8"></textarea>
     <mat-error *ngIf="linkRequiredError">Обязательное поле</mat-error>
     <mat-error *ngIf="videoEmbedFormatError">Неверный формат кода для вставки</mat-error>
   </mat-form-field>
