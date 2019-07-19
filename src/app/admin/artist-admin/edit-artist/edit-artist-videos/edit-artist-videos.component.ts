@@ -1,7 +1,18 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { parseEmbeddedVideoSrc } from '@shared/utils/parse-embedded-video-src';
 import { videoEmbedFormatValidator } from '@artist-admin/edit-artist/edit-artist-videos/video-embed-format.validator';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { EditArtistVideoHelpDialogComponent } from '@artist-admin/edit-artist/edit-artist-videos/edit-artist-video-help-dialog/edit-artist-video-help-dialog.component';
 
 const EMBED_FORM_KEY = 'embed';
 
@@ -11,12 +22,13 @@ const EMBED_FORM_KEY = 'embed';
   styleUrls: ['./edit-artist-videos.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditArtistVideosComponent implements OnInit {
+export class EditArtistVideosComponent implements OnInit, OnDestroy {
   @Input() videos: string[];
   @Output() videosChange = new EventEmitter<string[]>();
   form: FormGroup;
   @ViewChild('formGroup', {static: true}) formGroup: FormGroupDirective;
   tableColumns: string[] = ['video', 'remove'];
+  helpDialogRef: MatDialogRef<any>;
 
   ngOnInit() {
     this.buildForms();
@@ -64,8 +76,21 @@ export class EditArtistVideosComponent implements OnInit {
     return val.invalid && (val.errors as any).invalidVideoEmbedFormat;
   }
 
+  onHelpClick() {
+    this.helpDialogRef = this.dialog.open(EditArtistVideoHelpDialogComponent, {
+      width: '600px',
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.helpDialogRef) {
+      this.helpDialogRef.close();
+    }
+  }
+
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
   ) {
 
   }
