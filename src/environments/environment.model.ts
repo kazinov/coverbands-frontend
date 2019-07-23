@@ -1,4 +1,4 @@
-import { FirebaseOptions } from '@angular/fire';
+import { FirebaseOptions } from '@core/firebase/firebase.service';
 
 export interface EnvironmentConfig {
   production: boolean;

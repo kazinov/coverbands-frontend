@@ -14,7 +14,7 @@ import { AppEffects } from './app.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslationModule } from '@core/translation/translation.module';
-import { AngularFireModule } from '@angular/fire';
+import { FirebaseModule } from '@core/firebase/firebase.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { AngularFireModule } from '@angular/fire';
     MatSnackBarModule,
     AppLayoutModule,
     TranslationModule,
+    FirebaseModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: environment.production ? {} : {
@@ -39,7 +40,6 @@ import { AngularFireModule } from '@angular/fire';
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects]),
-    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]
