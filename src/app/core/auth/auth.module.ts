@@ -6,19 +6,22 @@ import { AuthSelectors } from '@core/auth/auth.selectors';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@core/auth/auth.effects';
 import { AuthService } from '@core/auth/auth.service';
+import { AuthComponentsModule } from '@core/auth/auth-components/auth-components.module';
 
 @NgModule({
   imports: [
     StoreModule.forFeature(AUTH_STORE_KEY, authReducer),
     EffectsModule.forFeature([
       AuthEffects
-    ])
+    ]),
+    AuthComponentsModule
   ],
   providers: [
     AuthSelectors,
     AuthService
   ],
-  bootstrap: []
+  bootstrap: [],
+  declarations: []
 })
 export class AuthModule {
   constructor(@Optional() @SkipSelf() parentModule?: AuthModule) {

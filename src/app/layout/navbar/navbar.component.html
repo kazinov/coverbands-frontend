@@ -10,17 +10,23 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar color="primary">
+        <mat-toolbar class="toolbar" color="primary">
+          <div class="stick-left">
             <button
-                    type="button"
-                    aria-label="Toggle sidenav"
-                    mat-icon-button
-                    (click)="drawer.toggle()">
-                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+              type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <span>coverbands-frontend</span>
             <a mat-button [routerLink]="createBandUrl">Create</a>
             <a mat-button [routerLink]="editBandUrl">Edit</a>
+          </div>
+          <div class="stick-right">
+            <button mat-button>Регистрация</button>
+            <button mat-button (click)="openAuthDialog()">Вход</button>
+          </div>
         </mat-toolbar>
         <div class="page-content-wrapper">
             <ng-content></ng-content>

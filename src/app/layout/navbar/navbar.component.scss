@@ -19,3 +19,15 @@
 .page-content-wrapper {
   margin: 15px;
 }
+
+.toolbar {
+  display: flex;
+
+  .stick-left {
+    flex: 1;
+  }
+
+  .stick-right {
+    justify-content: flex-end;
+  }
+}
