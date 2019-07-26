@@ -15,6 +15,7 @@ import { RegisterComponent } from '@core/auth/auth-components/register/register.
 import { ForgotPasswordComponent } from '@core/auth/auth-components/forgot-password/forgot-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { PasswordResetLinkSentComponent } from '@core/auth/auth-components/password-reset-link-sent/password-reset-link-sent.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     AuthDialogComponent,
     SignInComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PasswordResetLinkSentComponent
   ],
   entryComponents: [AuthDialogComponent]
 })

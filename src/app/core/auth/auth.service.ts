@@ -24,6 +24,7 @@ export class AuthService {
   openAuthDialog(tab?: AuthDialogTab) {
     this.authgDialogRef = this.dialog.open(AuthDialogComponent, {
       width: '600px',
+      disableClose: true,
       data: {
         tab
       } as AuthDialogOptions

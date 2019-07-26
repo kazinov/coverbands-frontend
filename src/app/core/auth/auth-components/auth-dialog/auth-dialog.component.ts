@@ -11,7 +11,7 @@ import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 export class AuthDialogComponent implements OnInit {
   currentTab = AuthDialogTab.Login;
   AuthDialogTab = AuthDialogTab;
-
+  passwordResetLinkSentEmail = 'blabla@bla.com'
   isLoading = false;
 
   onSubmitClick() {
@@ -43,6 +43,10 @@ export class AuthDialogComponent implements OnInit {
 
   onRegister(credentials: CredentialsWithName) {
     console.error('register', credentials);
+  }
+
+  onResetPassword(email) {
+    console.error('reset', email);
   }
 
   get header() {

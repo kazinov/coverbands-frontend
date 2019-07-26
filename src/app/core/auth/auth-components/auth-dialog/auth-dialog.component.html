@@ -10,21 +10,26 @@
     *ngIf="currentTab === AuthDialogTab.Login"
     (signIn)="onSignIn($event)"
     (goToRegister)="goToTab(AuthDialogTab.Register)"
-    (goToForgotPassword)="goToTab(AuthDialogTab.ForgotPassword)"
-  ></app-sign-in>
+    (goToForgotPassword)="goToTab(AuthDialogTab.ForgotPassword)">
+  </app-sign-in>
 
   <app-register
     *ngIf="currentTab === AuthDialogTab.Register"
     (register)="onRegister($event)"
-    (goToLogIn)="goToTab(AuthDialogTab.Login)"
-  >
-
+    (goToLogIn)="goToTab(AuthDialogTab.Login)">
   </app-register>
 
   <app-forgot-password
-    *ngIf="currentTab === AuthDialogTab.ForgotPassword">
-
+    *ngIf="currentTab === AuthDialogTab.ForgotPassword"
+    (goBack)="goToTab(AuthDialogTab.Login)"
+    (resetPassword)="onResetPassword($event)">
   </app-forgot-password>
+
+  <app-password-reset-link-sent
+    *ngIf="currentTab === AuthDialogTab.PasswordResetLinkSent"
+    [passwordResetLinkSentEmail]="passwordResetLinkSentEmail"
+    (goBack)="goToTab(AuthDialogTab.Login)">
+  </app-password-reset-link-sent>
 </div>
 
 <div class="spinner-container"

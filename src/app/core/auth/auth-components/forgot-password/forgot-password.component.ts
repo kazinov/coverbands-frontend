@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password',
@@ -6,10 +7,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
+  @Output() goBack = new EventEmitter();
+  @Output() resetPassword = new EventEmitter<string>();
+  form: FormGroup;
 
-  constructor() { }
+  emailControl: AbstractControl;
+
+  private initForm() {
+    this.form = new FormGroup({});
+    this.form.registerControl('email', this.emailControl = new FormControl('',
+      [
+        Validators.required,
+        Validators.email
+      ]));
+  }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  onSubmit() {
+    if (!this.form.valid) {
+      return;
+    }
+
+    this.resetPassword.emit(this.form.value.email);
+  }
+
+  constructor() {
   }
 
 }

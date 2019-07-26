@@ -1,7 +1,8 @@
 export enum AuthDialogTab {
   Login,
   Register,
-  ForgotPassword
+  ForgotPassword,
+  PasswordResetLinkSent
 }
 
 export interface AuthDialogOptions {
