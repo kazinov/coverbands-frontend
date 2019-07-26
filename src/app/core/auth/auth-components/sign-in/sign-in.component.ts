@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Credentials } from '@core/auth/auth.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,6 +9,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class SignInComponent implements OnInit {
   @Output() forgotPassword = new EventEmitter();
+  @Output() register = new EventEmitter();
+  @Output() signIn = new EventEmitter<Credentials>();
 
   form: FormGroup;
   emailControl: AbstractControl;
@@ -36,8 +39,10 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
+    if (!this.form.valid) {
       return;
     }
+
+    this.signIn.emit(this.form.value);
   }
 }

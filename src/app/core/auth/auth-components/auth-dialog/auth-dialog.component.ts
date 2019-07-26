@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AuthDialogOptions } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
+import { Credentials } from '@core/auth/auth.model';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -20,6 +21,18 @@ export class AuthDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onGoToForgotPassword() {
+    console.error('onGoToForgotPassword');
+  }
+
+  onGoToRegister() {
+    console.error('onGoToRegister');
+  }
+
+  onSignIn(credentials: Credentials) {
+    console.error('sign in', credentials);
   }
 
   constructor(

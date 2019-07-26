@@ -6,7 +6,11 @@
   </button>
 </div>
 <div mat-dialog-content class="dialog-content">
-  <app-sign-in></app-sign-in>
+  <app-sign-in
+    (signIn)="onSignIn($event)"
+    (register)="onGoToRegister()"
+    (forgotPassword)="onGoToForgotPassword()"
+  ></app-sign-in>
 </div>
 
 <div class="spinner-container"
