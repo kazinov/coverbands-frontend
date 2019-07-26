@@ -1,13 +1,14 @@
 <h1 mat-dialog-title>Вход</h1>
 <div mat-dialog-content>
-
+  <app-sign-in></app-sign-in>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Отмена</button>
   <button mat-raised-button
           color="primary"
           (click)="onSubmitClick()"
-          cdkFocusInitial>Войти</button>
+          cdkFocusInitial>Войти
+  </button>
 </div>
 
 <div class="spinner-container"
