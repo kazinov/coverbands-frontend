@@ -5,6 +5,7 @@ import { authReducer } from '@core/auth/auth.reducer';
 import { AuthSelectors } from '@core/auth/auth.selectors';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@core/auth/auth.effects';
+import { AuthService } from '@core/auth/auth.service';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AuthEffects } from '@core/auth/auth.effects';
     ])
   ],
   providers: [
-    AuthSelectors
+    AuthSelectors,
+    AuthService
   ],
   bootstrap: []
 })

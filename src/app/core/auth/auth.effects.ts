@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
-import { FirebaseService } from '@core/firebase/firebase.service';
 import { map } from 'rxjs/operators';
 import { setCurrentUser } from '@core/auth/auth.actions';
 import { FirebaseUserInfo } from '@core/firebase/firebase.model';
+import { AuthService } from '@core/auth/auth.service';
 
 @Injectable()
 export class AuthEffects {
 
   authChange$ = createEffect(() => {
-      return this.firebaseService.authStateChanged$
+      return this.authService.authStateChanged$
         .pipe(
           map((user: FirebaseUserInfo) => setCurrentUser({user}))
         );
@@ -18,7 +18,7 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
-    private firebaseService: FirebaseService
+    private authService: AuthService
   ) {
   }
 
