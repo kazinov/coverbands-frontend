@@ -1,14 +1,12 @@
-<h1 mat-dialog-title>Вход</h1>
-<div mat-dialog-content>
-  <app-sign-in></app-sign-in>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Отмена</button>
-  <button mat-raised-button
-          color="primary"
-          (click)="onSubmitClick()"
-          cdkFocusInitial>Войти
+<div class="header" mat-dialog-title>
+  <span class="header-text">Вход</span>
+  <button mat-icon-button class="close-dialog-button"
+          (click)="onCancelClick()">
+    <mat-icon class="close-dialog-icon">clear</mat-icon>
   </button>
+</div>
+<div mat-dialog-content class="dialog-content">
+  <app-sign-in></app-sign-in>
 </div>
 
 <div class="spinner-container"
