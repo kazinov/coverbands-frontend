@@ -16,7 +16,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslationModule } from '@core/translation/translation.module';
 import { FirebaseModule } from '@core/firebase/firebase.module';
 import { AuthModule } from '@core/auth/auth.module';
-import { MatDialogModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { MatDialogModule } from '@angular/material';
     TranslationModule,
     AuthModule,
     FirebaseModule,
-    MatDialogModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: environment.production ? {} : {

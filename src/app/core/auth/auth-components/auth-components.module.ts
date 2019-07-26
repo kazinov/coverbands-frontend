@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AuthDialogComponent } from '@core/auth/auth-components/auth-dialog/auth-dialog.component';
-import { MatButtonModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatProgressSpinnerModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [],
