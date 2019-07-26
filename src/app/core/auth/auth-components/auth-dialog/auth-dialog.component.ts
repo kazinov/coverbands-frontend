@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { AuthDialogOptions } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
+import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials } from '@core/auth/auth.model';
 
 @Component({
@@ -9,6 +9,8 @@ import { Credentials } from '@core/auth/auth.model';
   styleUrls: ['./auth-dialog.component.scss']
 })
 export class AuthDialogComponent implements OnInit {
+  currentTab = AuthDialogTab.Login;
+  AuthDialogTab = AuthDialogTab;
 
   isLoading = false;
 
@@ -24,11 +26,11 @@ export class AuthDialogComponent implements OnInit {
   }
 
   onGoToForgotPassword() {
-    console.error('onGoToForgotPassword');
+    this.currentTab = AuthDialogTab.ForgotPassword;
   }
 
   onGoToRegister() {
-    console.error('onGoToRegister');
+    this.currentTab = AuthDialogTab.Register;
   }
 
   onSignIn(credentials: Credentials) {

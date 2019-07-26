@@ -7,10 +7,21 @@
 </div>
 <div mat-dialog-content class="dialog-content">
   <app-sign-in
+    *ngIf="currentTab === AuthDialogTab.Login"
     (signIn)="onSignIn($event)"
     (register)="onGoToRegister()"
     (forgotPassword)="onGoToForgotPassword()"
   ></app-sign-in>
+
+  <app-register
+    *ngIf="currentTab === AuthDialogTab.Register">
+
+  </app-register>
+
+  <app-forgot-password
+    *ngIf="currentTab === AuthDialogTab.ForgotPassword">
+
+  </app-forgot-password>
 </div>
 
 <div class="spinner-container"
