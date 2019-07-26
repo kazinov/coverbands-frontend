@@ -43,10 +43,6 @@
            formControlName="password"
            required>
     <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
-    <mat-icon matSuffix>lock</mat-icon>
-    <mat-hint align="end" aria-live="polite">
-      {{form.value.password.length}} / {{PASSWORD_MAX_LENGTH}}
-    </mat-hint>
     <mat-error *ngIf="passwordControl.hasError('required')">
       Обязательное поле
     </mat-error>
@@ -66,8 +62,7 @@
     Зарегистрироваться
   </button>
 
-  <mat-divider class="devider"></mat-divider>
-  <div class="auth-components-basement">
+  <div class="auth-components-basement margin-top-sm">
     <span>У вас есть учетная запись?</span>
     <button mat-button
             color="primary"
