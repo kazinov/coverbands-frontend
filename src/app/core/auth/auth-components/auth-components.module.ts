@@ -3,6 +3,8 @@ import { AuthDialogComponent } from '@core/auth/auth-components/auth-dialog/auth
 import { MatButtonModule, MatDialogModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { RegisterComponent } from '@core/auth/auth-components/register/register.component';
+import { ForgotPasswordComponent } from '@core/auth/auth-components/forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
@@ -14,7 +16,12 @@ import { SignInComponent } from './sign-in/sign-in.component';
   ],
   providers: [],
   bootstrap: [],
-  declarations: [AuthDialogComponent, SignInComponent],
+  declarations: [
+    AuthDialogComponent,
+    SignInComponent,
+    RegisterComponent,
+    ForgotPasswordComponent
+  ],
   entryComponents: [AuthDialogComponent]
 })
 export class AuthComponentsModule {
