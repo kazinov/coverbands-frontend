@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslationModule } from '@core/translation/translation.module';
 import { FirebaseModule } from '@core/firebase/firebase.module';
+import { AuthModule } from '@core/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FirebaseModule } from '@core/firebase/firebase.module';
     MatSnackBarModule,
     AppLayoutModule,
     TranslationModule,
+    AuthModule,
     FirebaseModule,
     StoreModule.forRoot(reducers, {
       metaReducers,

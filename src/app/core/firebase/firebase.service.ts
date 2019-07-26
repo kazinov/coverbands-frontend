@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
-
-// Add the Firebase services that you want to use
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import { environment } from '../../../environments/environment'; // once fixed can pull in as 'default as firebase' above
+import { environment } from '../../../environments/environment';
+import { ReplaySubject } from 'rxjs';
+import { FirebaseApp, FirebaseAuth, FirebaseUserInfo } from '@core/firebase/firebase.model';
 
 export interface FirebaseOptions {
   [key: string]: any;
@@ -13,13 +13,27 @@ export interface FirebaseOptions {
 
 @Injectable()
 export class FirebaseService {
-  private appInstance: firebase.app.App = firebase.initializeApp(environment.firebase);
+  private appInstance: FirebaseApp = firebase.initializeApp(environment.firebase);
+  private authInstance: FirebaseAuth = this.appInstance.auth();
+  private authStateSubject = new ReplaySubject<FirebaseUserInfo>();
 
   get app() {
     return this.appInstance;
   }
 
-  constructor() {
+  get auth() {
+    return this.authInstance;
+  }
 
+  get authStateChanged$() {
+    return this.authStateSubject.asObservable();
+  }
+
+  init() {
+    this.authInstance.onAuthStateChanged(this.authStateSubject);
+  }
+
+  constructor() {
+    this.init();
   }
 }
