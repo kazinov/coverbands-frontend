@@ -1,6 +1,6 @@
 <form [formGroup]="form"
       (ngSubmit)="form.valid && onSubmit()"
-      class="responsive-form">
+      class="flex-column spacer">
   <mat-form-field>
     <mat-label>Электронная почта</mat-label>
     <input matInput
@@ -9,7 +9,7 @@
     <mat-error *ngIf="emailControl.hasError('required')">
       Обязательное поле
     </mat-error>
-    <mat-error *ngIf="emailControl.hasError('pattern')">
+    <mat-error *ngIf="emailControl.hasError('email')">
       Неверный формат электронной почты
     </mat-error>
   </mat-form-field>
@@ -18,48 +18,47 @@
     <mat-label>Пароль</mat-label>
     <input matInput
            type="password"
-           minlength="6"
-           maxlength="25"
+           [minlength]="PASSWORD_MIN_LENGTH"
+           [maxlength]="PASSWORD_MAX_LENGTH"
            formControlName="password"
            required>
     <mat-hint align="end" aria-live="polite">
-      {{form.value.password.length}} / 25
+      {{form.value.password.length}} / {{PASSWORD_MAX_LENGTH}}
     </mat-hint>
     <mat-error *ngIf="passwordControl.hasError('required')">
       Обязательное поле
     </mat-error>
     <mat-error *ngIf="passwordControl.hasError('minlength')">
-      Пароль должен содержать как минимум 6 символов
+      Пароль должен содержать как минимум {{PASSWORD_MIN_LENGTH}} символов
     </mat-error>
     <mat-error *ngIf="passwordControl.hasError('maxlength')">
-      Пароль не должен превышать 25 символов
-      The password must not exceed 25 characters
+      Пароль не должен превышать {{PASSWORD_MAX_LENGTH}} символов
     </mat-error>
   </mat-form-field>
 
   <button mat-raised-button
           type="submit"
-          class="login-button"
+          class="auth-components-action-button"
           color="primary"
           [disabled]="form.invalid">
     Войти
   </button>
 
-  <div class="forgot-button-container">
+  <div class="auth-components-secondary-button-container">
     <button mat-button
             class="forgot-button"
             color="primary"
-            (click)="forgotPassword.emit()">
+            (click)="goToForgotPassword.emit()">
       Забыли пароль?
     </button>
   </div>
   <mat-divider></mat-divider>
-  <div class="register-button-container">
-    <span>Еще не зарегистрированы?</span>
+  <div class="auth-components-basement">
+    <span>У вас нет учетной записи?</span>
     <button mat-button
             color="primary"
             class="forgot-button"
-            (click)="register.emit()">
+            (click)="goToRegister.emit()">
       Зарегистрироваться
     </button>
   </div>

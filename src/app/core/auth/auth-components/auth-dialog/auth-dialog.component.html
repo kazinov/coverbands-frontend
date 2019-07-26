@@ -1,5 +1,5 @@
 <div class="header" mat-dialog-title>
-  <span class="header-text">Вход</span>
+  <span class="header-text">{{header}}</span>
   <button mat-icon-button class="close-dialog-button"
           (click)="onCancelClick()">
     <mat-icon class="close-dialog-icon">clear</mat-icon>
@@ -9,12 +9,15 @@
   <app-sign-in
     *ngIf="currentTab === AuthDialogTab.Login"
     (signIn)="onSignIn($event)"
-    (register)="onGoToRegister()"
-    (forgotPassword)="onGoToForgotPassword()"
+    (goToRegister)="goToTab(AuthDialogTab.Register)"
+    (goToForgotPassword)="goToTab(AuthDialogTab.ForgotPassword)"
   ></app-sign-in>
 
   <app-register
-    *ngIf="currentTab === AuthDialogTab.Register">
+    *ngIf="currentTab === AuthDialogTab.Register"
+    (register)="onRegister($event)"
+    (goToLogIn)="goToTab(AuthDialogTab.Login)"
+  >
 
   </app-register>
 

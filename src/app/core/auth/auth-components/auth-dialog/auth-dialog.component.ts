@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
-import { Credentials } from '@core/auth/auth.model';
+import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -25,18 +25,36 @@ export class AuthDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  onGoToForgotPassword() {
+  goToForgotPassword() {
     this.currentTab = AuthDialogTab.ForgotPassword;
   }
 
-  onGoToRegister() {
+  goToRegister() {
     this.currentTab = AuthDialogTab.Register;
+  }
+
+  goToTab(tab: AuthDialogTab) {
+    this.currentTab = tab;
   }
 
   onSignIn(credentials: Credentials) {
     console.error('sign in', credentials);
   }
 
+  onRegister(credentials: CredentialsWithName) {
+    console.error('register', credentials);
+  }
+
+  get header() {
+    switch (this.currentTab) {
+      case AuthDialogTab.ForgotPassword:
+        return 'Восстановление пароля';
+      case AuthDialogTab.Login:
+        return 'Вход';
+      case AuthDialogTab.Register:
+        return 'Регистрация';
+    }
+  }
   constructor(
     public dialogRef: MatDialogRef<AuthDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public options: AuthDialogOptions,

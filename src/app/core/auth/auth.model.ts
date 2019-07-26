@@ -4,3 +4,7 @@ export interface Credentials {
   email: string;
   password: string;
 }
+
+export interface CredentialsWithName extends Credentials {
+  name: string;
+}

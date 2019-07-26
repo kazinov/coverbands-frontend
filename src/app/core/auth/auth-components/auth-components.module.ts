@@ -14,6 +14,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { RegisterComponent } from '@core/auth/auth-components/register/register.component';
 import { ForgotPasswordComponent } from '@core/auth/auth-components/forgot-password/forgot-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDividerModule
+    MatDividerModule,
+    MatPasswordStrengthModule
   ],
   providers: [],
   bootstrap: [],
