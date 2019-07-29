@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
+import { Store } from '@ngrx/store';
+import { registerAction } from '@core/auth/auth.actions';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -42,7 +44,7 @@ export class AuthDialogComponent implements OnInit {
   }
 
   onRegister(credentials: CredentialsWithName) {
-    console.error('register', credentials);
+    this.store.dispatch(registerAction({credentials}));
   }
 
   onResetPassword(email) {
@@ -59,9 +61,11 @@ export class AuthDialogComponent implements OnInit {
         return 'Регистрация';
     }
   }
+
   constructor(
-    public dialogRef: MatDialogRef<AuthDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public options: AuthDialogOptions,
+    private dialogRef: MatDialogRef<AuthDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private options: AuthDialogOptions,
+    private store: Store<any>
   ) {
   }
 

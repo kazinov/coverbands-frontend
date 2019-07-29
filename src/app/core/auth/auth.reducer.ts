@@ -1,14 +1,14 @@
 import { Action, combineReducers, createReducer, on } from '@ngrx/store';
-import * as firebase from 'firebase/app';
-import { setCurrentUser } from '@core/auth/auth.actions';
+import { setCurrentUserAction } from '@core/auth/auth.actions';
+import { AppUserInfo } from '@core/auth/auth.model';
 
 export interface AuthState {
-  currentUser: firebase.UserInfo;
+  currentUser: AppUserInfo;
 }
 
 const currentUserReducer = createReducer(
   null,
-  on(setCurrentUser, (state, action) => (action.user)),
+  on(setCurrentUserAction, (state, action) => (action.user)),
 );
 
 const reducers = combineReducers({

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { ReplaySubject } from 'rxjs';
-import { FirebaseUserInfo } from '@core/firebase/firebase.model';
+import { from, Observable, ReplaySubject } from 'rxjs';
+import { FirebaseUserCredentials, FirebaseUserInfo } from '@core/firebase/firebase.model';
 import { FirebaseService } from '@core/firebase/firebase.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthDialogComponent } from '@core/auth/auth-components/auth-dialog/auth-dialog.component';
 import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
+import { Credentials } from '@core/auth/auth.model';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,13 @@ export class AuthService {
 
   get authStateChanged$() {
     return this.authStateSubject.asObservable();
+  }
+
+  register(credentials: Credentials): Observable<FirebaseUserCredentials> {
+    return from(this.firebaseService.auth.createUserWithEmailAndPassword(
+      credentials.email,
+      credentials.password
+    ));
   }
 
   private init() {

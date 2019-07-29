@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect } from '@ngrx/effects';
-import { map } from 'rxjs/operators';
-import { setCurrentUser } from '@core/auth/auth.actions';
-import { FirebaseUserInfo } from '@core/firebase/firebase.model';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { registerAction, registerFailureAction, registerSuccessAction, setCurrentUserAction } from '@core/auth/auth.actions';
+import { FirebaseUserCredentials, FirebaseUserInfo } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
+import { of } from 'rxjs';
+import { AppUserInfoHelpers } from '@core/auth/auth.model';
 
 @Injectable()
 export class AuthEffects {
@@ -11,9 +13,28 @@ export class AuthEffects {
   authChange$ = createEffect(() => {
       return this.authService.authStateChanged$
         .pipe(
-          map((user: FirebaseUserInfo) => setCurrentUser({user}))
+          map((user: FirebaseUserInfo) => setCurrentUserAction({
+            user: AppUserInfoHelpers.fromFirebaseUserInfo(user)
+          })),
+          tap((val) => console.error('current user', val))
         );
     }
+  );
+
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(registerAction),
+      exhaustMap(action =>
+        this.authService.register(action.credentials).pipe(
+          tap((val) => console.error('register success', val)),
+          map((credentials: FirebaseUserCredentials) => registerSuccessAction({ credentials })),
+          catchError(error => {
+            console.error('register failure', error)
+            return of(registerFailureAction({ error }));
+          })
+        )
+      )
+    )
   );
 
   constructor(
