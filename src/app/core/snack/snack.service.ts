@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { TRANSLATIONS } from '@core/translation/translations';
+
+const SNACK_CONFIG = {
+  horizontalPosition: 'center' as MatSnackBarHorizontalPosition,
+  verticalPosition: 'top' as MatSnackBarVerticalPosition,
+  duration: 5000
+};
 
 @Injectable()
 export class SnackService {
@@ -12,11 +18,21 @@ export class SnackService {
       message || TRANSLATIONS.snack.error,
       TRANSLATIONS.snack.close,
       {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
+        ...SNACK_CONFIG,
         panelClass: 'error-snack',
-        duration: 5000
-      });
+      }
+    );
+  }
+
+  success(message: string) {
+    return this.snackBar.open(
+      message || TRANSLATIONS.snack.error,
+      TRANSLATIONS.snack.close,
+      {
+        ...SNACK_CONFIG,
+        panelClass: 'success-snack',
+      }
+    );
   }
 
   constructor(

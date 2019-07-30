@@ -14,8 +14,7 @@ export const registerAction = createAction(
 );
 
 export const registerSuccessAction = createAction(
-  '[Auth] Register success',
-  props<{ credentials: FirebaseUserCredentials }>()
+  '[Auth] Register success'
 );
 
 export const registerFailureAction = createAction(
@@ -40,5 +39,15 @@ export const signInSuccessAction = createAction('[Auth] Sign in success',
 
 export const signInFailureAction = createAction(
   '[Auth] Sign in failure',
+  props<{ error: HttpError }>()
+);
+
+export const resetPasswordAction = createAction('[Auth] Reset password',
+  props<{ email: string}>());
+
+export const resetPasswordSuccessAction = createAction('[Auth] Reset password success');
+
+export const resetPasswordFailureAction = createAction(
+  '[Auth] Reset password failure',
   props<{ error: HttpError }>()
 );

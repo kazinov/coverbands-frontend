@@ -40,6 +40,11 @@ export class AuthService {
       .pipe(catchError(fromFirebaseError));
   }
 
+  resetPassword(email: string) {
+    return from(this.firebaseService.auth.sendPasswordResetEmail(email))
+      .pipe(catchError(fromFirebaseError));
+  }
+
   private init() {
     this.firebaseService.auth.onAuthStateChanged(this.authStateSubject);
   }

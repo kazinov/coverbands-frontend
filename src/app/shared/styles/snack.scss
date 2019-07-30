@@ -1,10 +1,17 @@
 @import "app/shared/styles/common";
 
-.error-snack {
-  background-color: $warn;
+.error-snack, .success-snack {
+  text-align: center;
   color: white;
-
   .mat-button {
     color: white;
   }
+}
+
+.error-snack {
+  background-color: $warn;
+}
+
+.success-snack {
+  background-color: $success;
 }

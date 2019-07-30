@@ -4,7 +4,7 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import {
   registerAction,
   registerFailureAction,
-  registerSuccessAction,
+  registerSuccessAction, resetPasswordAction, resetPasswordFailureAction, resetPasswordSuccessAction,
   setCurrentUserAction,
   signInAction,
   signInFailureAction,
@@ -40,7 +40,11 @@ export class AuthEffects {
       ofType(registerAction),
       exhaustMap(action =>
         this.authService.register(action.credentials).pipe(
-          map((credentials: FirebaseUserCredentials) => registerSuccessAction({credentials})),
+          map((credentials: FirebaseUserCredentials) => {
+            this.snackService.success(TRANSLATIONS.auth.userRegistered);
+            this.authService.closeAuthDialog();
+            return registerSuccessAction();
+          }),
           catchError(error => {
             this.showErrorSnack(error);
             return of(registerFailureAction({error}));
@@ -74,6 +78,21 @@ export class AuthEffects {
           catchError(error => {
             this.showErrorSnack(error);
             return of(signOutFailureAction({error}));
+          })
+        )
+      )
+    )
+  );
+
+  resetPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(resetPasswordAction),
+      exhaustMap(action =>
+        this.authService.resetPassword(action.email).pipe(
+          map((credentials) => resetPasswordSuccessAction()),
+          catchError(error => {
+            this.showErrorSnack(error);
+            return of(resetPasswordFailureAction({error}));
           })
         )
       )

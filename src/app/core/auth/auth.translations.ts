@@ -7,6 +7,7 @@ export const AUTH_TRANSLATIONS = {
       'auth/wrong-password': 'Неверный пароль',
       'auth/email-already-in-use': 'Электронная почта уже используется',
       'auth/weak-password': 'Слишком простой пароль'
-    }
+    },
+    userRegistered: 'Учетная запись зарегистрирована!'
   }
 };
