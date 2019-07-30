@@ -4,7 +4,7 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import {
   registerAction,
   registerFailureAction,
-  registerSuccessAction, resetPasswordAction, resetPasswordFailureAction, resetPasswordSuccessAction,
+  registerSuccessAction, sendResetPasswordAction, sendResetPasswordFailureAction, sendResetPasswordSuccessAction,
   setCurrentUserAction,
   signInAction,
   signInFailureAction,
@@ -84,15 +84,15 @@ export class AuthEffects {
     )
   );
 
-  resetPassword$ = createEffect(() =>
+  sendResetPassword$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(resetPasswordAction),
+      ofType(sendResetPasswordAction),
       exhaustMap(action =>
-        this.authService.resetPassword(action.email).pipe(
-          map((credentials) => resetPasswordSuccessAction()),
+        this.authService.sendResetPassword(action.email).pipe(
+          map((credentials) => sendResetPasswordSuccessAction()),
           catchError(error => {
             this.showErrorSnack(error);
-            return of(resetPasswordFailureAction({error}));
+            return of(sendResetPasswordFailureAction({error}));
           })
         )
       )

@@ -42,12 +42,12 @@ export const signInFailureAction = createAction(
   props<{ error: HttpError }>()
 );
 
-export const resetPasswordAction = createAction('[Auth] Reset password',
+export const sendResetPasswordAction = createAction('[Auth] Send reset password',
   props<{ email: string}>());
 
-export const resetPasswordSuccessAction = createAction('[Auth] Reset password success');
+export const sendResetPasswordSuccessAction = createAction('[Auth] Send reset password success');
 
-export const resetPasswordFailureAction = createAction(
-  '[Auth] Reset password failure',
+export const sendResetPasswordFailureAction = createAction(
+  '[Auth] Send reset password failure',
   props<{ error: HttpError }>()
 );

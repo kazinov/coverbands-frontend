@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 import { Store } from '@ngrx/store';
-import { registerAction, resetPasswordAction, signInAction } from '@core/auth/auth.actions';
+import { registerAction, sendResetPasswordAction, signInAction } from '@core/auth/auth.actions';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -51,7 +51,7 @@ export class AuthDialogComponent implements OnInit {
   }
 
   onResetPassword(email) {
-    this.store.dispatch(resetPasswordAction({email}));
+    this.store.dispatch(sendResetPasswordAction({email}));
   }
 
   get header() {
