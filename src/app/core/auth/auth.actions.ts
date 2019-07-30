@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { FirebaseUserCredentials } from '@core/firebase/firebase.model';
 import { AppUserInfo, CredentialsWithName } from '@core/auth/auth.model';
+import { HttpError } from '@shared/types/http-error';
 
 export const setCurrentUserAction = createAction(
   '[Auth] Set current user',
@@ -19,7 +20,7 @@ export const registerSuccessAction = createAction(
 
 export const registerFailureAction = createAction(
   '[Auth] Register failure',
-  props<{ error: any }>() // TODO: figure out type
+  props<{ error: HttpError }>()
 );
 
 export const signOutAction = createAction('[Auth] Sign out');
@@ -28,7 +29,7 @@ export const signOutSuccessAction = createAction('[Auth] Sign out success');
 
 export const signOutFailureAction = createAction(
   '[Auth] Sign out failure',
-  props<{ error: any }>() // TODO: figure out type
+  props<{ error: HttpError }>()
 );
 
 export const signInAction = createAction('[Auth] Sign in',
@@ -39,5 +40,5 @@ export const signInSuccessAction = createAction('[Auth] Sign in success',
 
 export const signInFailureAction = createAction(
   '[Auth] Sign in failure',
-  props<{ error: any }>() // TODO: figure out type
+  props<{ error: HttpError }>()
 );

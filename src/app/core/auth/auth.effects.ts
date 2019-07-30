@@ -19,6 +19,7 @@ import { of } from 'rxjs';
 import { AppUserInfoHelpers } from '@core/auth/auth.model';
 import { SnackService } from '@core/snack/snack.service';
 import { TRANSLATIONS } from '@core/translation/translations';
+import { HttpError } from '@shared/types/http-error';
 
 @Injectable()
 export class AuthEffects {
@@ -39,10 +40,9 @@ export class AuthEffects {
       ofType(registerAction),
       exhaustMap(action =>
         this.authService.register(action.credentials).pipe(
-          tap((val) => console.error('register success', val)),
           map((credentials: FirebaseUserCredentials) => registerSuccessAction({credentials})),
           catchError(error => {
-            console.error('register failure', error)
+            this.showErrorSnack(error);
             return of(registerFailureAction({error}));
           })
         )
@@ -54,11 +54,10 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(signInAction),
       exhaustMap(action =>
-        this.authService.login(action.email, action.password).pipe(
-          tap((val) => console.error('login success', val)),
+        this.authService.signIn(action.email, action.password).pipe(
           map((credentials) => signInSuccessAction({credentials})),
           catchError(error => {
-            this.snackService.error(TRANSLATIONS.auth.errors[error.code]);
+            this.showErrorSnack(error);
             return of(signInFailureAction({error}));
           })
         )
@@ -70,17 +69,20 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(signOutAction),
       exhaustMap(action =>
-        this.authService.logout().pipe(
-          tap(() => console.error('logout success')),
+        this.authService.signOut().pipe(
           map(() => signOutSuccessAction()),
           catchError(error => {
-            console.error('logout failure', error)
+            this.showErrorSnack(error);
             return of(signOutFailureAction({error}));
           })
         )
       )
     )
   );
+
+  showErrorSnack(error: HttpError) {
+    this.snackService.error(TRANSLATIONS.auth.errors[error.code]);
+  }
 
   constructor(
     private actions$: Actions,

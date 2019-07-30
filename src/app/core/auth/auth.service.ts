@@ -27,12 +27,12 @@ export class AuthService {
     )).pipe(catchError(fromFirebaseError));
   }
 
-  logout(): Observable<void> {
+  signOut(): Observable<void> {
     return from(this.firebaseService.auth.signOut())
       .pipe(catchError(fromFirebaseError));
   }
 
-  login(
+  signIn(
     email: string,
     password: string
   ): Observable<FirebaseUserCredentials> {
