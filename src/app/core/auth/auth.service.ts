@@ -25,6 +25,10 @@ export class AuthService {
     ));
   }
 
+  logout(): Observable<void> {
+    return from(this.firebaseService.auth.signOut());
+  }
+
   private init() {
     this.firebaseService.auth.onAuthStateChanged(this.authStateSubject);
   }

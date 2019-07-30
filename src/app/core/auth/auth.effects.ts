@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
-import { registerAction, registerFailureAction, registerSuccessAction, setCurrentUserAction } from '@core/auth/auth.actions';
+import {
+  logoutAction, logoutFailureAction, logoutSuccessAction,
+  registerAction,
+  registerFailureAction,
+  registerSuccessAction,
+  setCurrentUserAction
+} from '@core/auth/auth.actions';
 import { FirebaseUserCredentials, FirebaseUserInfo } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
 import { of } from 'rxjs';
@@ -31,6 +37,22 @@ export class AuthEffects {
           catchError(error => {
             console.error('register failure', error)
             return of(registerFailureAction({ error }));
+          })
+        )
+      )
+    )
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logoutAction),
+      exhaustMap(action =>
+        this.authService.logout().pipe(
+          tap(() => console.error('logout success')),
+          map(() => logoutSuccessAction()),
+          catchError(error => {
+            console.error('logout failure', error)
+            return of(logoutFailureAction({ error }));
           })
         )
       )

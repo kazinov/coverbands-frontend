@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { ArtistAdminPaths } from '@artist-admin/artist-admin-paths';
 import { AppPaths } from '../../app-paths';
 import { AdminPaths } from '@admin/admin-paths';
-import { AuthService } from '@core/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -29,13 +28,8 @@ export class NavbarComponent {
     return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.Create}`;
   }
 
-  openAuthDialog() {
-    this.authService.openAuthDialog();
-  }
-
   constructor(
-    private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
+    private breakpointObserver: BreakpointObserver
   ) {
   }
 

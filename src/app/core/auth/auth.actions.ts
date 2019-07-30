@@ -21,3 +21,12 @@ export const registerFailureAction = createAction(
   '[Auth] Register failure',
   props<{ error: any }>() // TODO: figure out type
 );
+
+export const logoutAction = createAction('[Auth] Logout');
+
+export const logoutSuccessAction = createAction('[Auth] Logout success');
+
+export const logoutFailureAction = createAction(
+  '[Auth] Logout failure',
+  props<{ error: any }>() // TODO: figure out type
+);

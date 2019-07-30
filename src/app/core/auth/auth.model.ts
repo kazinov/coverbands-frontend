@@ -22,6 +22,9 @@ export interface AppUserInfo {
 
 export abstract class AppUserInfoHelpers {
   static fromFirebaseUserInfo(input: FirebaseUserInfo): AppUserInfo {
+    if (!input) {
+      return null;
+    }
     return {
       displayName: input.displayName,
       email: input.email,

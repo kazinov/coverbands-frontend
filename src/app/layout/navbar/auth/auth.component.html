@@ -1,0 +1,21 @@
+<button
+  *ngIf="!(loggedIn$ | async)"
+  mat-button
+  (click)="openAuthDialog()">Вход и регистрация
+</button>
+
+<button
+  *ngIf="loggedIn$ | async"
+  class="user-button"
+  mat-button [matMenuTriggerFor]="authMenu">
+  <mat-icon>account_circle</mat-icon>
+  {{currentUserDisplayName$ | async}}
+  <mat-menu #authMenu="matMenu">
+    <button mat-menu-item>Настройки</button>
+    <button
+      mat-menu-item
+      (click)="onLogOut()"
+    >Выход
+    </button>
+  </mat-menu>
+</button>

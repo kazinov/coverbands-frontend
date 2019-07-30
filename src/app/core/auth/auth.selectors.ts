@@ -12,5 +12,15 @@ export class AuthSelectors {
     (state) => state && state.currentUser
   );
 
+  currentUserDisplayName = createSelector(
+    this.currentUser,
+    (state) => state && (state.displayName || state.email)
+  );
+
+  loggedIn = createSelector(
+    this.currentUser,
+    (state) => !!state
+  );
+
   constructor() { }
 }

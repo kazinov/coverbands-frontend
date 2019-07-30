@@ -8,6 +8,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthComponent } from './navbar/auth/auth.component';
+import { MatMenuModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -18,10 +20,12 @@ import { RouterModule } from '@angular/router';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule
   ],
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    AuthComponent
   ],
   exports: [
     NavbarComponent

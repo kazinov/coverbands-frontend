@@ -1,0 +1,13 @@
+@import "app/shared/styles/common";
+
+.user-button {
+
+  ::ng-deep .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+      margin-right: $margin-xs;
+    }
+  }
+}
