@@ -1,7 +1,7 @@
 <button
   *ngIf="!(loggedIn$ | async)"
   mat-button
-  (click)="openAuthDialog()">{{translations.authMenu.enterAndRegister}}
+  (click)="openAuthDialog()">{{translations.authMenu.signInAndRegister}}
 </button>
 
 <button
@@ -15,8 +15,8 @@
       {{translations.authMenu.settings}}</button>
     <button
       mat-menu-item
-      (click)="onLogOut()"
-    >{{translations.authMenu.exit}}
+      (click)="onSignOut()"
+    >{{translations.authMenu.signOut}}
     </button>
   </mat-menu>
 </button>

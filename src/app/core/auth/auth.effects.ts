@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import {
-  logoutAction, logoutFailureAction, logoutSuccessAction,
+  signInAction, signInFailureAction, signInSuccessAction,
+  signOutAction, signOutFailureAction, signOutSuccessAction,
   registerAction,
   registerFailureAction,
   registerSuccessAction,
@@ -43,16 +44,33 @@ export class AuthEffects {
     )
   );
 
-  logout$ = createEffect(() =>
+
+  signIn$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(logoutAction),
+      ofType(signInAction),
+      exhaustMap(action =>
+        this.authService.login(action.email, action.password).pipe(
+          tap((val) => console.error('login success', val)),
+          map((credentials) => signInSuccessAction({credentials})),
+          catchError(error => {
+            console.error('login failure', error)
+            return of(signInFailureAction({ error }));
+          })
+        )
+      )
+    )
+  );
+
+  signOut$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(signOutAction),
       exhaustMap(action =>
         this.authService.logout().pipe(
           tap(() => console.error('logout success')),
-          map(() => logoutSuccessAction()),
+          map(() => signOutSuccessAction()),
           catchError(error => {
             console.error('logout failure', error)
-            return of(logoutFailureAction({ error }));
+            return of(signOutFailureAction({ error }));
           })
         )
       )

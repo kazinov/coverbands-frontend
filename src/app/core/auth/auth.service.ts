@@ -8,6 +8,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthDialogComponent } from '@core/auth/auth-components/auth-dialog/auth-dialog.component';
 import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials } from '@core/auth/auth.model';
+import { catchError } from 'rxjs/operators';
+import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
 
 @Injectable()
 export class AuthService {
@@ -22,11 +24,20 @@ export class AuthService {
     return from(this.firebaseService.auth.createUserWithEmailAndPassword(
       credentials.email,
       credentials.password
-    ));
+    )).pipe(catchError(fromFirebaseError));
   }
 
   logout(): Observable<void> {
-    return from(this.firebaseService.auth.signOut());
+    return from(this.firebaseService.auth.signOut())
+      .pipe(catchError(fromFirebaseError));
+  }
+
+  login(
+    email: string,
+    password: string
+  ): Observable<FirebaseUserCredentials> {
+    return from(this.firebaseService.auth.signInWithEmailAndPassword(email, password))
+      .pipe(catchError(fromFirebaseError));
   }
 
   private init() {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AuthSelectors } from '@core/auth/auth.selectors';
 import { AuthService } from '@core/auth/auth.service';
-import { logoutAction } from '@core/auth/auth.actions';
+import { signOutAction } from '@core/auth/auth.actions';
 import { TRANSLATIONS } from '@core/translation/translations';
 
 @Component({
@@ -21,8 +21,8 @@ export class AuthComponent implements OnInit {
     this.authService.openAuthDialog();
   }
 
-  onLogOut() {
-    this.store.dispatch(logoutAction());
+  onSignOut() {
+    this.store.dispatch(signOutAction());
   }
 
   constructor(

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 import { Store } from '@ngrx/store';
-import { registerAction } from '@core/auth/auth.actions';
+import { registerAction, signInAction } from '@core/auth/auth.actions';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -40,7 +40,10 @@ export class AuthDialogComponent implements OnInit {
   }
 
   onSignIn(credentials: Credentials) {
-    console.error('sign in', credentials);
+    this.store.dispatch(signInAction({
+      email: credentials.email,
+      password: credentials.password
+    }));
   }
 
   onRegister(credentials: CredentialsWithName) {

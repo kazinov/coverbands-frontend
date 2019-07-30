@@ -22,11 +22,22 @@ export const registerFailureAction = createAction(
   props<{ error: any }>() // TODO: figure out type
 );
 
-export const logoutAction = createAction('[Auth] Logout');
+export const signOutAction = createAction('[Auth] Sign out');
 
-export const logoutSuccessAction = createAction('[Auth] Logout success');
+export const signOutSuccessAction = createAction('[Auth] Sign out success');
 
-export const logoutFailureAction = createAction(
-  '[Auth] Logout failure',
+export const signOutFailureAction = createAction(
+  '[Auth] Sign out failure',
+  props<{ error: any }>() // TODO: figure out type
+);
+
+export const signInAction = createAction('[Auth] Sign in',
+  props<{ email: string, password: string }>());
+
+export const signInSuccessAction = createAction('[Auth] Sign in success',
+  props<{ credentials: FirebaseUserCredentials }>());
+
+export const signInFailureAction = createAction(
+  '[Auth] Sign in failure',
   props<{ error: any }>() // TODO: figure out type
 );
