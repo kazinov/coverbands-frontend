@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { TranslationsRu } from './translation.data';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 @Injectable()
 export class TranslationService {
   translateCity(countryId: string, cityId: string) {
-    return TranslationsRu.cities[countryId][cityId];
+    return TRANSLATIONS.cities[countryId][cityId];
   }
 
   translateMusicGenre(genreId: string) {
-    return TranslationsRu.musicGenres[genreId];
+    return TRANSLATIONS.musicGenres[genreId];
   }
 
 }

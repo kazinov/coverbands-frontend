@@ -1,7 +1,7 @@
 <button
   *ngIf="!(loggedIn$ | async)"
   mat-button
-  (click)="openAuthDialog()">Вход и регистрация
+  (click)="openAuthDialog()">{{translations.authMenu.enterAndRegister}}
 </button>
 
 <button
@@ -11,11 +11,12 @@
   <mat-icon>account_circle</mat-icon>
   {{currentUserDisplayName$ | async}}
   <mat-menu #authMenu="matMenu">
-    <button mat-menu-item>Настройки</button>
+    <button mat-menu-item>
+      {{translations.authMenu.settings}}</button>
     <button
       mat-menu-item
       (click)="onLogOut()"
-    >Выход
+    >{{translations.authMenu.exit}}
     </button>
   </mat-menu>
 </button>

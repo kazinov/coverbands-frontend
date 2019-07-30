@@ -1,8 +1,9 @@
 import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
+import { AUTH_MENU_TRANSLATIONS } from '../../layout/navbar/auth/auth.translations';
 
-export const TranslationsRu = {
+export const TRANSLATIONS = {
   cities: {
     [Countries.Russia]: {
       [Cities[Countries.Russia].Kazan]: 'Казань',
@@ -18,5 +19,6 @@ export const TranslationsRu = {
     [MusicGenres.Pop]: 'Поп',
     [MusicGenres.Rap]: 'Реп',
     [MusicGenres.Rock]: 'Рок',
-  }
+  },
+  ...AUTH_MENU_TRANSLATIONS
 };
