@@ -2,17 +2,23 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import {
-  signInAction, signInFailureAction, signInSuccessAction,
-  signOutAction, signOutFailureAction, signOutSuccessAction,
   registerAction,
   registerFailureAction,
   registerSuccessAction,
-  setCurrentUserAction
+  setCurrentUserAction,
+  signInAction,
+  signInFailureAction,
+  signInSuccessAction,
+  signOutAction,
+  signOutFailureAction,
+  signOutSuccessAction
 } from '@core/auth/auth.actions';
 import { FirebaseUserCredentials, FirebaseUserInfo } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
 import { of } from 'rxjs';
 import { AppUserInfoHelpers } from '@core/auth/auth.model';
+import { SnackService } from '@core/snack/snack.service';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 @Injectable()
 export class AuthEffects {
@@ -34,16 +40,15 @@ export class AuthEffects {
       exhaustMap(action =>
         this.authService.register(action.credentials).pipe(
           tap((val) => console.error('register success', val)),
-          map((credentials: FirebaseUserCredentials) => registerSuccessAction({ credentials })),
+          map((credentials: FirebaseUserCredentials) => registerSuccessAction({credentials})),
           catchError(error => {
             console.error('register failure', error)
-            return of(registerFailureAction({ error }));
+            return of(registerFailureAction({error}));
           })
         )
       )
     )
   );
-
 
   signIn$ = createEffect(() =>
     this.actions$.pipe(
@@ -53,8 +58,8 @@ export class AuthEffects {
           tap((val) => console.error('login success', val)),
           map((credentials) => signInSuccessAction({credentials})),
           catchError(error => {
-            console.error('login failure', error)
-            return of(signInFailureAction({ error }));
+            this.snackService.error(TRANSLATIONS.auth.errors[error.code]);
+            return of(signInFailureAction({error}));
           })
         )
       )
@@ -70,7 +75,7 @@ export class AuthEffects {
           map(() => signOutSuccessAction()),
           catchError(error => {
             console.error('logout failure', error)
-            return of(signOutFailureAction({ error }));
+            return of(signOutFailureAction({error}));
           })
         )
       )
@@ -79,7 +84,8 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackService: SnackService
   ) {
   }
 

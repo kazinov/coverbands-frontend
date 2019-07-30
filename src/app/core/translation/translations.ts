@@ -2,6 +2,8 @@ import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
 import { AUTH_MENU_TRANSLATIONS } from '../../layout/navbar/auth/auth.translations';
+import { SNACK_TRANSLATIONS } from '@core/snack/snack.translations';
+import { AUTH_TRANSLATIONS } from '@core/auth/auth.translations';
 
 export const TRANSLATIONS = {
   cities: {
@@ -20,5 +22,7 @@ export const TRANSLATIONS = {
     [MusicGenres.Rap]: 'Реп',
     [MusicGenres.Rock]: 'Рок',
   },
-  ...AUTH_MENU_TRANSLATIONS
+  ...AUTH_MENU_TRANSLATIONS,
+  ...SNACK_TRANSLATIONS,
+  ...AUTH_TRANSLATIONS
 };

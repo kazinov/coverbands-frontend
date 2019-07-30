@@ -1,0 +1,10 @@
+@import "app/shared/styles/common";
+
+.error-snack {
+  background-color: $warn;
+  color: white;
+
+  .mat-button {
+    color: white;
+  }
+}
