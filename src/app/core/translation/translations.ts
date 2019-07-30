@@ -4,6 +4,7 @@ import { Countries } from '@core/models/countries.model';
 import { AUTH_MENU_TRANSLATIONS } from '../../layout/navbar/auth/auth.translations';
 import { SNACK_TRANSLATIONS } from '@core/snack/snack.translations';
 import { AUTH_TRANSLATIONS } from '@core/auth/auth.translations';
+import { RESET_PASSWORD_DIALOG_TRANSLATIONS } from '@core/auth/auth-components/reset-password-dialog/reset-password-dialog.translations';
 
 export const TRANSLATIONS = {
   cities: {
@@ -24,5 +25,6 @@ export const TRANSLATIONS = {
   },
   ...AUTH_MENU_TRANSLATIONS,
   ...SNACK_TRANSLATIONS,
-  ...AUTH_TRANSLATIONS
+  ...AUTH_TRANSLATIONS,
+  ...RESET_PASSWORD_DIALOG_TRANSLATIONS
 };

@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
+import { AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 import { Store } from '@ngrx/store';
 import { registerAction, sendResetPasswordAction, signInAction } from '@core/auth/auth.actions';
@@ -13,7 +13,6 @@ import { registerAction, sendResetPasswordAction, signInAction } from '@core/aut
 export class AuthDialogComponent implements OnInit {
   currentTab = AuthDialogTab.Login;
   AuthDialogTab = AuthDialogTab;
-  passwordResetLinkSentEmail = 'blabla@bla.com'
   isLoading = false;
 
   onSubmitClick() {
@@ -67,7 +66,6 @@ export class AuthDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<AuthDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private options: AuthDialogOptions,
     private store: Store<any>
   ) {
   }

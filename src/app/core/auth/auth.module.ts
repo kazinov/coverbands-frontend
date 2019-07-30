@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@core/auth/auth.effects';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthComponentsModule } from '@core/auth/auth-components/auth-components.module';
+import { ResetPasswordGuard } from '@core/auth/reset-password.guard';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AuthComponentsModule } from '@core/auth/auth-components/auth-components
   ],
   providers: [
     AuthSelectors,
-    AuthService
+    AuthService,
+    ResetPasswordGuard
   ],
   bootstrap: [],
   declarations: []

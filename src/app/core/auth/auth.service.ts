@@ -6,15 +6,17 @@ import { FirebaseUserCredentials, FirebaseUserInfo } from '@core/firebase/fireba
 import { FirebaseService } from '@core/firebase/firebase.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthDialogComponent } from '@core/auth/auth-components/auth-dialog/auth-dialog.component';
-import { AuthDialogOptions, AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials } from '@core/auth/auth.model';
 import { catchError } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
+import { ResetPasswordDialogComponent } from '@core/auth/auth-components/reset-password-dialog/reset-password-dialog.component';
+import { ResetPasswordDialogOptions } from '@core/auth/auth-components/reset-password-dialog/reset-password-dialog.model';
 
 @Injectable()
 export class AuthService {
   private authStateSubject = new ReplaySubject<FirebaseUserInfo>();
-  private authgDialogRef: MatDialogRef<any>;
+  private authDialogRef: MatDialogRef<any>;
+  private resetPasswordDialogRef: MatDialogRef<any>;
 
   get authStateChanged$() {
     return this.authStateSubject.asObservable();
@@ -54,19 +56,27 @@ export class AuthService {
     this.firebaseService.auth.onAuthStateChanged(this.authStateSubject);
   }
 
-  openAuthDialog(tab?: AuthDialogTab) {
-    this.authgDialogRef = this.dialog.open(AuthDialogComponent, {
-      width: '600px',
-      disableClose: true,
-      data: {
-        tab
-      } as AuthDialogOptions
-    });
+  openAuthDialog() {
+    this.authDialogRef = this.dialog.open(AuthDialogComponent);
   }
 
   closeAuthDialog() {
-    if (this.authgDialogRef) {
-      this.authgDialogRef.close();
+    if (this.authDialogRef) {
+      this.authDialogRef.close();
+    }
+  }
+
+  openResetPasswordDialog(code: string) {
+    this.resetPasswordDialogRef = this.dialog.open(ResetPasswordDialogComponent, {
+      data: {
+        code
+      } as ResetPasswordDialogOptions
+    });
+  }
+
+  closeResetPasswordDialog() {
+    if (this.resetPasswordDialogRef) {
+      this.resetPasswordDialogRef.close();
     }
   }
 

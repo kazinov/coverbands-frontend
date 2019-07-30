@@ -1,12 +1,7 @@
 export enum AuthDialogTab {
   Login,
   Register,
-  ForgotPassword,
-  PasswordResetLinkSent
-}
-
-export interface AuthDialogOptions {
-  tab?: AuthDialogTab;
+  ForgotPassword
 }
 
 export const PASSWORD_MIN_LENGTH = 6;

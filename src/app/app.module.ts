@@ -17,6 +17,7 @@ import { TranslationModule } from '@core/translation/translation.module';
 import { FirebaseModule } from '@core/firebase/firebase.module';
 import { AuthModule } from '@core/auth/auth.module';
 import { SnackModule } from '@core/snack/snack.module';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,14 @@ import { SnackModule } from '@core/snack/snack.module';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects]),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
+        width: '600px',
+        disableClose: true,
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

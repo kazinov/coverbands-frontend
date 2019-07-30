@@ -1,5 +1,5 @@
-<div class="header" mat-dialog-title>
-  <span class="header-text">{{header}}</span>
+<div class="dialog-header" mat-dialog-title>
+  <span class="dialog-header-text">{{header}}</span>
   <button mat-icon-button class="close-dialog-button"
           (click)="onCancelClick()">
     <mat-icon class="close-dialog-icon">clear</mat-icon>
@@ -24,12 +24,6 @@
     (goBack)="goToTab(AuthDialogTab.Login)"
     (resetPassword)="onResetPassword($event)">
   </app-forgot-password>
-
-  <app-password-reset-link-sent
-    *ngIf="currentTab === AuthDialogTab.PasswordResetLinkSent"
-    [passwordResetLinkSentEmail]="passwordResetLinkSentEmail"
-    (goBack)="goToTab(AuthDialogTab.Login)">
-  </app-password-reset-link-sent>
 </div>
 
 <div class="spinner-container"
