@@ -45,6 +45,11 @@ export class AuthService {
       .pipe(catchError(fromFirebaseError));
   }
 
+  confirmResetPassword(code: string, newPassword: string) {
+    return from(this.firebaseService.auth.confirmPasswordReset(code, newPassword))
+      .pipe(catchError(fromFirebaseError));
+  }
+
   private init() {
     this.firebaseService.auth.onAuthStateChanged(this.authStateSubject);
   }

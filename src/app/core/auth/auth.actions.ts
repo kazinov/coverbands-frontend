@@ -51,3 +51,13 @@ export const sendResetPasswordFailureAction = createAction(
   '[Auth] Send reset password failure',
   props<{ error: HttpError }>()
 );
+
+export const confirmResetPasswordAction = createAction('[Auth] Confirm reset password',
+  props<{ code: string, password: string}>());
+
+export const confirmResetPasswordSuccessAction = createAction('[Auth] Confirm reset password success');
+
+export const confirmResetPasswordFailureAction = createAction(
+  '[Auth] Confirm reset password failure',
+  props<{ error: HttpError }>()
+);

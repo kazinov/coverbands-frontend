@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import {
+  confirmResetPasswordAction, confirmResetPasswordFailureAction, confirmResetPasswordSuccessAction,
   registerAction,
   registerFailureAction,
   registerSuccessAction, sendResetPasswordAction, sendResetPasswordFailureAction, sendResetPasswordSuccessAction,
@@ -40,7 +41,7 @@ export class AuthEffects {
       ofType(registerAction),
       exhaustMap(action =>
         this.authService.register(action.credentials).pipe(
-          map((credentials: FirebaseUserCredentials) => {
+          map(() => {
             this.snackService.success(TRANSLATIONS.auth.userRegistered);
             this.authService.closeAuthDialog();
             return registerSuccessAction();
@@ -89,10 +90,28 @@ export class AuthEffects {
       ofType(sendResetPasswordAction),
       exhaustMap(action =>
         this.authService.sendResetPassword(action.email).pipe(
-          map((credentials) => sendResetPasswordSuccessAction()),
+          map(() => sendResetPasswordSuccessAction()),
           catchError(error => {
             this.showErrorSnack(error);
             return of(sendResetPasswordFailureAction({error}));
+          })
+        )
+      )
+    )
+  );
+
+  confirmResetPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(confirmResetPasswordAction),
+      exhaustMap(action =>
+        this.authService.confirmResetPassword(action.code, action.password).pipe(
+          map(() => {
+            this.snackService.success(TRANSLATIONS.auth.passwordChanged);
+            return confirmResetPasswordSuccessAction();
+          }),
+          catchError(error => {
+            this.showErrorSnack(error);
+            return of(confirmResetPasswordFailureAction({error}));
           })
         )
       )
