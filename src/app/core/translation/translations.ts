@@ -23,6 +23,13 @@ export const TRANSLATIONS = {
     [MusicGenres.Rap]: 'Реп',
     [MusicGenres.Rock]: 'Рок',
   },
+  forms: {
+    validationMessages: {
+      requiredField: 'Обязательное поле',
+      passwordTooShort: 'Пароль должен содержать как минимум {length} символов',
+      passwordTooLong: 'Пароль должен содержать как минимум {length} символов'
+    }
+  },
   ...AUTH_MENU_TRANSLATIONS,
   ...SNACK_TRANSLATIONS,
   ...AUTH_TRANSLATIONS,
