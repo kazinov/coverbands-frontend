@@ -7,7 +7,7 @@ import { TRANSLATIONS } from '@core/translation/translations';
 const SNACK_CONFIG = {
   horizontalPosition: 'center' as MatSnackBarHorizontalPosition,
   verticalPosition: 'top' as MatSnackBarVerticalPosition,
-  duration: 5000
+  duration: 8000
 };
 
 @Injectable()

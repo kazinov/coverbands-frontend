@@ -12,6 +12,7 @@ export const AUTH_TRANSLATIONS = {
     },
     userRegistered: 'Учетная запись зарегистрирована!',
     passwordChanged: 'Пароль изменен!',
+    resetPasswordSent: 'Ссылка для восстановления пароля отправлена на почту {email}.',
 
     formLabels: {
       password: 'Пароль'

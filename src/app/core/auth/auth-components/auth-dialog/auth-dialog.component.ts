@@ -1,19 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 import { Store } from '@ngrx/store';
-import { registerAction, sendResetPasswordAction, signInAction } from '@core/auth/auth.actions';
+import {
+  registerAction,
+  sendResetPasswordAction,
+  sendResetPasswordSuccessAction,
+  signInAction
+} from '@core/auth/auth.actions';
+import { Actions, ofType } from '@ngrx/effects';
+import { takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-auth-dialog',
   templateUrl: './auth-dialog.component.html',
   styleUrls: ['./auth-dialog.component.scss']
 })
-export class AuthDialogComponent implements OnInit {
+export class AuthDialogComponent implements OnInit, OnDestroy {
   currentTab = AuthDialogTab.Login;
   AuthDialogTab = AuthDialogTab;
   isLoading = false;
+  unsubscribe$ = new Subject();
 
   onSubmitClick() {
 
@@ -24,6 +33,11 @@ export class AuthDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.actions$.pipe(
+      ofType(sendResetPasswordSuccessAction),
+      tap(action => this.currentTab = AuthDialogTab.Login),
+      takeUntil(this.unsubscribe$)
+    ).subscribe();
   }
 
   goToForgotPassword() {
@@ -64,9 +78,15 @@ export class AuthDialogComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   constructor(
     private dialogRef: MatDialogRef<AuthDialogComponent>,
-    private store: Store<any>
+    private store: Store<any>,
+    private actions$: Actions,
   ) {
   }
 

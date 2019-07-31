@@ -21,6 +21,9 @@ import { AppUserInfoHelpers } from '@core/auth/auth.model';
 import { SnackService } from '@core/snack/snack.service';
 import { TRANSLATIONS } from '@core/translation/translations';
 import { HttpError } from '@shared/types/http-error';
+import { Router } from '@angular/router';
+import { AppPaths } from '../../app-paths';
+import { TranslationUtils } from '@core/translation/translation.utils';
 
 @Injectable()
 export class AuthEffects {
@@ -90,7 +93,15 @@ export class AuthEffects {
       ofType(sendResetPasswordAction),
       exhaustMap(action =>
         this.authService.sendResetPassword(action.email).pipe(
-          map(() => sendResetPasswordSuccessAction()),
+          map(() => {
+            this.snackService.success(
+              TranslationUtils.interpolate(TRANSLATIONS.auth.resetPasswordSent,
+                {
+                  email: action.email
+                })
+            );
+            return sendResetPasswordSuccessAction();
+          }),
           catchError(error => {
             this.showErrorSnack(error);
             return of(sendResetPasswordFailureAction({error}));
@@ -107,16 +118,28 @@ export class AuthEffects {
         this.authService.confirmResetPassword(action.code, action.password).pipe(
           map(() => {
             this.snackService.success(TRANSLATIONS.auth.passwordChanged);
+            this.closeResetPasswordDialog();
+            this.authService.openAuthDialog();
             return confirmResetPasswordSuccessAction();
           }),
-          catchError(error => {
+          catchError((error: HttpError) => {
             this.showErrorSnack(error);
+            if (error.code !== 'auth/weak-password') {
+              this.closeResetPasswordDialog();
+            }
             return of(confirmResetPasswordFailureAction({error}));
           })
         )
       )
     )
   );
+
+  private closeResetPasswordDialog() {
+    this.authService.closeResetPasswordDialog();
+    this.router.navigate([
+      AppPaths.Home
+    ]);
+  }
 
   showErrorSnack(error: HttpError) {
     this.snackService.error(TRANSLATIONS.auth.errors[error.code]);
@@ -125,7 +148,8 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private snackService: SnackService
+    private snackService: SnackService,
+    private router: Router
   ) {
   }
 

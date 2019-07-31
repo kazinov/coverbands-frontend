@@ -6,6 +6,7 @@ import { ResetPasswordDialogOptions } from '@core/auth/auth-components/reset-pas
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationUtils } from 'app/core/translation/translation.utils';
+import { confirmResetPasswordAction } from '@core/auth/auth.actions';
 
 @Component({
   selector: 'app-reset-password-dialog',
@@ -44,6 +45,10 @@ export class ResetPasswordDialogComponent implements OnInit {
       return;
     }
 
+    this.store.dispatch(confirmResetPasswordAction({
+      code: this.options.code,
+      password: this.form.value.password
+    }));
   }
 
   constructor(
