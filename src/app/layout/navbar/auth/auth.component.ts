@@ -11,7 +11,7 @@ import { TRANSLATIONS } from '@core/translation/translations';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  loggedIn$ = this.store.pipe(select(this.authSelectors.loggedIn));
+  loggedIn$ = this.store.pipe(select(this.authSelectors.isAuthenticated));
   currentUser$ = this.store.pipe(select(this.authSelectors.currentUser));
   currentUserDisplayName$ = this.store.pipe(select(this.authSelectors.currentUserDisplayName));
 

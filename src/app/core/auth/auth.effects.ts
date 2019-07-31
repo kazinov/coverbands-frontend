@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, map } from 'rxjs/operators';
 import {
-  confirmResetPasswordAction, confirmResetPasswordFailureAction, confirmResetPasswordSuccessAction,
+  confirmResetPasswordAction,
+  confirmResetPasswordFailureAction,
+  confirmResetPasswordSuccessAction,
   registerAction,
   registerFailureAction,
-  registerSuccessAction, sendResetPasswordAction, sendResetPasswordFailureAction, sendResetPasswordSuccessAction,
+  registerSuccessAction,
+  sendResetPasswordAction,
+  sendResetPasswordFailureAction,
+  sendResetPasswordSuccessAction,
   setCurrentUserAction,
   signInAction,
   signInFailureAction,
@@ -14,7 +19,7 @@ import {
   signOutFailureAction,
   signOutSuccessAction
 } from '@core/auth/auth.actions';
-import { FirebaseUserCredentials, FirebaseUserInfo } from '@core/firebase/firebase.model';
+import { FirebaseUserInfo } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
 import { of } from 'rxjs';
 import { AppUserInfoHelpers } from '@core/auth/auth.model';
@@ -24,6 +29,8 @@ import { HttpError } from '@shared/types/http-error';
 import { Router } from '@angular/router';
 import { AppPaths } from '../../app-paths';
 import { TranslationUtils } from '@core/translation/translation.utils';
+import { RoutingUtils } from '@shared/utils/routing.utils';
+import { ADMIN_PART_ROUTE_ID } from '@admin/admin-paths';
 
 @Injectable()
 export class AuthEffects {
@@ -31,10 +38,15 @@ export class AuthEffects {
   authChange$ = createEffect(() => {
       return this.authService.authStateChanged$
         .pipe(
-          map((user: FirebaseUserInfo) => setCurrentUserAction({
-            user: AppUserInfoHelpers.fromFirebaseUserInfo(user)
-          })),
-          tap((val) => console.error('current user', val.user))
+          map((user: FirebaseUserInfo) => {
+            if (!user && RoutingUtils.hasRouteId(this.router, ADMIN_PART_ROUTE_ID)) {
+              this.router.navigate([AppPaths.Home]);
+            }
+
+            return setCurrentUserAction({
+              user: AppUserInfoHelpers.fromFirebaseUserInfo(user)
+            });
+          })
         );
     }
   );
@@ -139,9 +151,7 @@ export class AuthEffects {
 
   private closeResetPasswordDialog() {
     this.authService.closeResetPasswordDialog();
-    this.router.navigate([
-      AppPaths.Home
-    ]);
+    this.router.navigate([AppPaths.Home]);
   }
 
   showErrorSnack(error: HttpError) {

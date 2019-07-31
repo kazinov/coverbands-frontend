@@ -17,7 +17,7 @@ export class AuthSelectors {
     (state) => state && (state.displayName || state.email)
   );
 
-  loggedIn = createSelector(
+  isAuthenticated = createSelector(
     this.currentUser,
     (state) => !!state
   );
