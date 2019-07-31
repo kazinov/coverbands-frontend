@@ -2,24 +2,24 @@
       (ngSubmit)="form.valid && onSubmit()"
       class="flex-column spacer">
 
-  <mat-form-field>
-    <mat-label>Имя</mat-label>
-    <input matInput
-           formControlName="name"
-           [minlength]="NAME_MIN_LENGTH"
-           [maxlength]="NAME_MAX_LENGTH"
-           required>
+<!--  <mat-form-field>-->
+<!--    <mat-label>Имя</mat-label>-->
+<!--    <input matInput-->
+<!--           formControlName="name"-->
+<!--           [minlength]="NAME_MIN_LENGTH"-->
+<!--           [maxlength]="NAME_MAX_LENGTH"-->
+<!--           required>-->
 
-    <mat-error *ngIf="nameControl.hasError('required')">
-      Обязательное поле
-    </mat-error>
-    <mat-error *ngIf="nameControl.hasError('minlength')">
-      Имя должно быть длиннее одного символа
-    </mat-error>
-    <mat-error *ngIf="nameControl.hasError('maxlength')">
-      Слишком длинное имя
-    </mat-error>
-  </mat-form-field>
+<!--    <mat-error *ngIf="nameControl.hasError('required')">-->
+<!--      Обязательное поле-->
+<!--    </mat-error>-->
+<!--    <mat-error *ngIf="nameControl.hasError('minlength')">-->
+<!--      Имя должно быть длиннее одного символа-->
+<!--    </mat-error>-->
+<!--    <mat-error *ngIf="nameControl.hasError('maxlength')">-->
+<!--      Слишком длинное имя-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
 
   <mat-form-field>
     <mat-label>Электронная почта</mat-label>

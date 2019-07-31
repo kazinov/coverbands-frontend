@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   @Output() goToLogIn = new EventEmitter();
 
   form: FormGroup;
-  nameControl: AbstractControl;
+  // nameControl: AbstractControl;
   emailControl: AbstractControl;
   passwordControl: AbstractControl;
 
@@ -26,12 +26,12 @@ export class RegisterComponent implements OnInit {
 
   private init() {
     this.form = new FormGroup({
-      name: this.nameControl = new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(NAME_MIN_LENGTH),
-          Validators.maxLength(NAME_MAX_LENGTH),
-        ]),
+      // name: this.nameControl = new FormControl('',
+      //   [
+      //     Validators.required,
+      //     Validators.minLength(NAME_MIN_LENGTH),
+      //     Validators.maxLength(NAME_MAX_LENGTH),
+      //   ]),
       email: this.emailControl = new FormControl('',
         [
           Validators.required,
