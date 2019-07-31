@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from '@core/auth/auth-components/forgot-passw
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { ResetPasswordDialogComponent } from '@core/auth/auth-components/reset-password-dialog/reset-password-dialog.component';
+import { AutoFocusModule } from '@shared/auto-focus/auto-focus.module';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { ResetPasswordDialogComponent } from '@core/auth/auth-components/reset-p
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
-    MatPasswordStrengthModule
+    MatPasswordStrengthModule,
+    AutoFocusModule
   ],
   providers: [],
   bootstrap: [],
