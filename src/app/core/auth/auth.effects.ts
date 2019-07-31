@@ -34,7 +34,7 @@ export class AuthEffects {
           map((user: FirebaseUserInfo) => setCurrentUserAction({
             user: AppUserInfoHelpers.fromFirebaseUserInfo(user)
           })),
-          tap((val) => console.error('current user', val))
+          tap((val) => console.error('current user', val.user))
         );
     }
   );
@@ -63,7 +63,10 @@ export class AuthEffects {
       ofType(signInAction),
       exhaustMap(action =>
         this.authService.signIn(action.email, action.password).pipe(
-          map((credentials) => signInSuccessAction({credentials})),
+          map(() => {
+            this.authService.closeAuthDialog();
+            return signInSuccessAction();
+          }),
           catchError(error => {
             this.showErrorSnack(error);
             return of(signInFailureAction({error}));

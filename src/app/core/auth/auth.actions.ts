@@ -34,8 +34,7 @@ export const signOutFailureAction = createAction(
 export const signInAction = createAction('[Auth] Sign in',
   props<{ email: string, password: string }>());
 
-export const signInSuccessAction = createAction('[Auth] Sign in success',
-  props<{ credentials: FirebaseUserCredentials }>());
+export const signInSuccessAction = createAction('[Auth] Sign in success');
 
 export const signInFailureAction = createAction(
   '[Auth] Sign in failure',
