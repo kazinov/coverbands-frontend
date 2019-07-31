@@ -6,7 +6,15 @@ import { ResetPasswordDialogOptions } from '@core/auth/auth-components/reset-pas
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationUtils } from 'app/core/translation/translation.utils';
-import { confirmResetPasswordAction } from '@core/auth/auth.actions';
+import {
+  confirmResetPasswordAction, confirmResetPasswordFailureAction, confirmResetPasswordSuccessAction,
+  registerAction, registerFailureAction, registerSuccessAction,
+  sendResetPasswordAction, sendResetPasswordFailureAction, sendResetPasswordSuccessAction,
+  signInAction, signInFailureAction, signInSuccessAction
+} from '@core/auth/auth.actions';
+import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
+import { Subject } from 'rxjs';
+import { Actions } from '@ngrx/effects';
 
 @Component({
   selector: 'app-reset-password-dialog',
@@ -16,11 +24,24 @@ import { confirmResetPasswordAction } from '@core/auth/auth.actions';
 export class ResetPasswordDialogComponent implements OnInit {
   t = TRANSLATIONS;
   TranslationUtils = TranslationUtils;
-  isLoading = false;
   PASSWORD_MIN_LENGTH = PASSWORD_MIN_LENGTH;
   PASSWORD_MAX_LENGTH = PASSWORD_MAX_LENGTH;
   form: FormGroup;
   passwordControl: AbstractControl;
+  unsubscribe$ = new Subject();
+  isLoading$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        confirmResetPasswordAction
+      ],
+      stopActions: [
+        confirmResetPasswordSuccessAction,
+        confirmResetPasswordFailureAction
+      ],
+      takeUntil: this.unsubscribe$
+    }
+  );
 
   private initForm() {
     this.form = new FormGroup({});
@@ -54,7 +75,8 @@ export class ResetPasswordDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ResetPasswordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private options: ResetPasswordDialogOptions,
-    private store: Store<any>
+    private store: Store<any>,
+    private actions$: Actions,
   ) {
   }
 

@@ -4,14 +4,15 @@ import { AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialo
 import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 import { Store } from '@ngrx/store';
 import {
-  registerAction,
-  sendResetPasswordAction,
+  registerAction, registerFailureAction, registerSuccessAction,
+  sendResetPasswordAction, sendResetPasswordFailureAction,
   sendResetPasswordSuccessAction,
-  signInAction
+  signInAction, signInFailureAction, signInSuccessAction
 } from '@core/auth/auth.actions';
 import { Actions, ofType } from '@ngrx/effects';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -19,10 +20,28 @@ import { Subject } from 'rxjs';
   styleUrls: ['./auth-dialog.component.scss']
 })
 export class AuthDialogComponent implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject();
   currentTab = AuthDialogTab.Login;
   AuthDialogTab = AuthDialogTab;
-  isLoading = false;
-  unsubscribe$ = new Subject();
+  isLoading$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        registerAction,
+        signInAction,
+        sendResetPasswordAction
+      ],
+      stopActions: [
+        registerSuccessAction,
+        registerFailureAction,
+        signInSuccessAction,
+        signInFailureAction,
+        sendResetPasswordSuccessAction,
+        sendResetPasswordFailureAction
+      ],
+      takeUntil: this.unsubscribe$
+    }
+  );
 
   onSubmitClick() {
 

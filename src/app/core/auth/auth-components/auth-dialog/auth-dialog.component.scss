@@ -1,2 +1,6 @@
 @import "app/shared/styles/common";
 
+:host {
+  position: relative;
+  display: block;
+}

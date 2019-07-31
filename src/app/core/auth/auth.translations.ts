@@ -11,7 +11,7 @@ export const AUTH_TRANSLATIONS = {
       'auth/invalid-action-code': 'Код активации недействителен'
     },
     userRegistered: 'Учетная запись зарегистрирована!',
-    passwordChanged: 'Пароль изменен!',
+    passwordChanged: 'Пароль изменен! Используйте новый пароль для входа',
     resetPasswordSent: 'Ссылка для восстановления пароля отправлена на почту {email}.',
 
     formLabels: {
