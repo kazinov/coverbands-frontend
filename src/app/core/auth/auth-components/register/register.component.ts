@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 // tslint:disable-next-line:max-line-length
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, NAME_MIN_LENGTH, NAME_MAX_LENGTH } from '@core/auth/auth-components/auth-dialog/auth-dialog.model';
 import { CredentialsWithName } from '@core/auth/auth.model';
+import { EMAIL_REGEX } from '@core/auth/auth-components/auth-components.utils';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,7 @@ export class RegisterComponent implements OnInit {
       email: this.emailControl = new FormControl('',
         [
           Validators.required,
-          Validators.email
+          Validators.pattern(EMAIL_REGEX)
         ]),
       password: this.passwordControl = new FormControl('',
         [

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { EMAIL_REGEX } from '@core/auth/auth-components/auth-components.utils';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,7 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.form.registerControl('email', this.emailControl = new FormControl('',
       [
         Validators.required,
-        Validators.email
+        Validators.pattern(EMAIL_REGEX)
       ]));
   }
 
