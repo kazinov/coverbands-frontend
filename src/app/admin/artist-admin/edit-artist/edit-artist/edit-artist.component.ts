@@ -20,7 +20,7 @@ const dummyBand: Artist = {
 Тонкое чувство настроения зрителя и его желаний.
 Драйв, эмоции и энергетика настоящего концерта`,
   city: Cities[Countries.Russia].SaintPetersburg,
-  genres: [MusicGenres.Pop],
+  musicGenres: [MusicGenres.Pop],
   covers: [
     {
       band: 'Ленинград',

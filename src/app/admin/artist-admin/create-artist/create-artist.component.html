@@ -1,7 +1,34 @@
 <div class="app-form-wrapper">
-    <h3 class="app-form-header">Create a band</h3>
-    <app-edit-artist-main-info
-      [hideDescription]="true"
-      (saveClick)="onSaveClick($event)">
-    </app-edit-artist-main-info>
+    <h3 class="app-form-header">{{t.createArtist.header}}</h3>
+  <form [formGroup]="form"
+        class="flex-column spacer"
+        novalidate
+        (submit)="onSubmit()">
+    <mat-form-field>
+      <input matInput
+             [placeholder]="t.createArtist.name"
+             formControlName="name">
+      <mat-error *ngIf="form.get('name').invalid">{{t.forms.validationMessages.requiredField}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{t.createArtist.genre}}</mat-label>
+      <mat-select formControlName="type">
+        <mat-option
+          *ngFor="let type of artistTypes"
+          [value]="type.id">
+          {{type.label}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('type').invalid">{{t.forms.validationMessages.requiredField}}</mat-error>
+    </mat-form-field>
+
+    <div class="app-save-button-container">
+      <button type="submit"
+              mat-raised-button
+              [disabled]="form.invalid"
+              color="primary">{{t.createArtist.submitButton}}</button>
+    </div>
+  </form>
+
 </div>

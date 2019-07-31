@@ -5,6 +5,8 @@ import { AUTH_MENU_TRANSLATIONS } from '../../layout/navbar/auth/auth.translatio
 import { SNACK_TRANSLATIONS } from '@core/snack/snack.translations';
 import { AUTH_TRANSLATIONS } from '@core/auth/auth.translations';
 import { RESET_PASSWORD_DIALOG_TRANSLATIONS } from '@core/auth/auth-components/reset-password-dialog/reset-password-dialog.translations';
+import { ArtistTypes } from '@core/models/artist-types.model';
+import { CREATE_ARTIST_TRANSLATIONS } from '@artist-admin/create-artist/create-artist.translations';
 
 export const TRANSLATIONS = {
   cities: {
@@ -23,6 +25,14 @@ export const TRANSLATIONS = {
     [MusicGenres.Rap]: 'Реп',
     [MusicGenres.Rock]: 'Рок',
   },
+  artistTypes: {
+    [ArtistTypes.LiveMusic]: 'Живая музыка',
+    [ArtistTypes.DanceShow]: 'Танцы',
+    [ArtistTypes.DJ]: 'Диджей',
+    [ArtistTypes.MC]: 'Ведущий',
+    [ArtistTypes.Other]: 'Другое',
+    [ArtistTypes.StandUp]: 'Стендап',
+  },
   forms: {
     validationMessages: {
       requiredField: 'Обязательное поле',
@@ -33,5 +43,6 @@ export const TRANSLATIONS = {
   ...AUTH_MENU_TRANSLATIONS,
   ...SNACK_TRANSLATIONS,
   ...AUTH_TRANSLATIONS,
-  ...RESET_PASSWORD_DIALOG_TRANSLATIONS
+  ...RESET_PASSWORD_DIALOG_TRANSLATIONS,
+  ...CREATE_ARTIST_TRANSLATIONS
 };

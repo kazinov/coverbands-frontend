@@ -72,7 +72,7 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
       description: [this.artist ? this.artist.description : null, []],
       [cityFilterFieldName]: [null, []],
       city: [this.artist ? this.artist.city : null, [Validators.required]],
-      genres: [this.artist ? this.artist.genres : [], [Validators.required]]
+      genres: [this.artist ? this.artist.musicGenres : [], [Validators.required]]
     });
   }
 

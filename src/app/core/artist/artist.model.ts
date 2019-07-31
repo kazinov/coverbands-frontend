@@ -16,11 +16,12 @@ export interface Price {
 
 export interface Artist {
   id?: string;
+  userId?: string;
   type?: string;
   name?: string;
   description?: string;
   city?: string;
-  genres?: string[];
+  musicGenres?: string[];
   covers?: CoverInfo[];
   links?: Link[];
   videos?: string[];
