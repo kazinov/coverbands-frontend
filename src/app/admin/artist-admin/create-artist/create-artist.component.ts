@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Artist } from '@core/artist/artist.model';
 import { TRANSLATIONS } from '@core/translation/translations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectorOption } from '@shared/utils/selector-option';
-import { ALL_MUSIC_GENRES } from '@core/models/music-genres.model';
-import { ALL_ARTIST_TYPES, ArtistTypes } from '@core/models/artist-types.model';
-import { TranslationService } from '@core/translation/translation.service';
+import { ALL_ARTIST_TYPES } from '@core/models/artist-types.model';
+import { Store } from '@ngrx/store';
+import { createArtistAction } from '@artist-admin/artist-admin.actions';
 
 @Component({
   selector: 'app-create-artist',
@@ -24,7 +23,8 @@ export class CreateArtistComponent implements OnInit {
   }));
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private store: Store<any>
   ) {
   }
 
@@ -39,7 +39,6 @@ export class CreateArtistComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const result: Partial<Artist> = this.form.value;
-    console.error('onSubmit', result);
+    this.store.dispatch(createArtistAction(this.form.value));
   }
 }
