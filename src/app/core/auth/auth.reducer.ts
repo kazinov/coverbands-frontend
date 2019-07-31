@@ -4,6 +4,7 @@ import { AppUserInfo } from '@core/auth/auth.model';
 
 export interface AuthState {
   currentUser: AppUserInfo;
+  currentUserInitialised: boolean;
 }
 
 const currentUserReducer = createReducer(
@@ -11,8 +12,15 @@ const currentUserReducer = createReducer(
   on(setCurrentUserAction, (state, action) => (action.user)),
 );
 
+const currentUserInitialisedReducer = createReducer(
+  null,
+  on(setCurrentUserAction, () => true),
+);
+
+
 const reducers = combineReducers({
-  currentUser: currentUserReducer
+  currentUser: currentUserReducer,
+  currentUserInitialised: currentUserInitialisedReducer
 });
 
 export function authReducer(state: AuthState, action: Action) {
