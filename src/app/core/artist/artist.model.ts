@@ -1,3 +1,5 @@
+import { uniqueStoreKey } from '@shared/utils/unique-store-key';
+
 export interface CoverInfo {
   band: string;
   song: string;
@@ -15,8 +17,10 @@ export interface Price {
 }
 
 export interface Artist {
-  id?: string;
+  id: string;
   userId?: string;
+  createdAt?: string;
+  updatedAt?: string;
   type?: string;
   name?: string;
   description?: string;
@@ -34,3 +38,5 @@ export interface Artist {
   oneShowPrice?: Price;
   prices?: Price[];
 }
+
+export const ARTIST_STORE_KEY = uniqueStoreKey('artist');

@@ -14,6 +14,7 @@ export interface FirebaseOptions {
 export class FirebaseService {
   private appInstance: FirebaseApp = firebase.initializeApp(environment.firebase);
   private authInstance: FirebaseAuth = this.appInstance.auth();
+  private firestoreInstance: firebase.firestore.Firestore = this.appInstance.firestore();
 
   get app() {
     return this.appInstance;
@@ -21,6 +22,14 @@ export class FirebaseService {
 
   get auth() {
     return this.authInstance;
+  }
+
+  get firestore() {
+    return this.firestoreInstance;
+  }
+
+  get serverTimestampType() {
+    return firebase.firestore.FieldValue.serverTimestamp();
   }
 
   constructor() {

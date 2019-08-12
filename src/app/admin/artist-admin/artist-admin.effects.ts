@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
-import { AuthService } from '@core/auth/auth.service';
+import { catchError, exhaustMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { SnackService } from '@core/snack/snack.service';
 import { TRANSLATIONS } from '@core/translation/translations';
@@ -11,6 +10,8 @@ import {
   createArtistFailureAction,
   createArtistSuccessAction
 } from '@artist-admin/artist-admin.actions';
+import { ArtistAdminService } from '@artist-admin/artist-admin.service';
+import { upsertArtistsAction } from '@core/artist/artist.actions';
 
 @Injectable()
 export class ArtistAdminEffects {
@@ -18,17 +19,21 @@ export class ArtistAdminEffects {
   createArtist$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createArtistAction),
-      exhaustMap(action =>
-        of(0).pipe(
-          map(() => {
-            this.snackService.success(TRANSLATIONS.auth.userRegistered);
-            return createArtistSuccessAction();
-          }),
-          catchError(error => {
-            this.showErrorSnack(error);
-            return of(createArtistFailureAction({error}));
-          })
-        )
+      exhaustMap(action => {
+          return this.artistAdminService.createArtist(action.artist).pipe(
+            switchMap((artist) => {
+              this.snackService.success(TRANSLATIONS.auth.userRegistered);
+              return of(
+                upsertArtistsAction({artists: [artist]}),
+                createArtistSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error);
+              return of(createArtistFailureAction({error}));
+            })
+          );
+        }
       )
     )
   );
@@ -39,7 +44,7 @@ export class ArtistAdminEffects {
 
   constructor(
     private actions$: Actions,
-    private authService: AuthService,
+    private artistAdminService: ArtistAdminService,
     private snackService: SnackService
   ) {
   }

@@ -39,6 +39,8 @@ export class CreateArtistComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    this.store.dispatch(createArtistAction(this.form.value));
+    this.store.dispatch(createArtistAction({
+      artist: this.form.value
+    }));
   }
 }

@@ -18,6 +18,7 @@ import { FirebaseModule } from '@core/firebase/firebase.module';
 import { AuthModule } from '@core/auth/auth.module';
 import { SnackModule } from '@core/snack/snack.module';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { ArtistModule } from '@core/artist/artist.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
     AuthModule,
     FirebaseModule,
     SnackModule,
+    ArtistModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: environment.production ? {} : {

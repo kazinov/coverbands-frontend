@@ -1,6 +1,7 @@
 import { FirebaseUserInfo } from '@core/firebase/firebase.model';
+import { uniqueStoreKey } from '@shared/utils/unique-store-key';
 
-export const AUTH_STORE_KEY = 'auth';
+export const AUTH_STORE_KEY = uniqueStoreKey('auth');
 
 export interface Credentials {
   email: string;

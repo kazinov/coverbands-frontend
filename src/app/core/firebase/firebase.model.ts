@@ -6,6 +6,7 @@ export type FirebaseApp =  firebase.app.App;
 export type FirebaseAuth = firebase.auth.Auth;
 export type FirebaseUserInfo = firebase.UserInfo;
 export type FirebaseUserCredentials = firebase.auth.UserCredential;
+export type FirebaseDocumentReference = firebase.firestore.DocumentReference;
 
 export function parseFirebaseError(input: FirebaseError): HttpError {
   return input && {
