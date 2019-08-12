@@ -1,20 +1,21 @@
-import { Observable ,  concat ,  of ,  NEVER } from 'rxjs';
+import { concat, NEVER, Observable, of } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 export interface IsLoadingObservableOptions {
   startActions: any[];
   stopActions: any[];
-  takeUntil?: Observable<any>;
+  takeUntil?: <T>(source: Observable<T>) => Observable<T>;
 }
 
 export function getIsLoadingObservable(actions: Actions, options: IsLoadingObservableOptions) {
   if (!options.takeUntil) {
-    options.takeUntil = NEVER;
+    options.takeUntil = () => NEVER;
   }
 
   return concat<boolean>(of(false), actions.pipe(ofType.apply(actions, options.startActions))
-    .pipe(takeUntil(options.takeUntil),
+    .pipe(
+      options.takeUntil,
       switchMap(() => {
         return concat(of(true), actions.pipe(ofType.apply(actions, options.stopActions))
           .pipe(map(() => false)));

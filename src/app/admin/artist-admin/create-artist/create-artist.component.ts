@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { TRANSLATIONS } from '@core/translation/translations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectorOption } from '@shared/utils/selector-option';
 import { ALL_ARTIST_TYPES } from '@core/models/artist-types.model';
 import { Store } from '@ngrx/store';
-import { createArtistAction } from '@artist-admin/artist-admin.actions';
+import {
+  createArtistAction,
+  createArtistFailureAction,
+  createArtistSuccessAction
+} from '@artist-admin/artist-admin.actions';
+import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
+import { Actions } from '@ngrx/effects';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-create-artist',
@@ -12,7 +19,7 @@ import { createArtistAction } from '@artist-admin/artist-admin.actions';
   styleUrls: ['./create-artist.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateArtistComponent implements OnInit {
+export class CreateArtistComponent implements OnInit, OnDestroy {
   form: FormGroup;
   t = TRANSLATIONS;
 
@@ -22,9 +29,24 @@ export class CreateArtistComponent implements OnInit {
     label: TRANSLATIONS.artistTypes[typeId]
   }));
 
+  isLoading$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        createArtistAction
+      ],
+      stopActions: [
+        createArtistSuccessAction,
+        createArtistFailureAction
+      ],
+      takeUntil: untilDestroyed(this)
+    }
+  );
+
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<any>
+    private store: Store<any>,
+    private actions$: Actions
   ) {
   }
 
@@ -42,5 +64,8 @@ export class CreateArtistComponent implements OnInit {
     this.store.dispatch(createArtistAction({
       artist: this.form.value
     }));
+  }
+
+  ngOnDestroy(): void {
   }
 }

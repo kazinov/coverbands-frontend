@@ -11,3 +11,13 @@ export const createArtistFailureAction = createAction(
   '[Artist admin] Create artist failure',
   props<{ error: HttpError }>()
 );
+
+export const editArtistAction = createAction('[Artist admin] Edit artist',
+  props<{ artist: Partial<Artist> }>());
+
+export const editArtistSuccessAction = createAction('[Artist admin] Edit artist success');
+
+export const editArtistFailureAction = createAction(
+  '[Artist admin] Edit artist failure',
+  props<{ error: HttpError }>()
+);

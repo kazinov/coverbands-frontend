@@ -4,15 +4,20 @@ import { AuthDialogTab } from '@core/auth/auth-components/auth-dialog/auth-dialo
 import { Credentials, CredentialsWithName } from '@core/auth/auth.model';
 import { Store } from '@ngrx/store';
 import {
-  registerAction, registerFailureAction, registerSuccessAction,
-  sendResetPasswordAction, sendResetPasswordFailureAction,
+  registerAction,
+  registerFailureAction,
+  registerSuccessAction,
+  sendResetPasswordAction,
+  sendResetPasswordFailureAction,
   sendResetPasswordSuccessAction,
-  signInAction, signInFailureAction, signInSuccessAction
+  signInAction,
+  signInFailureAction,
+  signInSuccessAction
 } from '@core/auth/auth.actions';
 import { Actions, ofType } from '@ngrx/effects';
 import { takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -20,7 +25,6 @@ import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable'
   styleUrls: ['./auth-dialog.component.scss']
 })
 export class AuthDialogComponent implements OnInit, OnDestroy {
-  unsubscribe$ = new Subject();
   currentTab = AuthDialogTab.Login;
   AuthDialogTab = AuthDialogTab;
   isLoading$ = getIsLoadingObservable(
@@ -39,7 +43,7 @@ export class AuthDialogComponent implements OnInit, OnDestroy {
         sendResetPasswordSuccessAction,
         sendResetPasswordFailureAction
       ],
-      takeUntil: this.unsubscribe$
+      takeUntil: untilDestroyed(this)
     }
   );
 
@@ -55,7 +59,7 @@ export class AuthDialogComponent implements OnInit, OnDestroy {
     this.actions$.pipe(
       ofType(sendResetPasswordSuccessAction),
       tap(action => this.currentTab = AuthDialogTab.Login),
-      takeUntil(this.unsubscribe$)
+      untilDestroyed(this)
     ).subscribe();
   }
 
@@ -98,8 +102,6 @@ export class AuthDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
   }
 
   constructor(

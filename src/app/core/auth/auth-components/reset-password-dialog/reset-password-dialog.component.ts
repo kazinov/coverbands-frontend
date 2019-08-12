@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { TRANSLATIONS } from '@core/translation/translations';
@@ -7,28 +7,26 @@ import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@core/auth/auth-compon
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationUtils } from 'app/core/translation/translation.utils';
 import {
-  confirmResetPasswordAction, confirmResetPasswordFailureAction, confirmResetPasswordSuccessAction,
-  registerAction, registerFailureAction, registerSuccessAction,
-  sendResetPasswordAction, sendResetPasswordFailureAction, sendResetPasswordSuccessAction,
-  signInAction, signInFailureAction, signInSuccessAction
+  confirmResetPasswordAction,
+  confirmResetPasswordFailureAction,
+  confirmResetPasswordSuccessAction
 } from '@core/auth/auth.actions';
 import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
-import { Subject } from 'rxjs';
 import { Actions } from '@ngrx/effects';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-reset-password-dialog',
   templateUrl: './reset-password-dialog.component.html',
   styleUrls: ['./reset-password-dialog.component.scss']
 })
-export class ResetPasswordDialogComponent implements OnInit {
+export class ResetPasswordDialogComponent implements OnInit, OnDestroy {
   t = TRANSLATIONS;
   TranslationUtils = TranslationUtils;
   PASSWORD_MIN_LENGTH = PASSWORD_MIN_LENGTH;
   PASSWORD_MAX_LENGTH = PASSWORD_MAX_LENGTH;
   form: FormGroup;
   passwordControl: AbstractControl;
-  unsubscribe$ = new Subject();
   isLoading$ = getIsLoadingObservable(
     this.actions$,
     {
@@ -39,7 +37,7 @@ export class ResetPasswordDialogComponent implements OnInit {
         confirmResetPasswordSuccessAction,
         confirmResetPasswordFailureAction
       ],
-      takeUntil: this.unsubscribe$
+      takeUntil: untilDestroyed(this)
     }
   );
 
@@ -78,6 +76,9 @@ export class ResetPasswordDialogComponent implements OnInit {
     private store: Store<any>,
     private actions$: Actions,
   ) {
+  }
+
+  ngOnDestroy(): void {
   }
 
 }
