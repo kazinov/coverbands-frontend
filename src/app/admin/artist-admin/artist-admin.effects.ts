@@ -12,6 +12,9 @@ import {
 } from '@artist-admin/artist-admin.actions';
 import { ArtistAdminService } from '@artist-admin/artist-admin.service';
 import { upsertArtistsAction } from '@core/artist/artist.actions';
+import { Router } from '@angular/router';
+import { AdminPaths } from '@admin/admin-paths';
+import { ArtistAdminPaths } from '@artist-admin/artist-admin-paths';
 
 @Injectable()
 export class ArtistAdminEffects {
@@ -23,6 +26,11 @@ export class ArtistAdminEffects {
           return this.artistAdminService.createArtist(action.artist).pipe(
             switchMap((artist) => {
               this.snackService.success(TRANSLATIONS.auth.userRegistered);
+              this.router.navigate([
+                AdminPaths.Admin,
+                ArtistAdminPaths.Artist,
+                ArtistAdminPaths.Edit,
+                artist.id]);
               return of(
                 upsertArtistsAction({artists: [artist]}),
                 createArtistSuccessAction()
@@ -45,7 +53,8 @@ export class ArtistAdminEffects {
   constructor(
     private actions$: Actions,
     private artistAdminService: ArtistAdminService,
-    private snackService: SnackService
+    private snackService: SnackService,
+    private router: Router
   ) {
   }
 
