@@ -5,26 +5,26 @@ import { of } from 'rxjs';
 import { SnackService } from '@core/snack/snack.service';
 import { TRANSLATIONS } from '@core/translation/translations';
 import { HttpError } from '@shared/types/http-error';
-import {
-  createArtistAction,
-  createArtistFailureAction,
-  createArtistSuccessAction, updateArtistAction, updateArtistFailureAction, updateArtistSuccessAction
-} from '@artist-admin/artist-admin.actions';
-import { ArtistAdminService } from '@artist-admin/artist-admin.service';
-import { upsertArtistsAction } from '@core/artist/artist.actions';
 import { Router } from '@angular/router';
 import { AdminPaths } from '@admin/admin-paths';
 import { ArtistAdminPaths } from '@artist-admin/artist-admin-paths';
 import { TranslationUtils } from '@core/translation/translation.utils';
+import { ArtistService } from '@core/artist/artist.service';
+import {
+  createArtistAction,
+  createArtistFailureAction,
+  createArtistSuccessAction,
+  updateArtistAction, updateArtistFailureAction, updateArtistSuccessAction, upsertArtistsAction
+} from '@core/artist/artist.actions';
 
 @Injectable()
-export class ArtistAdminEffects {
+export class ArtistEffects {
 
   createArtist$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createArtistAction),
       exhaustMap(action => {
-          return this.artistAdminService.createArtist(action.artist).pipe(
+          return this.artistService.createArtist(action.artist).pipe(
             switchMap((artist) => {
               this.router.navigate([
                 AdminPaths.Admin,
@@ -50,7 +50,7 @@ export class ArtistAdminEffects {
     this.actions$.pipe(
       ofType(updateArtistAction),
       exhaustMap(action => {
-          return this.artistAdminService.updateArtist(action.artist).pipe(
+          return this.artistService.updateArtist(action.artist).pipe(
             switchMap(() => {
               this.snackService.success(TRANSLATIONS.changesSaved);
               return of(
@@ -80,7 +80,7 @@ export class ArtistAdminEffects {
 
   constructor(
     private actions$: Actions,
-    private artistAdminService: ArtistAdminService,
+    private artistService: ArtistService,
     private snackService: SnackService,
     private router: Router
   ) {

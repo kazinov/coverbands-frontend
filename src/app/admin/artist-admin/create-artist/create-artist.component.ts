@@ -4,14 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectorOption } from '@shared/utils/selector-option';
 import { ALL_ARTIST_TYPES } from '@core/models/artist-types.model';
 import { Store } from '@ngrx/store';
-import {
-  createArtistAction,
-  createArtistFailureAction,
-  createArtistSuccessAction
-} from '@artist-admin/artist-admin.actions';
 import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
 import { Actions } from '@ngrx/effects';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { createArtistAction, createArtistFailureAction, createArtistSuccessAction } from '@core/artist/artist.actions';
 
 @Component({
   selector: 'app-create-artist',

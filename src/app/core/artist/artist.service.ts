@@ -12,7 +12,7 @@ import { AuthService } from '@core/auth/auth.service';
 const ARTISTS_COLLECTION_NAME = 'artists';
 
 @Injectable()
-export class ArtistAdminService {
+export class ArtistService {
   private artistsCollection = this.firebaseService.firestore.collection(ARTISTS_COLLECTION_NAME);
 
   createArtist(artist: Partial<Artist>): Observable<Artist> {
