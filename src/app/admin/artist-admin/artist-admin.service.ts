@@ -26,7 +26,8 @@ export class ArtistAdminService {
 
           return from(this.artistsCollection.add({
             ...newArtist,
-            createdAt: this.firebaseService.serverTimestampType
+            createdAt: this.firebaseService.serverTimestampType,
+            updatedAt: this.firebaseService.serverTimestampType
           }))
             .pipe(
               map((ref: FirebaseDocumentReference) => {
@@ -39,6 +40,17 @@ export class ArtistAdminService {
             );
         })
       );
+  }
+
+  updateArtist(artist: Artist): Observable<void> {
+    return from(this.artistsCollection.doc(artist.id).update({
+      ...artist,
+      updatedAt: this.firebaseService.serverTimestampType
+    }))
+      .pipe(
+        catchError(fromFirebaseError)
+      );
+
   }
 
   constructor(

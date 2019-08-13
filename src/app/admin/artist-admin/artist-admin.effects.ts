@@ -8,13 +8,14 @@ import { HttpError } from '@shared/types/http-error';
 import {
   createArtistAction,
   createArtistFailureAction,
-  createArtistSuccessAction
+  createArtistSuccessAction, updateArtistAction, updateArtistFailureAction, updateArtistSuccessAction
 } from '@artist-admin/artist-admin.actions';
 import { ArtistAdminService } from '@artist-admin/artist-admin.service';
 import { upsertArtistsAction } from '@core/artist/artist.actions';
 import { Router } from '@angular/router';
 import { AdminPaths } from '@admin/admin-paths';
 import { ArtistAdminPaths } from '@artist-admin/artist-admin-paths';
+import { TranslationUtils } from '@core/translation/translation.utils';
 
 @Injectable()
 export class ArtistAdminEffects {
@@ -25,7 +26,6 @@ export class ArtistAdminEffects {
       exhaustMap(action => {
           return this.artistAdminService.createArtist(action.artist).pipe(
             switchMap((artist) => {
-              this.snackService.success(TRANSLATIONS.auth.userRegistered);
               this.router.navigate([
                 AdminPaths.Admin,
                 ArtistAdminPaths.Artist,
@@ -37,8 +37,30 @@ export class ArtistAdminEffects {
               );
             }),
             catchError(error => {
-              this.showErrorSnack(error);
+              this.showErrorSnack(error, 'create-artist');
               return of(createArtistFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+   );
+
+  updateArtist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateArtistAction),
+      exhaustMap(action => {
+          return this.artistAdminService.updateArtist(action.artist).pipe(
+            switchMap(() => {
+              this.snackService.success(TRANSLATIONS.changesSaved);
+              return of(
+                upsertArtistsAction({artists: [action.artist]}),
+                updateArtistSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'update-artist');
+              return of(updateArtistFailureAction({error}));
             })
           );
         }
@@ -46,8 +68,14 @@ export class ArtistAdminEffects {
     )
   );
 
-  showErrorSnack(error: HttpError) {
-    this.snackService.error(TRANSLATIONS.auth.errors[error.code]);
+  showErrorSnack(error: HttpError, id: string) {
+    this.snackService.success(
+      TranslationUtils.interpolate(TRANSLATIONS.error,
+        {
+          id,
+          code: error && error.code || 500
+        })
+    );
   }
 
   constructor(

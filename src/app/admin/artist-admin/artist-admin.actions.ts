@@ -12,12 +12,12 @@ export const createArtistFailureAction = createAction(
   props<{ error: HttpError }>()
 );
 
-export const editArtistAction = createAction('[Artist admin] Edit artist',
-  props<{ artist: Partial<Artist> }>());
+export const updateArtistAction = createAction('[Artist admin] Update artist',
+  props<{ artist: Artist }>());
 
-export const editArtistSuccessAction = createAction('[Artist admin] Edit artist success');
+export const updateArtistSuccessAction = createAction('[Artist admin] Update artist success');
 
-export const editArtistFailureAction = createAction(
-  '[Artist admin] Edit artist failure',
+export const updateArtistFailureAction = createAction(
+  '[Artist admin] Update artist failure',
   props<{ error: HttpError }>()
 );

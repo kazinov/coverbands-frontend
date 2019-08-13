@@ -40,6 +40,8 @@ export const TRANSLATIONS = {
       passwordTooLong: 'Пароль должен содержать как минимум {length} символов'
     }
   },
+  error: 'Ошибка {id}-{code}',
+  changesSaved: 'Изменения сохранены',
   ...AUTH_MENU_TRANSLATIONS,
   ...SNACK_TRANSLATIONS,
   ...AUTH_TRANSLATIONS,
