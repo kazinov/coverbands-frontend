@@ -24,7 +24,7 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   @Input() saveButtonText = 'Сохранить';
   @Input() artist: Artist;
   @Input() hideDescription: boolean;
-  @Output() saveClick = new EventEmitter<Partial<Artist>>();
+  @Output() saveClick = new EventEmitter<Artist>();
   form: FormGroup;
 
   genres: SelectorOption[]

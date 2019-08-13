@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, take, takeUntil, tap } from 'rxjs/operators';
 import { FileHelper } from '@shared/utils/file-helper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
@@ -24,6 +24,7 @@ import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable'
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Actions } from '@ngrx/effects';
 import { anyBooleanObservableTrue } from '@shared/utils/any-boolean-observable-true';
+import assign from 'lodash-es/assign';
 
 const dummyBand: Artist = {
   id: '123',
@@ -155,16 +156,24 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     return this.activatedRoute.snapshot.paramMap.get('id');
   }
 
-  onMainInfoSave(artist: Artist) {
+  updateArtist(artist: Artist) {
     this.store.dispatch(updateArtistAction({artist}));
   }
 
-  onContactsSave(contacts: Artist) {
-    console.log('onContactsSave', contacts);
+  onArtist(collback: (artist: Artist) => void) {
+    this.artist$
+      .pipe(
+        take(1),
+        tap(collback)
+      )
+      .subscribe();
   }
 
   onLinksSave(links: Link[]) {
-    console.log('links', links);
+    this.onArtist(artist => this.store.dispatch(updateArtistAction({
+        artist: assign({}, artist, {links})
+      }))
+    );
   }
 
   onVideosSave(videos: string[]) {

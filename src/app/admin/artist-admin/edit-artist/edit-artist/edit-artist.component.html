@@ -10,7 +10,7 @@
             </mat-expansion-panel-header>
             <app-edit-artist-main-info
                     [artist]="artist$ | async"
-                    (saveClick)="onMainInfoSave($event)">
+                    (saveClick)="updateArtist($event)">
             </app-edit-artist-main-info>
         </mat-expansion-panel>
 
@@ -21,7 +21,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-edit-artist-contacts [artist]="artist$ | async"
-                                      (saveClick)="onContactsSave($event)">
+                                      (saveClick)="updateArtist($event)">
             </app-edit-artist-contacts>
         </mat-expansion-panel>
 

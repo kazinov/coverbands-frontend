@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Artist } from '@core/artist/artist.model';
+import assign from 'lodash-es/assign';
 
 interface PhoneFormInputConfig {
   mask: string;
@@ -25,7 +26,7 @@ const phoneNumberFormName = 'phoneNumber';
 })
 export class EditArtistContactsComponent implements OnInit {
   @Input() artist: Artist;
-  @Output() saveClick = new EventEmitter<Partial<Artist>>();
+  @Output() saveClick = new EventEmitter<Artist>();
   form: FormGroup;
   phoneConfig: PhoneFormInputConfig = russianPhoneConfig;
   linksTableColumns: string[] = ['link', 'description'];
@@ -43,11 +44,13 @@ export class EditArtistContactsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.saveClick.emit({
-      email: this.form.value[emailFormName],
-      phoneCode: this.phoneConfig.phoneCode,
-      phoneNumber: this.form.value[phoneNumberFormName]
-    });
+    this.saveClick.emit(
+      assign({}, this.artist, {
+        email: this.form.value[emailFormName],
+        phoneCode: this.phoneConfig.phoneCode,
+        phoneNumber: this.form.value[phoneNumberFormName]
+      })
+    );
   }
 
   get noValues() {
