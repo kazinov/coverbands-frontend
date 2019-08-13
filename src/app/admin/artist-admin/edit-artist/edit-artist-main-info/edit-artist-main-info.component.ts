@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
+import assign from 'lodash-es/assign';
 import { SelectorOption } from '@shared/utils/selector-option';
 import { TranslationService } from '@core/translation/translation.service';
 import { Artist } from '@core/artist/artist.model';
@@ -79,7 +80,7 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   onSubmit() {
     const result: Partial<Artist> = omit(this.form.value, cityFilterFieldName);
     result.type = ArtistTypes.LiveMusic;
-    this.saveClick.emit(result);
+    this.saveClick.emit(assign({}, this.artist, result));
   }
 
   ngOnDestroy(): void {

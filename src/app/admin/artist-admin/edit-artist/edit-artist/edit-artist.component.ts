@@ -1,17 +1,29 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { FileHelper } from '@shared/utils/file-helper';
-import cloneDeep from 'lodash-es/cloneDeep';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
-import { Store } from '@ngrx/store';
-import { loadArtistAction } from '@core/artist/artist.actions';
+import { select, Store } from '@ngrx/store';
+import {
+  loadArtistAction,
+  loadArtistFailureAction,
+  loadArtistSuccessAction,
+  updateArtistAction,
+  updateArtistFailureAction,
+  updateArtistSuccessAction
+} from '@core/artist/artist.actions';
 import { ActivatedRoute } from '@angular/router';
+import { ArtistSelectors } from '@core/artist/artist.selectors';
+import { Dictionary } from '@ngrx/entity';
+import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Actions } from '@ngrx/effects';
+import { anyBooleanObservableTrue } from '@shared/utils/any-boolean-observable-true';
 
 const dummyBand: Artist = {
   id: '123',
@@ -75,7 +87,48 @@ const dummyBand: Artist = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistComponent implements OnInit, OnDestroy {
-  artist$ = new BehaviorSubject(dummyBand);
+  artist$ = this.store.pipe(
+    select(this.artistSelectors.selectEntities),
+    map((artists: Dictionary<Artist>) => {
+      return artists[this.artistId];
+    })
+  );
+
+  isArtistLoading$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        loadArtistAction
+      ],
+      stopActions: [
+        loadArtistSuccessAction,
+        loadArtistFailureAction
+      ],
+      takeUntil: untilDestroyed(this)
+    }
+  );
+
+  isArtistUpdating$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        updateArtistAction
+      ],
+      stopActions: [
+        updateArtistSuccessAction,
+        updateArtistFailureAction
+      ],
+      takeUntil: untilDestroyed(this)
+    }
+  );
+
+  isLoading$ = anyBooleanObservableTrue(
+    [
+      this.isArtistLoading$,
+      this.isArtistUpdating$
+    ]
+  );
+
   covers$: Observable<CoverInfo[]> = this.artist$
     .pipe(
       map((band) => band ? band.covers : null)
@@ -93,15 +146,17 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   ngUnsubscribe$ = new Subject<void>();
 
   ngOnInit() {
-    this.store.dispatch(loadArtistAction({id: this.artistId}));
+    setTimeout(() => {
+      this.store.dispatch(loadArtistAction({id: this.artistId}));
+    });
   }
 
   get artistId() {
     return this.activatedRoute.snapshot.paramMap.get('id');
   }
 
-  onMainInfoSave(info: Artist) {
-    console.log('onMainInfoSave', info);
+  onMainInfoSave(artist: Artist) {
+    this.store.dispatch(updateArtistAction({artist}));
   }
 
   onContactsSave(contacts: Artist) {
@@ -181,10 +236,10 @@ export class EditArtistComponent implements OnInit, OnDestroy {
 
   // TODO: remove when backend implemented
   private fakeEmitBandChange(changeBand: (band: Artist) => Artist) {
-    let clone: Artist = cloneDeep(this.artist$.getValue());
-    clone = changeBand(clone);
-    this.artist$.next(clone);
-    this.changeDetectorRef.markForCheck();
+    // let clone: Artist = cloneDeep(this.artist$.getValue());
+    // clone = changeBand(clone);
+    // this.artist$.next(clone);
+    // this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {
@@ -195,6 +250,8 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private domSanitizer: DomSanitizer,
               private store: Store<any>,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private artistSelectors: ArtistSelectors,
+              private actions$: Actions) {
   }
 }
