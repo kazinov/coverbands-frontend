@@ -11,7 +11,8 @@
               formControlName="embed"
               cdkTextareaAutosize
               cdkAutosizeMinRows="2"
-              cdkAutosizeMaxRows="8"></textarea>
+              cdkAutosizeMaxRows="8"
+              required></textarea>
     <mat-error *ngIf="linkRequiredError">Обязательное поле</mat-error>
     <mat-error *ngIf="videoEmbedFormatError">Неверный формат кода для вставки</mat-error>
   </mat-form-field>

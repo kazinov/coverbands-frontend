@@ -2,57 +2,57 @@
       class="flex-column spacer"
       novalidate
       (submit)="onSubmit()">
-    <mat-form-field>
-        <input matInput
-               placeholder="Название или имя артиста"
-               formControlName="name">
-        <mat-error *ngIf="form.get('name').invalid">Обязательное поле</mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           placeholder="Название или имя артиста"
+           required
+           formControlName="name">
+    <mat-error *ngIf="form.get('name').invalid">Обязательное поле</mat-error>
+  </mat-form-field>
 
-    <mat-form-field *ngIf="!hideDescription">
+  <mat-form-field *ngIf="!hideDescription">
             <textarea matInput
                       placeholder="Расскажите о проекте"
                       formControlName="description"
                       cdkTextareaAutosize
                       cdkAutosizeMinRows="2"
                       cdkAutosizeMaxRows="8"></textarea>
-        <mat-error *ngIf="form.get('description').invalid">Обязательное поле</mat-error>
-    </mat-form-field>
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Город</mat-label>
-        <mat-select formControlName="city">
-            <mat-option>
-                <ngx-mat-select-search
-                        placeholderLabel="Поиск"
-                        noEntriesFoundLabel="Город не найден"
-                        formControlName="cityFilter"></ngx-mat-select-search>
-            </mat-option>
-            <mat-option
-                    *ngFor="let city of filteredCities"
-                    [value]="city.id">
-                {{city.label}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="form.get('city').invalid">Обязательное поле</mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Город</mat-label>
+    <mat-select formControlName="city" required>
+      <mat-option>
+        <ngx-mat-select-search
+          placeholderLabel="Поиск"
+          noEntriesFoundLabel="Город не найден"
+          formControlName="cityFilter"></ngx-mat-select-search>
+      </mat-option>
+      <mat-option
+        *ngFor="let city of filteredCities"
+        [value]="city.id">
+        {{city.label}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('city').invalid">Обязательное поле</mat-error>
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Жанры</mat-label>
-        <mat-select formControlName="genres" multiple>
-            <mat-option
-                    *ngFor="let genre of genres"
-                    [value]="genre.id">
-                {{genre.label}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="form.get('genres').invalid">Обязательное поле</mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Жанры</mat-label>
+    <mat-select formControlName="genres" multiple required>
+      <mat-option
+        *ngFor="let genre of genres"
+        [value]="genre.id">
+        {{genre.label}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('genres').invalid">Обязательное поле</mat-error>
+  </mat-form-field>
 
-    <div class="app-save-button-container">
-        <button type="submit"
-                mat-raised-button
-                [disabled]="form.invalid"
-                color="primary">{{saveButtonText}}</button>
-    </div>
+  <div class="app-save-button-container">
+    <button type="submit"
+            mat-raised-button
+            [disabled]="form.invalid"
+            color="primary">{{saveButtonText}}</button>
+  </div>
 </form>
