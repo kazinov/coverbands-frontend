@@ -13,9 +13,10 @@ import { ArtistService } from '@core/artist/artist.service';
 import {
   createArtistAction,
   createArtistFailureAction,
-  createArtistSuccessAction,
+  createArtistSuccessAction, loadArtistAction, loadArtistFailureAction, loadArtistSuccessAction,
   updateArtistAction, updateArtistFailureAction, updateArtistSuccessAction, upsertArtistsToStoreAction
 } from '@core/artist/artist.actions';
+import { Artist } from '@core/artist/artist.model';
 
 @Injectable()
 export class ArtistEffects {
@@ -61,6 +62,27 @@ export class ArtistEffects {
             catchError(error => {
               this.showErrorSnack(error, 'update-artist');
               return of(updateArtistFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+  );
+
+  loadArtist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadArtistAction),
+      exhaustMap(action => {
+          return this.artistService.loadArtist(action.id).pipe(
+            switchMap((artist: Artist) => {
+              return of(
+                upsertArtistsToStoreAction({artists: [artist]}),
+                loadArtistSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'load-artist');
+              return of(loadArtistFailureAction({error}));
             })
           );
         }

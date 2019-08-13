@@ -31,3 +31,13 @@ export const updateArtistFailureAction = createAction(
   '[Artist] Update artist failure',
   props<{ error: HttpError }>()
 );
+
+export const loadArtistAction = createAction('[Artist] Load artist',
+  props<{ id: string }>());
+
+export const loadArtistSuccessAction = createAction('[Artist] Load artist success');
+
+export const loadArtistFailureAction = createAction(
+  '[Artist] Load artist failure',
+  props<{ error: HttpError }>()
+);

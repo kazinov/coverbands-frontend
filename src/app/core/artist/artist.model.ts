@@ -1,4 +1,6 @@
 import { uniqueStoreKey } from '@shared/utils/unique-store-key';
+import { FirebaseDocumentData, FirebaseDocumentSnapshot, FirebaseTimestamp } from '@core/firebase/firebase.model';
+import assign from 'lodash-es/assign';
 
 export interface CoverInfo {
   band: string;
@@ -19,8 +21,6 @@ export interface Price {
 export interface Artist {
   id: string;
   userId?: string;
-  createdAt?: string;
-  updatedAt?: string;
   type?: string;
   name?: string;
   description?: string;
@@ -40,3 +40,18 @@ export interface Artist {
 }
 
 export const ARTIST_STORE_KEY = uniqueStoreKey('artist');
+
+
+export abstract class ArtistHelpers {
+  static fromFirebaseDocument(data: FirebaseDocumentSnapshot): Artist {
+    const stapshot: FirebaseDocumentData = data.data();
+
+    let artist: Artist = {
+      id: data.id
+    };
+
+    artist = assign(artist, stapshot);
+
+    return artist;
+  }
+}

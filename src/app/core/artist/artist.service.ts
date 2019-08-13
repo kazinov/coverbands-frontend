@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { FirebaseService } from '@core/firebase/firebase.service';
-import { Artist } from '@core/artist/artist.model';
+import { Artist, ArtistHelpers } from '@core/artist/artist.model';
 import { from, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
-import { FirebaseDocumentReference } from '@core/firebase/firebase.model';
+import { FirebaseDocumentReference, FirebaseDocumentSnapshot } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
 
 const ARTISTS_COLLECTION_NAME = 'artists';
@@ -25,9 +25,7 @@ export class ArtistService {
           };
 
           return from(this.artistsCollection.add({
-            ...newArtist,
-            createdAt: this.firebaseService.serverTimestampType,
-            updatedAt: this.firebaseService.serverTimestampType
+            ...newArtist
           }))
             .pipe(
               map((ref: FirebaseDocumentReference) => {
@@ -44,10 +42,22 @@ export class ArtistService {
 
   updateArtist(artist: Artist): Observable<void> {
     return from(this.artistsCollection.doc(artist.id).update({
-      ...artist,
-      updatedAt: this.firebaseService.serverTimestampType
+      ...artist
     }))
       .pipe(
+        catchError(fromFirebaseError)
+      );
+
+  }
+
+  loadArtist(id: string): Observable<Artist> {
+    return from(this.artistsCollection.doc(id).get({
+      source: 'server'
+    }))
+      .pipe(
+        map((snapshot: FirebaseDocumentSnapshot) =>
+          ArtistHelpers.fromFirebaseDocument(snapshot)
+        ),
         catchError(fromFirebaseError)
       );
 

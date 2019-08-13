@@ -9,6 +9,9 @@ import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { MusicGenres } from '@core/models/music-genres.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
+import { Store } from '@ngrx/store';
+import { loadArtistAction } from '@core/artist/artist.actions';
+import { ActivatedRoute } from '@angular/router';
 
 const dummyBand: Artist = {
   id: '123',
@@ -90,6 +93,11 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   ngUnsubscribe$ = new Subject<void>();
 
   ngOnInit() {
+    this.store.dispatch(loadArtistAction({id: this.artistId}));
+  }
+
+  get artistId() {
+    return this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   onMainInfoSave(info: Artist) {
@@ -185,6 +193,8 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private domSanitizer: DomSanitizer) {
+              private domSanitizer: DomSanitizer,
+              private store: Store<any>,
+              private activatedRoute: ActivatedRoute) {
   }
 }
