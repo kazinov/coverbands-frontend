@@ -2,13 +2,13 @@ import { createAction, props } from '@ngrx/store';
 import { HttpError } from '@shared/types/http-error';
 import { Artist } from '@core/artist/artist.model';
 
-export const upsertArtistsAction = createAction(
-  '[Artist] Add artists',
+export const upsertArtistsToStoreAction = createAction(
+  '[Artist] Add artists to store',
   props<{ artists: Artist[] }>()
 );
 
-export const removeArtistsAction = createAction(
-  '[Artist] Remove artists',
+export const removeArtistsFromStoreAction = createAction(
+  '[Artist] Remove artists from store',
   props<{ ids?: string[] }>()
 );
 

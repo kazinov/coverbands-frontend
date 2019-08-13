@@ -14,7 +14,7 @@ import {
   createArtistAction,
   createArtistFailureAction,
   createArtistSuccessAction,
-  updateArtistAction, updateArtistFailureAction, updateArtistSuccessAction, upsertArtistsAction
+  updateArtistAction, updateArtistFailureAction, updateArtistSuccessAction, upsertArtistsToStoreAction
 } from '@core/artist/artist.actions';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class ArtistEffects {
                 ArtistAdminPaths.Edit,
                 artist.id]);
               return of(
-                upsertArtistsAction({artists: [artist]}),
+                upsertArtistsToStoreAction({artists: [artist]}),
                 createArtistSuccessAction()
               );
             }),
@@ -54,7 +54,7 @@ export class ArtistEffects {
             switchMap(() => {
               this.snackService.success(TRANSLATIONS.changesSaved);
               return of(
-                upsertArtistsAction({artists: [action.artist]}),
+                upsertArtistsToStoreAction({artists: [action.artist]}),
                 updateArtistSuccessAction()
               );
             }),
