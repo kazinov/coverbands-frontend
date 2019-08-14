@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { FirebaseService } from '@core/firebase/firebase.service';
 import { Artist, ArtistHelpers } from '@core/artist/artist.model';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
 import { FirebaseDocumentReference, FirebaseDocumentSnapshot } from '@core/firebase/firebase.model';
@@ -60,7 +60,11 @@ export class ArtistService {
         ),
         catchError(fromFirebaseError)
       );
+  }
 
+  uploadArtistProfileImage(artist: Artist, image: File, thumb: File): Observable<Artist> {
+
+    return of(artist);
   }
 
   constructor(

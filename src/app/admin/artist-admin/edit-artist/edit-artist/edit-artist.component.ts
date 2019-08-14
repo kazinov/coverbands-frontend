@@ -3,11 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, take, takeUntil, tap } from 'rxjs/operators';
 import { FileHelper } from '@shared/utils/file-helper';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
-import { MusicGenres } from '@core/models/music-genres.model';
-import { Cities } from '@core/models/cities.model';
-import { Countries } from '@core/models/countries.model';
 import { select, Store } from '@ngrx/store';
 import {
   loadArtistAction,
@@ -15,7 +11,8 @@ import {
   loadArtistSuccessAction,
   updateArtistAction,
   updateArtistFailureAction,
-  updateArtistSuccessAction
+  updateArtistSuccessAction,
+  uploadArtistProfileImageAction
 } from '@core/artist/artist.actions';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistSelectors } from '@core/artist/artist.selectors';
@@ -137,14 +134,12 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onProfileImageAttached(results: ProfileImageUploadResults) {
-    // console.error('onProfileImageAttached', results);
-    // // TODO: replace with real implementation
-    // this.fakeUploadImage(results.imageVersions[1], (base64) => {
-    //   this.fakeEmitBandChange((band: Artist) => {
-    //     band.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
-    //     return band;
-    //   });
-    // });
+    this.onArtist(artist => this.store.dispatch(uploadArtistProfileImageAction({
+        artist,
+        image: results.image,
+        thumb: results.thumb
+      }))
+    );
   }
 
   onProfileImageDelete(imageUrl: string) {

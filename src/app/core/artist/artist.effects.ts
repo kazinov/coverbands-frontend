@@ -13,8 +13,17 @@ import { ArtistService } from '@core/artist/artist.service';
 import {
   createArtistAction,
   createArtistFailureAction,
-  createArtistSuccessAction, loadArtistAction, loadArtistFailureAction, loadArtistSuccessAction,
-  updateArtistAction, updateArtistFailureAction, updateArtistSuccessAction, upsertArtistsToStoreAction
+  createArtistSuccessAction,
+  loadArtistAction,
+  loadArtistFailureAction,
+  loadArtistSuccessAction,
+  updateArtistAction,
+  updateArtistFailureAction,
+  updateArtistSuccessAction,
+  uploadArtistProfileImageAction,
+  uploadArtistProfileImageFailureAction,
+  uploadArtistProfileImageSuccessAction,
+  upsertArtistsToStoreAction
 } from '@core/artist/artist.actions';
 import { Artist } from '@core/artist/artist.model';
 
@@ -45,7 +54,7 @@ export class ArtistEffects {
         }
       )
     )
-   );
+  );
 
   updateArtist$ = createEffect(() =>
     this.actions$.pipe(
@@ -83,6 +92,31 @@ export class ArtistEffects {
             catchError(error => {
               this.showErrorSnack(error, 'load-artist');
               return of(loadArtistFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+  );
+
+  uploadArtistProfileImage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(uploadArtistProfileImageAction),
+      exhaustMap(action => {
+          return this.artistService.uploadArtistProfileImage(
+            action.artist,
+            action.image,
+            action.thumb
+          ).pipe(
+            switchMap((artist: Artist) => {
+              return of(
+                upsertArtistsToStoreAction({artists: [artist]}),
+                uploadArtistProfileImageSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'upload-artist-profile-image');
+              return of(uploadArtistProfileImageFailureAction({error}));
             })
           );
         }
