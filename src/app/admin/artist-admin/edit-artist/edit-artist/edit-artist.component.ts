@@ -184,7 +184,10 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onVideosSave(videos: string[]) {
-    console.log('videos', videos);
+    this.onArtist(artist => this.store.dispatch(updateArtistAction({
+        artist: assign({}, artist, {videos})
+      }))
+    );
   }
 
   onProfileImageAttached(results: ImagesUploadResults) {
