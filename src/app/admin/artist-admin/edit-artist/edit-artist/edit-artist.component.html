@@ -42,8 +42,8 @@
                     Цены
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-edit-artist-prices [prices]="artist$ | async"
-                                    (pricesChange)="onPricesSave($event)"></app-edit-artist-prices>
+            <app-edit-artist-prices [artist]="artist$ | async"
+                                    (pricesChange)="updateArtist($event)"></app-edit-artist-prices>
         </mat-expansion-panel>
 
         <mat-expansion-panel>

@@ -180,10 +180,6 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     console.log('videos', videos);
   }
 
-  onPricesSave(prices: Artist) {
-    console.log('prices', prices);
-  }
-
   onAddCover(cover: CoverInfo) {
     console.log('onAddCover', cover);
   }

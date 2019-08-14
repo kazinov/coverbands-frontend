@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Artist, Price } from '@core/artist/artist.model';
 import { Currencies } from '@core/models/currencies.model';
+import assign from 'lodash-es/assign';
 
 @Component({
   selector: 'app-edit-artist-prices',
@@ -10,8 +11,8 @@ import { Currencies } from '@core/models/currencies.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistPricesComponent implements OnInit {
-  @Input() prices: Artist;
-  @Output() pricesChange = new EventEmitter<Partial<Artist>>();
+  @Input() artist: Artist;
+  @Output() pricesChange = new EventEmitter<Artist>();
   addPriceFrom: FormGroup;
   form: FormGroup;
   @ViewChild('formGroup', { static: true }) formGroup: FormGroupDirective;
@@ -23,7 +24,7 @@ export class EditArtistPricesComponent implements OnInit {
   }
 
   private buildForms(): void {
-    this.pricesDirty = this.prices && this.prices.prices || [];
+    this.pricesDirty = this.artist && this.artist.prices || [];
     this.addPriceFrom = this.formBuilder.group({
       value: ['', [Validators.required]],
       service: ['', []]
@@ -31,12 +32,12 @@ export class EditArtistPricesComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       value: [
-        this.prices &&
-        this.prices.oneShowPrice &&
-        this.prices.oneShowPrice.value, []],
-      service: [this.prices &&
-      this.prices.oneShowPrice &&
-      this.prices.oneShowPrice.service, []]
+        this.artist &&
+        this.artist.oneShowPrice &&
+        this.artist.oneShowPrice.value, []],
+      service: [this.artist &&
+      this.artist.oneShowPrice &&
+      this.artist.oneShowPrice.service, []]
     });
   }
 
@@ -63,10 +64,10 @@ export class EditArtistPricesComponent implements OnInit {
   }
 
   onSubmit() {
-    const result: Partial<Artist> = {
+    const result: Artist = assign({}, this.artist, {
       oneShowPrice: null,
       prices: null
-    };
+    });
 
     if (this.form.value.value) {
       result.oneShowPrice = {
