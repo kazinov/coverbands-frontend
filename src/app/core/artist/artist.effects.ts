@@ -109,6 +109,7 @@ export class ArtistEffects {
             action.thumb
           ).pipe(
             switchMap((artist: Artist) => {
+              this.snackService.success(TRANSLATIONS.changesSaved);
               return of(
                 upsertArtistsToStoreAction({artists: [artist]}),
                 uploadArtistProfileImageSuccessAction()
@@ -125,7 +126,7 @@ export class ArtistEffects {
   );
 
   showErrorSnack(error: HttpError, id: string) {
-    this.snackService.success(
+    this.snackService.error(
       TranslationUtils.interpolate(TRANSLATIONS.error,
         {
           id,

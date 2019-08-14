@@ -12,7 +12,9 @@ import {
   updateArtistAction,
   updateArtistFailureAction,
   updateArtistSuccessAction,
-  uploadArtistProfileImageAction
+  uploadArtistProfileImageAction,
+  uploadArtistProfileImageFailureAction,
+  uploadArtistProfileImageSuccessAction
 } from '@core/artist/artist.actions';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistSelectors } from '@core/artist/artist.selectors';
@@ -66,10 +68,25 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     }
   );
 
+  isProfileImageUploading$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        uploadArtistProfileImageAction
+      ],
+      stopActions: [
+        uploadArtistProfileImageSuccessAction,
+        uploadArtistProfileImageFailureAction
+      ],
+      takeUntil: untilDestroyed(this)
+    }
+  );
+
   isLoading$ = anyBooleanObservableTrue(
     [
       this.isArtistLoading$,
-      this.isArtistUpdating$
+      this.isArtistUpdating$,
+      this.isProfileImageUploading$
     ]
   );
 

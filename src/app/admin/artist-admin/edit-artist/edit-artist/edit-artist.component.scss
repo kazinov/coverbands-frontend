@@ -8,4 +8,12 @@
       padding-top: $margin-md * 2;
     }
   }
+
+  .spinner-spacer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
