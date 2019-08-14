@@ -176,12 +176,15 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     );
   }
 
-  onVideosSave(videos: string[]) {
-    console.log('videos', videos);
+  onCoversChange(covers: CoverInfo[]) {
+    this.onArtist(artist => this.store.dispatch(updateArtistAction({
+        artist: assign({}, artist, {covers})
+      }))
+    );
   }
 
-  onAddCover(cover: CoverInfo) {
-    console.log('onAddCover', cover);
+  onVideosSave(videos: string[]) {
+    console.log('videos', videos);
   }
 
   onProfileImageAttached(results: ImagesUploadResults) {

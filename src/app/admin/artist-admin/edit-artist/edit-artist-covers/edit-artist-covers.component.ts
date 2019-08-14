@@ -10,11 +10,10 @@ import { CoverInfo } from '@core/artist/artist.model';
 })
 export class EditArtistCoversComponent implements OnInit {
   @Input() covers: CoverInfo[] = [];
-  @Output() addCover = new EventEmitter<CoverInfo>();
-  @Output() removeCover = new EventEmitter<CoverInfo>();
+  @Output() coversChange = new EventEmitter<CoverInfo[]>();
   formGroup: FormGroup;
   // https://stackoverflow.com/questions/49788215/angular-material-reseting-reactiveform-shows-validation-error
-  @ViewChild('form', { static: true }) form: FormGroupDirective;
+  @ViewChild('form', {static: true}) form: FormGroupDirective;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -24,28 +23,29 @@ export class EditArtistCoversComponent implements OnInit {
   }
 
   onSubmit() {
+    this.covers = [...this.covers] || [];
     const cover: CoverInfo = this.formGroup.value;
-    if (this.covers
-      .some((value: CoverInfo) =>
-        value.band === cover.band && value.song === cover.song)) {
+    if (this.covers.some((value: CoverInfo) =>
+      value.band === cover.band && value.song === cover.song)) {
       return;
     }
 
     this.covers.push(cover);
-    this.addCover.emit(cover);
+    this.coversChange.emit(this.covers);
     this.formGroup.reset();
     this.form.resetForm();
   }
 
   onCoverRemoved(cover: CoverInfo) {
     const newCovers = [];
+    this.covers = [...this.covers] || [];
     this.covers.forEach((current: CoverInfo) => {
       if (cover.song !== current.song || cover.band !== cover.band) {
         newCovers.push(current);
       }
     });
     this.covers = newCovers;
-    this.removeCover.emit(cover);
+    this.coversChange.emit(this.covers);
   }
 
   private buildForm(): void {

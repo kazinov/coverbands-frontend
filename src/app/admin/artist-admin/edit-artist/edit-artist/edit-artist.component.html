@@ -54,7 +54,7 @@
             </mat-expansion-panel-header>
             <app-edit-artist-covers
                     [covers]="covers$ | async"
-                    (addCover)="onAddCover($event)"></app-edit-artist-covers>
+                    (coversChange)="onCoversChange($event)"></app-edit-artist-covers>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
