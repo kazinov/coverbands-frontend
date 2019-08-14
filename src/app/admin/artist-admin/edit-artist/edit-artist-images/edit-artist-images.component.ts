@@ -28,6 +28,11 @@ const BAND_IMAGE_RESIZE_SETTINGS: ResizeImageSettings = {
 
 export const MAX_BAND_IMAGES = 5;
 
+export interface ProfileImageUploadResults {
+  image: File;
+  thumb: File;
+}
+
 @Component({
   selector: 'app-edit-artist-images',
   templateUrl: './edit-artist-images.component.html',
@@ -36,9 +41,9 @@ export const MAX_BAND_IMAGES = 5;
 })
 export class EditArtistImagesComponent implements OnInit {
   @Input() artist: Artist;
-  @Output() profileImageAttached = new EventEmitter<ImagesUploadResults>();
+  @Output() profileImageAttached = new EventEmitter<ProfileImageUploadResults>();
   @Output() profileImageDelete = new EventEmitter<string>();
-  @Output() imageAttached = new EventEmitter<ImagesUploadResults>();
+  @Output() imageAttached = new EventEmitter<File>();
   @Output() imageDelete = new EventEmitter<string>();
 
   isProfileImageLoading = false;
@@ -54,7 +59,10 @@ export class EditArtistImagesComponent implements OnInit {
   }
 
   onProfileImageAttached(results: ImagesUploadResults) {
-      this.profileImageAttached.emit(results);
+      this.profileImageAttached.emit({
+        image: results.imageVersions[0],
+        thumb: results.imageVersions[1]
+      });
   }
 
   onProfileImageDelete(imageUrl: string) {
@@ -62,7 +70,7 @@ export class EditArtistImagesComponent implements OnInit {
   }
 
   onImageAttached(results: ImagesUploadResults) {
-    this.imageAttached.emit(results);
+    this.imageAttached.emit(results.imageVersions[0]);
   }
 
   onImageDelete(imageUrl: string) {

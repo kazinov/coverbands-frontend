@@ -25,61 +25,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Actions } from '@ngrx/effects';
 import { anyBooleanObservableTrue } from '@shared/utils/any-boolean-observable-true';
 import assign from 'lodash-es/assign';
-
-const dummyBand: Artist = {
-  id: '123',
-  name: 'Кавер Бэнд',
-  description: `Красивый женский вокал. Исключительно живое и качественное звучание.
-Широкий репертуар из лучших мировых и отечественных хитов.
-Профессиональные музыканты с большим опытом выступлений.
-Творческий подход к любым пожеланиям заказчика.
-Тонкое чувство настроения зрителя и его желаний.
-Драйв, эмоции и энергетика настоящего концерта`,
-  city: Cities[Countries.Russia].SaintPetersburg,
-  musicGenres: [MusicGenres.Pop],
-  covers: [
-    {
-      band: 'Ленинград',
-      song: 'Лабутены'
-    },
-    {
-      band: 'Queen',
-      song: 'We are the champions'
-    },
-    {
-      band: 'Nirvana',
-      song: 'Smells like teen spirit'
-    },
-  ],
-  email: 'coverband@gmail.com',
-  phoneCode: '+7',
-  phoneNumber: '9214456456',
-  links: [
-    {
-      link: 'https://vk.com/ustochnuk',
-      description: 'Мы вконтакте'
-    },
-    {
-      link: 'https://www.facebook.com/groups/wg.wohnung.frankfurt/?fref=nf',
-      description: 'Мы в facebook'
-    }
-  ],
-  videos: [
-    'https://www.youtube.com/embed/M_4fyn_zsMo',
-    'https://www.youtube.com/embed/Lt5Cgx3hpeE',
-    'https://www.youtube.com/embed/M_4fyn_zsMo',
-    'https://www.youtube.com/embed/Lt5Cgx3hpeE',
-    'https://www.youtube.com/embed/M_4fyn_zsMo',
-    'https://www.youtube.com/embed/Lt5Cgx3hpeE'
-  ],
-  profileImage: null,
-  images: [
-    '/assets/images/eminem.jpg',
-    '/assets/images/korn.jpg',
-    '/assets/images/metallica.jpeg',
-    '/assets/images/nirvana.jpg'
-  ]
-};
+import { ProfileImageUploadResults } from '@artist-admin/edit-artist/edit-artist-images/edit-artist-images.component';
 
 @Component({
   selector: 'app-edit-artist',
@@ -190,15 +136,15 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     );
   }
 
-  onProfileImageAttached(results: ImagesUploadResults) {
-    console.error('onProfileImageAttached', results);
-    // TODO: replace with real implementation
-    this.fakeUploadImage(results.imageVersions[1], (base64) => {
-      this.fakeEmitBandChange((band: Artist) => {
-        band.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
-        return band;
-      });
-    });
+  onProfileImageAttached(results: ProfileImageUploadResults) {
+    // console.error('onProfileImageAttached', results);
+    // // TODO: replace with real implementation
+    // this.fakeUploadImage(results.imageVersions[1], (base64) => {
+    //   this.fakeEmitBandChange((band: Artist) => {
+    //     band.profileImage = this.domSanitizer.bypassSecurityTrustUrl(base64) as any;
+    //     return band;
+    //   });
+    // });
   }
 
   onProfileImageDelete(imageUrl: string) {
@@ -209,14 +155,14 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     });
   }
 
-  onImageAttached(results: ImagesUploadResults) {
-    // TODO: replace with real implementation
-    this.fakeUploadImage(results.imageVersions[0], (base64) => {
-      this.fakeEmitBandChange((band: Artist) => {
-        band.images.push(this.domSanitizer.bypassSecurityTrustUrl(base64) as any);
-        return band;
-      });
-    });
+  onImageAttached(results: File) {
+    // // TODO: replace with real implementation
+    // this.fakeUploadImage(results.imageVersions[0], (base64) => {
+    //   this.fakeEmitBandChange((band: Artist) => {
+    //     band.images.push(this.domSanitizer.bypassSecurityTrustUrl(base64) as any);
+    //     return band;
+    //   });
+    // });
   }
 
   onImageDelete(imageUrl: string) {
