@@ -41,8 +41,7 @@ import { ArtistModule } from '@core/artist/artist.module';
       runtimeChecks: environment.production ? {} : {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
+        strictStateSerializability: true
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],

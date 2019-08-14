@@ -3,13 +3,27 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { FirebaseService } from '@core/firebase/firebase.service';
 import { Artist, ArtistHelpers } from '@core/artist/artist.model';
-import { from, Observable, of } from 'rxjs';
+import { forkJoin, from, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
-import { FirebaseDocumentReference, FirebaseDocumentSnapshot } from '@core/firebase/firebase.model';
+import {
+  FirebaseDocumentReference,
+  FirebaseDocumentSnapshot,
+  FirebaseUploadTaskSnapshot
+} from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
 
 const ARTISTS_COLLECTION_NAME = 'artists';
+
+enum ArtistImageType {
+  Profile = 'profile',
+  ProfileThumb = 'profile_thumb',
+  Image = 'image'
+}
+
+function getArtistImagePath(artistId: string, imageType: ArtistImageType) {
+  return `artist_images/${artistId}_${imageType}`;
+}
 
 @Injectable()
 export class ArtistService {
@@ -63,8 +77,36 @@ export class ArtistService {
   }
 
   uploadArtistProfileImage(artist: Artist, image: File, thumb: File): Observable<Artist> {
+    const profileImageRef = this.firebaseService.storage.child(getArtistImagePath(
+      artist.id, ArtistImageType.Profile
+    ));
+    const profileThumbRef = this.firebaseService.storage.child(getArtistImagePath(
+      artist.id, ArtistImageType.ProfileThumb
+    ));
 
-    return of(artist);
+    return forkJoin([
+        from(profileImageRef.put(image)),
+        from(profileThumbRef.put(thumb))
+      ]
+    )
+      .pipe(
+        switchMap(([imageSnapshot, thumbShapshot]: [FirebaseUploadTaskSnapshot, FirebaseUploadTaskSnapshot]) => {
+          return forkJoin([
+            from(imageSnapshot.ref.getDownloadURL()),
+            from(thumbShapshot.ref.getDownloadURL()),
+          ]);
+        }),
+        switchMap(([imageUrl, thumbUrl]: [string, string]) => {
+          const updatedArtist = {
+            ...artist,
+            profileImage: imageUrl,
+            profileImageThumb: thumbUrl
+          };
+          return this.updateArtist(updatedArtist)
+            .pipe(map(() => updatedArtist));
+        }),
+        catchError(fromFirebaseError)
+      );
   }
 
   constructor(

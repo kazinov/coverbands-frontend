@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 import { environment } from '../../../environments/environment';
-import { FirebaseApp, FirebaseAuth } from '@core/firebase/firebase.model';
+import { FirebaseApp, FirebaseAuth, FirebaseStorageReference } from '@core/firebase/firebase.model';
 
 export interface FirebaseOptions {
   [key: string]: any;
@@ -30,6 +31,10 @@ export class FirebaseService {
 
   get serverTimestampType() {
     return firebase.firestore.FieldValue.serverTimestamp();
+  }
+
+  get storage(): FirebaseStorageReference {
+    return this.appInstance.storage().ref();
   }
 
   constructor() {
