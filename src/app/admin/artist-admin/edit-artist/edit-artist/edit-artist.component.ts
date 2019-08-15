@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { map, take, takeUntil, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, take, takeUntil, tap } from 'rxjs/operators';
 import { FileHelper } from '@shared/utils/file-helper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { select, Store } from '@ngrx/store';
 import {
-  deleteArtistProfileImageAction,
+  deleteArtistProfileImageAction, deleteArtistProfileImageFailureAction, deleteArtistProfileImageSuccessAction,
   loadArtistAction,
   loadArtistFailureAction,
   loadArtistSuccessAction,
@@ -37,9 +37,10 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   artist$ = this.store.pipe(
     select(this.artistSelectors.selectEntities),
     map((artists: Dictionary<Artist>) => {
-      console.error('artist', artists[this.artistId])
       return artists[this.artistId];
-    })
+    }),
+    distinctUntilChanged(),
+    shareReplay(1)
   );
 
   isArtistLoading$ = getIsLoadingObservable(
@@ -84,11 +85,26 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     }
   );
 
+  isProfileImageDeleting$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        deleteArtistProfileImageAction
+      ],
+      stopActions: [
+        deleteArtistProfileImageSuccessAction,
+        deleteArtistProfileImageFailureAction
+      ],
+      takeUntil: untilDestroyed(this)
+    }
+  );
+
   isLoading$ = anyBooleanObservableTrue(
     [
       this.isArtistLoading$,
       this.isArtistUpdating$,
-      this.isProfileImageUploading$
+      this.isProfileImageUploading$,
+      this.isProfileImageDeleting$
     ]
   );
 

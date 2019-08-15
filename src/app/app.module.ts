@@ -19,6 +19,7 @@ import { AuthModule } from '@core/auth/auth.module';
 import { SnackModule } from '@core/snack/snack.module';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ArtistModule } from '@core/artist/artist.module';
+import { StorageUrlCacheModule } from '@core/storage-url-cache/storage-url-cache.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ArtistModule } from '@core/artist/artist.module';
     FirebaseModule,
     SnackModule,
     ArtistModule,
+    StorageUrlCacheModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: environment.production ? {} : {

@@ -1,6 +1,6 @@
 <div class="images-container">
     <div class="image-container" *ngFor="let imageUrl of imagesUrls">
-        <img [src]="imageUrl">
+        <app-project-image class="thumb" [imageSrc]="imageUrl"></app-project-image>
         <mat-icon class="remove-button"
                   (click)="imageDelete.emit(imageUrl)">cancel
         </mat-icon>

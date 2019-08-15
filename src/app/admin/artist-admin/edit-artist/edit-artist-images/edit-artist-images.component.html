@@ -1,7 +1,7 @@
 <h4 class="app-info-block">Основное фото профиля</h4>
 <app-images-uploader
         *ngIf="artist"
-        [imagesUrls]="artist.profileImage ? [artist.profileImage]: null"
+        [imagesUrls]="artist.profileImageThumb ? [artist.profileImageThumb]: null"
         max="1"
         [isLoading]="isProfileImageLoading"
         [cropperSettings]="profileImageCropperSettings"

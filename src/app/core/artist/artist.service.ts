@@ -12,6 +12,7 @@ import {
   FirebaseUploadTaskSnapshot
 } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
+import { generateUUID } from '@shared/utils/generate-uid';
 
 const ARTISTS_COLLECTION_NAME = 'artists';
 
@@ -22,7 +23,7 @@ enum ArtistImageType {
 }
 
 function getArtistImagePath(artistId: string, imageType: ArtistImageType) {
-  return `artist_images/${artistId}_${imageType}`;
+  return `artist_images/${artistId}_${imageType}_${generateUUID()}`;
 }
 
 @Injectable()
@@ -91,16 +92,10 @@ export class ArtistService {
     )
       .pipe(
         switchMap(([imageSnapshot, thumbShapshot]: [FirebaseUploadTaskSnapshot, FirebaseUploadTaskSnapshot]) => {
-          return forkJoin([
-            from(imageSnapshot.ref.getDownloadURL()),
-            from(thumbShapshot.ref.getDownloadURL()),
-          ]);
-        }),
-        switchMap(([imageUrl, thumbUrl]: [string, string]) => {
           const updatedArtist = {
             ...artist,
-            profileImage: imageUrl,
-            profileImageThumb: thumbUrl
+            profileImage: profileImageRef.fullPath,
+            profileImageThumb: profileThumbRef.fullPath
           };
           return this.updateArtist(updatedArtist)
             .pipe(map(() => updatedArtist));
@@ -112,10 +107,10 @@ export class ArtistService {
 
   deleteArtistProfileImage(artist: Artist): Observable<Artist> {
     const profileImageDelete = artist.profileImage
-    ? from(this.firebaseService.storage.refFromURL(artist.profileImage).delete())
+    ? from(this.firebaseService.storageRef.child(artist.profileImage).delete())
     : of(1);
     const profileThumbDelete = artist.profileImageThumb
-      ? from(this.firebaseService.storage.refFromURL(artist.profileImageThumb).delete())
+      ? from(this.firebaseService.storageRef.child(artist.profileImageThumb).delete())
       : of(1);
 
     return forkJoin([
