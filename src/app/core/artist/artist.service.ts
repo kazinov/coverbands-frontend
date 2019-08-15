@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { FirebaseService } from '@core/firebase/firebase.service';
 import { Artist, ArtistHelpers } from '@core/artist/artist.model';
-import { forkJoin, from, Observable } from 'rxjs';
+import { forkJoin, from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
 import {
@@ -77,10 +77,10 @@ export class ArtistService {
   }
 
   uploadArtistProfileImage(artist: Artist, image: File, thumb: File): Observable<Artist> {
-    const profileImageRef = this.firebaseService.storage.child(getArtistImagePath(
+    const profileImageRef = this.firebaseService.storageRef.child(getArtistImagePath(
       artist.id, ArtistImageType.Profile
     ));
-    const profileThumbRef = this.firebaseService.storage.child(getArtistImagePath(
+    const profileThumbRef = this.firebaseService.storageRef.child(getArtistImagePath(
       artist.id, ArtistImageType.ProfileThumb
     ));
 
@@ -102,6 +102,35 @@ export class ArtistService {
             profileImage: imageUrl,
             profileImageThumb: thumbUrl
           };
+          return this.updateArtist(updatedArtist)
+            .pipe(map(() => updatedArtist));
+        }),
+        catchError(fromFirebaseError)
+      );
+  }
+
+
+  deleteArtistProfileImage(artist: Artist): Observable<Artist> {
+    const profileImageDelete = artist.profileImage
+    ? from(this.firebaseService.storage.refFromURL(artist.profileImage).delete())
+    : of(1);
+    const profileThumbDelete = artist.profileImageThumb
+      ? from(this.firebaseService.storage.refFromURL(artist.profileImageThumb).delete())
+      : of(1);
+
+    return forkJoin([
+      profileImageDelete,
+      profileThumbDelete
+      ]
+    )
+      .pipe(
+        switchMap(() => {
+          const updatedArtist = {
+            ...artist
+          };
+          updatedArtist.profileImage = null;
+          updatedArtist.profileImageThumb = null;
+
           return this.updateArtist(updatedArtist)
             .pipe(map(() => updatedArtist));
         }),

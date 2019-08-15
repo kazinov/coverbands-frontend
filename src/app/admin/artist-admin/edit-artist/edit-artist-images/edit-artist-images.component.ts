@@ -42,7 +42,7 @@ export interface ProfileImageUploadResults {
 export class EditArtistImagesComponent implements OnInit {
   @Input() artist: Artist;
   @Output() profileImageAttached = new EventEmitter<ProfileImageUploadResults>();
-  @Output() profileImageDelete = new EventEmitter<string>();
+  @Output() profileImageDelete = new EventEmitter();
   @Output() imageAttached = new EventEmitter<File>();
   @Output() imageDelete = new EventEmitter<string>();
 
@@ -65,8 +65,8 @@ export class EditArtistImagesComponent implements OnInit {
       });
   }
 
-  onProfileImageDelete(imageUrl: string) {
-    this.profileImageDelete.emit(imageUrl);
+  onProfileImageDelete() {
+    this.profileImageDelete.emit();
   }
 
   onImageAttached(results: ImagesUploadResults) {

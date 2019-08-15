@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { select, Store } from '@ngrx/store';
 import {
+  deleteArtistProfileImageAction,
   loadArtistAction,
   loadArtistFailureAction,
   loadArtistSuccessAction,
@@ -36,6 +37,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   artist$ = this.store.pipe(
     select(this.artistSelectors.selectEntities),
     map((artists: Dictionary<Artist>) => {
+      console.error('artist', artists[this.artistId])
       return artists[this.artistId];
     })
   );
@@ -159,12 +161,11 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     );
   }
 
-  onProfileImageDelete(imageUrl: string) {
-    // TODO: replace with real implementation
-    this.fakeEmitBandChange((band: Artist) => {
-      band.profileImage = null;
-      return band;
-    });
+  onProfileImageDelete() {
+    this.onArtist(artist => this.store.dispatch(deleteArtistProfileImageAction({
+        artist
+      }))
+    );
   }
 
   onImageAttached(results: File) {

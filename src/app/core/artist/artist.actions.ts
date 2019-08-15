@@ -52,3 +52,14 @@ export const uploadArtistProfileImageFailureAction = createAction(
   '[Artist] Upload artist profile image failure',
   props<{ error: HttpError }>()
 );
+
+export const deleteArtistProfileImageAction = createAction('[Artist] Delete artist profile image',
+  props<{artist: Artist}>()
+);
+
+export const deleteArtistProfileImageSuccessAction = createAction('[Artist] Delete artist profile image success');
+
+export const deleteArtistProfileImageFailureAction = createAction(
+  '[Artist] Delete artist profile image failure',
+  props<{ error: HttpError }>()
+);

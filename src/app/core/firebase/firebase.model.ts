@@ -12,6 +12,7 @@ export type FirebaseDocumentData = firebase.firestore.DocumentData;
 export type FirebaseTimestamp = firebase.firestore.Timestamp;
 export type FirebaseStorageReference = firebase.storage.Reference;
 export type FirebaseUploadTaskSnapshot = firebase.storage.UploadTaskSnapshot;
+export type FirebaseStorage = firebase.storage.Storage;
 
 export function parseFirebaseError(input: FirebaseError): HttpError {
   return input && input.code ? {

@@ -5,7 +5,7 @@ import 'firebase/firestore';
 import 'firebase/storage';
 
 import { environment } from '../../../environments/environment';
-import { FirebaseApp, FirebaseAuth, FirebaseStorageReference } from '@core/firebase/firebase.model';
+import { FirebaseApp, FirebaseAuth, FirebaseStorage, FirebaseStorageReference } from '@core/firebase/firebase.model';
 
 export interface FirebaseOptions {
   [key: string]: any;
@@ -33,8 +33,12 @@ export class FirebaseService {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  get storage(): FirebaseStorageReference {
-    return this.appInstance.storage().ref();
+  get storage(): FirebaseStorage {
+    return this.appInstance.storage();
+  }
+
+  get storageRef(): FirebaseStorageReference {
+    return this.storage.ref();
   }
 
   constructor() {

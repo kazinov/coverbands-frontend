@@ -14,6 +14,9 @@ import {
   createArtistAction,
   createArtistFailureAction,
   createArtistSuccessAction,
+  deleteArtistProfileImageAction,
+  deleteArtistProfileImageFailureAction,
+  deleteArtistProfileImageSuccessAction,
   loadArtistAction,
   loadArtistFailureAction,
   loadArtistSuccessAction,
@@ -118,6 +121,28 @@ export class ArtistEffects {
             catchError(error => {
               this.showErrorSnack(error, 'upload-artist-profile-image');
               return of(uploadArtistProfileImageFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+  );
+
+  deleteArtistProfileImage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteArtistProfileImageAction),
+      exhaustMap(action => {
+          return this.artistService.deleteArtistProfileImage(action.artist).pipe(
+            switchMap((artist: Artist) => {
+              this.snackService.success(TRANSLATIONS.changesSaved);
+              return of(
+                upsertArtistsToStoreAction({artists: [artist]}),
+                deleteArtistProfileImageSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'delete-artist-profile-image');
+              return of(deleteArtistProfileImageFailureAction({error}));
             })
           );
         }
