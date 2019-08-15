@@ -43,7 +43,7 @@ export const loadArtistFailureAction = createAction(
 );
 
 export const uploadArtistProfileImageAction = createAction('[Artist] Upload artist profile image',
-  props<{artist: Artist; image: File; thumb: File}>()
+  props<{ artist: Artist; image: File; thumb: File }>()
 );
 
 export const uploadArtistProfileImageSuccessAction = createAction('[Artist] Upload artist profile image success');
@@ -54,12 +54,34 @@ export const uploadArtistProfileImageFailureAction = createAction(
 );
 
 export const deleteArtistProfileImageAction = createAction('[Artist] Delete artist profile image',
-  props<{artist: Artist}>()
+  props<{ artist: Artist }>()
 );
 
 export const deleteArtistProfileImageSuccessAction = createAction('[Artist] Delete artist profile image success');
 
 export const deleteArtistProfileImageFailureAction = createAction(
   '[Artist] Delete artist profile image failure',
+  props<{ error: HttpError }>()
+);
+
+export const uploadArtistImageAction = createAction('[Artist] Upload artist image',
+  props<{ artist: Artist; image: File; }>()
+);
+
+export const uploadArtistImageSuccessAction = createAction('[Artist] Upload artist image success');
+
+export const uploadArtistImageFailureAction = createAction(
+  '[Artist] Upload artist profile failure',
+  props<{ error: HttpError }>()
+);
+
+export const deleteArtistImageAction = createAction('[Artist] Delete artist image',
+  props<{ artist: Artist; imagePath: string; }>()
+);
+
+export const deleteArtistImageSuccessAction = createAction('[Artist] Delete artist image success');
+
+export const deleteArtistImageFailureAction = createAction(
+  '[Artist] Delete artist image failure',
   props<{ error: HttpError }>()
 );

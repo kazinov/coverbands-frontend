@@ -104,7 +104,6 @@ export class ArtistService {
       );
   }
 
-
   deleteArtistProfileImage(artist: Artist): Observable<Artist> {
     const profileImageDelete = artist.profileImage
     ? from(this.firebaseService.storageRef.child(artist.profileImage).delete())
@@ -125,6 +124,47 @@ export class ArtistService {
           };
           updatedArtist.profileImage = null;
           updatedArtist.profileImageThumb = null;
+
+          return this.updateArtist(updatedArtist)
+            .pipe(map(() => updatedArtist));
+        }),
+        catchError(fromFirebaseError)
+      );
+  }
+
+  uploadArtistImage(artist: Artist, image: File): Observable<Artist> {
+    const imageRef = this.firebaseService.storageRef.child(getArtistImagePath(
+      artist.id, ArtistImageType.Image
+    ));
+
+    return from(imageRef.put(image))
+      .pipe(
+        switchMap((imageSnapshot: FirebaseUploadTaskSnapshot) => {
+          const updatedArtist = {
+            ...artist,
+            images: [
+              ...(artist.images || []),
+              imageRef.fullPath
+            ]
+          };
+          return this.updateArtist(updatedArtist)
+            .pipe(map(() => updatedArtist));
+        }),
+        catchError(fromFirebaseError)
+      );
+  }
+
+  deleteArtistImage(artist: Artist, imagePath: string): Observable<Artist> {
+    return from(this.firebaseService.storageRef.child(imagePath).delete())
+      .pipe(
+        switchMap(() => {
+          const updatedArtist = {
+            ...artist,
+            images: [
+              ...(artist.images || [])
+                .filter((path) => path !== imagePath)
+            ]
+          };
 
           return this.updateArtist(updatedArtist)
             .pipe(map(() => updatedArtist));

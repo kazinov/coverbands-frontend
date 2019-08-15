@@ -13,7 +13,7 @@ import { ArtistService } from '@core/artist/artist.service';
 import {
   createArtistAction,
   createArtistFailureAction,
-  createArtistSuccessAction,
+  createArtistSuccessAction, deleteArtistImageAction, deleteArtistImageFailureAction, deleteArtistImageSuccessAction,
   deleteArtistProfileImageAction,
   deleteArtistProfileImageFailureAction,
   deleteArtistProfileImageSuccessAction,
@@ -22,7 +22,7 @@ import {
   loadArtistSuccessAction,
   updateArtistAction,
   updateArtistFailureAction,
-  updateArtistSuccessAction,
+  updateArtistSuccessAction, uploadArtistImageAction, uploadArtistImageFailureAction, uploadArtistImageSuccessAction,
   uploadArtistProfileImageAction,
   uploadArtistProfileImageFailureAction,
   uploadArtistProfileImageSuccessAction,
@@ -143,6 +143,56 @@ export class ArtistEffects {
             catchError(error => {
               this.showErrorSnack(error, 'delete-artist-profile-image');
               return of(deleteArtistProfileImageFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+  );
+
+  uploadArtistImage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(uploadArtistImageAction),
+      exhaustMap(action => {
+          return this.artistService.uploadArtistImage(
+            action.artist,
+            action.image
+          ).pipe(
+            switchMap((artist: Artist) => {
+              this.snackService.success(TRANSLATIONS.changesSaved);
+              return of(
+                upsertArtistsToStoreAction({artists: [artist]}),
+                uploadArtistImageSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'upload-artist-image');
+              return of(uploadArtistImageFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+  );
+
+  deleteArtistImage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteArtistImageAction),
+      exhaustMap(action => {
+          return this.artistService.deleteArtistImage(
+            action.artist,
+            action.imagePath
+            ).pipe(
+            switchMap((artist: Artist) => {
+              this.snackService.success(TRANSLATIONS.changesSaved);
+              return of(
+                upsertArtistsToStoreAction({artists: [artist]}),
+                deleteArtistImageSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'delete-artist-image');
+              return of(deleteArtistImageFailureAction({error}));
             })
           );
         }

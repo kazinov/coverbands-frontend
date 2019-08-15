@@ -1,18 +1,25 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, take, takeUntil, tap } from 'rxjs/operators';
-import { FileHelper } from '@shared/utils/file-helper';
+import { distinctUntilChanged, map, shareReplay, take, tap } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { select, Store } from '@ngrx/store';
 import {
-  deleteArtistProfileImageAction, deleteArtistProfileImageFailureAction, deleteArtistProfileImageSuccessAction,
+  deleteArtistImageAction,
+  deleteArtistImageFailureAction,
+  deleteArtistImageSuccessAction,
+  deleteArtistProfileImageAction,
+  deleteArtistProfileImageFailureAction,
+  deleteArtistProfileImageSuccessAction,
   loadArtistAction,
   loadArtistFailureAction,
   loadArtistSuccessAction,
   updateArtistAction,
   updateArtistFailureAction,
   updateArtistSuccessAction,
+  uploadArtistImageAction,
+  uploadArtistImageFailureAction,
+  uploadArtistImageSuccessAction,
   uploadArtistProfileImageAction,
   uploadArtistProfileImageFailureAction,
   uploadArtistProfileImageSuccessAction
@@ -99,12 +106,42 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     }
   );
 
+  isImageUploading$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        uploadArtistImageAction
+      ],
+      stopActions: [
+        uploadArtistImageSuccessAction,
+        uploadArtistImageFailureAction
+      ],
+      takeUntil: untilDestroyed(this)
+    }
+  );
+
+  isImageDeleting$ = getIsLoadingObservable(
+    this.actions$,
+    {
+      startActions: [
+        deleteArtistImageAction
+      ],
+      stopActions: [
+        deleteArtistImageSuccessAction,
+        deleteArtistImageFailureAction
+      ],
+      takeUntil: untilDestroyed(this)
+    }
+  );
+
   isLoading$ = anyBooleanObservableTrue(
     [
       this.isArtistLoading$,
       this.isArtistUpdating$,
       this.isProfileImageUploading$,
-      this.isProfileImageDeleting$
+      this.isProfileImageDeleting$,
+      this.isImageUploading$,
+      this.isImageDeleting$
     ]
   );
 
@@ -185,47 +222,19 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onImageAttached(results: File) {
-    // // TODO: replace with real implementation
-    // this.fakeUploadImage(results.imageVersions[0], (base64) => {
-    //   this.fakeEmitBandChange((band: Artist) => {
-    //     band.images.push(this.domSanitizer.bypassSecurityTrustUrl(base64) as any);
-    //     return band;
-    //   });
-    // });
+    this.onArtist(artist => this.store.dispatch(uploadArtistImageAction({
+        artist,
+        image: results,
+      }))
+    );
   }
 
-  onImageDelete(imageUrl: string) {
-    // TODO: replace with real implementation
-    this.fakeEmitBandChange((band: Artist) => {
-      band.images = band.images.filter((image: string) => {
-        if ((image as any).changingThisBreaksApplicationSecurity
-          && (imageUrl as any).changingThisBreaksApplicationSecurity) {
-          return (image as any).changingThisBreaksApplicationSecurity
-            !== (imageUrl as any).changingThisBreaksApplicationSecurity;
-        }
-        return image !== imageUrl;
-      });
-      return band;
-    });
-  }
-
-  // TODO: remove when backend implemented
-  private fakeUploadImage(image: File, onUpload: (base64: string) => void) {
-    FileHelper.readFileAsDataURL(image)
-      .pipe(
-        takeUntil(this.ngUnsubscribe$)
-      )
-      .subscribe((base64: string) => {
-        onUpload(base64);
-      });
-  }
-
-  // TODO: remove when backend implemented
-  private fakeEmitBandChange(changeBand: (band: Artist) => Artist) {
-    // let clone: Artist = cloneDeep(this.artist$.getValue());
-    // clone = changeBand(clone);
-    // this.artist$.next(clone);
-    // this.changeDetectorRef.markForCheck();
+  onImageDelete(imagePath: string) {
+    this.onArtist(artist => this.store.dispatch(deleteArtistImageAction({
+        artist,
+        imagePath
+      }))
+    );
   }
 
   ngOnDestroy(): void {
