@@ -34,6 +34,7 @@ import { anyBooleanObservableTrue } from '@shared/utils/any-boolean-observable-t
 import assign from 'lodash-es/assign';
 import { ProfileImageUploadResults } from '@artist-admin/edit-artist/edit-artist-images/edit-artist-images.component';
 import { ARTIST_TYPE_TO_TAB, EditArtistTab } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 @Component({
   selector: 'app-edit-artist',
@@ -42,6 +43,7 @@ import { ARTIST_TYPE_TO_TAB, EditArtistTab } from '@artist-admin/edit-artist/edi
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistComponent implements OnInit, OnDestroy {
+  t = TRANSLATIONS;
   artist$ = this.store.pipe(
     select(this.artistSelectors.selectEntities),
     map((artists: Dictionary<Artist>) => {

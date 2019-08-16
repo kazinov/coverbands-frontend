@@ -92,7 +92,7 @@
             *ngFor="let tab of (tabs$ | async)"
             [ngClass]="{'selected': (selectedTab$ | async) === tab}"
             (click)="onTabClick(tab)"
-    >{{tab}}</button>
+    >{{t.editArtist.tabs[tab]}}</button>
   </mat-action-list>
 
     <div class="spinner-spacer"

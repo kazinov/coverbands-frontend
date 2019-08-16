@@ -7,6 +7,7 @@ import { AUTH_TRANSLATIONS } from '@core/auth/auth.translations';
 import { RESET_PASSWORD_DIALOG_TRANSLATIONS } from '@core/auth/auth-components/reset-password-dialog/reset-password-dialog.translations';
 import { ArtistTypes } from '@core/models/artist-types.model';
 import { CREATE_ARTIST_TRANSLATIONS } from '@artist-admin/create-artist/create-artist.translations';
+import { EDIT_ARTIST_TRANSLATIONS } from '@artist-admin/edit-artist/edit-artist/edit-artist.translations';
 
 export const TRANSLATIONS = {
   cities: {
@@ -46,5 +47,6 @@ export const TRANSLATIONS = {
   ...SNACK_TRANSLATIONS,
   ...AUTH_TRANSLATIONS,
   ...RESET_PASSWORD_DIALOG_TRANSLATIONS,
-  ...CREATE_ARTIST_TRANSLATIONS
+  ...CREATE_ARTIST_TRANSLATIONS,
+  ...EDIT_ARTIST_TRANSLATIONS
 };
