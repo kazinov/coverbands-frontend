@@ -86,7 +86,7 @@
 
   <!--    </mat-accordion>-->
 
-  <div class="app-tabs">
+  <div class="app-tabs" *ngIf="!!(artist$ | async)">
     <mat-action-list class="app-tabs-navigation-menu">
       <button class="app-tabs-navigation-item"
               mat-list-item

@@ -27,7 +27,7 @@ export class ProjectImageComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     const urlFromCache = this.storageUrlCacheService.getUrl(this.imageSrc);
     if (urlFromCache) {
-      this.imageSrc = urlFromCache;
+      this.parsedSrc = urlFromCache;
     } else {
       from(this.firebaseService.storage.ref(this.imageSrc).getDownloadURL())
         .pipe(
