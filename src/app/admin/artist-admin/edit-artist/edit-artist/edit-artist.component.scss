@@ -17,13 +17,26 @@
     bottom: 0;
   }
 
-  .navigation-menu {
-    .navigation-item {
-      &.selected {
+  .app-tabs {
+    display: flex;
 
-        border-right: 2px solid $primary;
-        background-color: rgba(0, 0, 0, 0.1);
+    .app-tabs-navigation-menu {
+      .app-tabs-navigation-item {
+        &.selected {
+          border-left: 2px solid $primary;
+          background-color: rgba(0, 0, 0, 0.1);
+        }
       }
     }
+
+    .app-tabs-content {
+      flex: 1;
+      margin-left: $margin-lg;
+      padding: 24px;
+    }
+  }
+
+  .app-form-header {
+    margin-bottom: $margin-xl;
   }
 }

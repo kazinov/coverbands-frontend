@@ -44,6 +44,7 @@ import { TRANSLATIONS } from '@core/translation/translations';
 })
 export class EditArtistComponent implements OnInit, OnDestroy {
   t = TRANSLATIONS;
+  EditArtistTab = EditArtistTab;
   artist$ = this.store.pipe(
     select(this.artistSelectors.selectEntities),
     map((artists: Dictionary<Artist>) => {
