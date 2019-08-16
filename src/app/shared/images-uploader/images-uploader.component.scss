@@ -37,5 +37,6 @@
 
 .controls-container {
   display: flex;
-  justify-content: flex-end;
+  margin-bottom: $margin-lg;
+  margin-top: $margin-sm;
 }
