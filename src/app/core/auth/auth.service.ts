@@ -92,6 +92,16 @@ export class AuthService {
     );
   }
 
+  getCurrentUserEmail() {
+    return this.store.pipe(
+      select(this.authSelectors.currentUserEmail),
+      take(1),
+      switchMap((id) => {
+        return of(id) || throwError('user email is not defined');
+      })
+    );
+  }
+
   constructor(
     private firebaseService: FirebaseService,
     private dialog: MatDialog,

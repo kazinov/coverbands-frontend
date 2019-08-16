@@ -42,10 +42,13 @@ export class EditArtistVideosComponent implements OnInit, OnDestroy {
   }
 
   onLinkSubmit() {
-    this.videos = [
-      ...(this.videos || []),
-      parseEmbeddedVideoSrc(this.form.value.embed)
-    ];
+    const newVideo = parseEmbeddedVideoSrc(this.form.value.embed);
+    if (!this.videos.some((video) => video === newVideo)) {
+      this.videos = [
+        ...(this.videos || []),
+        parseEmbeddedVideoSrc(this.form.value.embed)
+      ];
+    }
 
     this.form.reset();
     this.formGroup.resetForm();

@@ -17,6 +17,11 @@ export class AuthSelectors {
     (state) => state && state.uid
   );
 
+  currentUserEmail = createSelector(
+    this.currentUser,
+    (state) => state && state.email
+  );
+
   currentUserInitialised = createSelector(
     this.stateSelector,
     (state) => state && state.currentUserInitialised

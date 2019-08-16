@@ -1,4 +1,4 @@
-<h4 class="app-info-block">Добавьте ссылки на ваши видео</h4>
+<h4 class="app-info-block">Добавьте как минимум одно видео с вашим выступлением</h4>
 <form #formGroup="ngForm"
       (submit)="onLinkSubmit()"
       [formGroup]="form"
@@ -61,9 +61,7 @@
     <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
   </mat-table>
 </div>
-<mat-error *ngIf="noVideos">
-  Добавьте хотя бы одно видео со своим выступлением
-</mat-error>
+
 <div class="app-save-button-container">
   <button (click)="onSaveButtonClick()"
           mat-raised-button

@@ -11,6 +11,7 @@ import { ArtistTypes } from '@core/models/artist-types.model';
 import { ALL_MUSIC_GENRES } from '@core/models/music-genres.model';
 import { ALL_RUSSIAN_CITIES } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 const cityFilterFieldName = 'cityFilter';
 
@@ -26,6 +27,7 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   @Input() hideDescription: boolean;
   @Output() saveClick = new EventEmitter<Artist>();
   form: FormGroup;
+  t = TRANSLATIONS;
 
   genres: SelectorOption[]
     = ALL_MUSIC_GENRES.map((genreId) => ({
