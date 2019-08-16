@@ -61,3 +61,12 @@
     <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
   </mat-table>
 </div>
+<mat-error *ngIf="noVideos">
+  Добавьте хотя бы одно видео со своим выступлением
+</mat-error>
+<div class="app-save-button-container">
+  <button (click)="onSaveButtonClick()"
+          mat-raised-button
+          [disabled]="noVideos"
+          color="primary">{{saveButtonText}}</button>
+</div>

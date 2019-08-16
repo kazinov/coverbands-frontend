@@ -1,5 +1,5 @@
 <form [formGroup]="form"
-      class="flex-column spacer"
+      class="flex-column spacer vertical-spacer"
       novalidate
       (submit)="onSubmit()">
     <mat-form-field>
@@ -20,6 +20,15 @@
             Неверный формат телефонного номера
         </mat-error>
     </mat-form-field>
+
+  <mat-form-field>
+            <textarea matInput
+                      placeholder="Добавьте дополнительную инфонмацию"
+                      formControlName="contactsComment"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="8"></textarea>
+  </mat-form-field>
 
     <div class="app-save-button-container">
         <button type="submit"

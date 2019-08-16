@@ -17,6 +17,7 @@ const russianPhoneConfig = {
 };
 const emailFormName = 'email';
 const phoneNumberFormName = 'phoneNumber';
+const contactsCommentFormName = 'contactsComment';
 
 @Component({
   selector: 'app-edit-artist-contacts',
@@ -39,7 +40,8 @@ export class EditArtistContactsComponent implements OnInit {
     this.form = this.formBuilder.group({
       [emailFormName]: [this.artist ? this.artist.email : null, [Validators.email]],
       [phoneNumberFormName]: [this.artist ? this.artist.phoneNumber : null,
-        [Validators.pattern(this.phoneConfig.validationRegex)]]
+        [Validators.pattern(this.phoneConfig.validationRegex)]],
+      [contactsCommentFormName]: [this.artist ? this.artist.contactsComment : null],
     });
   }
 
@@ -48,7 +50,8 @@ export class EditArtistContactsComponent implements OnInit {
       assign({}, this.artist, {
         email: this.form.value[emailFormName],
         phoneCode: this.phoneConfig.phoneCode,
-        phoneNumber: this.form.value[phoneNumberFormName]
+        phoneNumber: this.form.value[phoneNumberFormName],
+        contactsComment: this.form.value[contactsCommentFormName],
       })
     );
   }

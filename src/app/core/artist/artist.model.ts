@@ -35,6 +35,7 @@ export interface Artist {
   images?: string[];
   email?: string;
   phoneCode?: string;
+  contactsComment?: string;
   phoneNumber?: string;
   oneShowPrice?: Price;
   prices?: Price[];

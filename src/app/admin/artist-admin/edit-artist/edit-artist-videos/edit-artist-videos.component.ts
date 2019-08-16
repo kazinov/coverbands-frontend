@@ -24,6 +24,7 @@ const EMBED_FORM_KEY = 'embed';
 })
 export class EditArtistVideosComponent implements OnInit, OnDestroy {
   @Input() videos: string[];
+  @Input() saveButtonText = 'Сохранить'
   @Output() videosChange = new EventEmitter<string[]>();
   form: FormGroup;
   @ViewChild('formGroup', {static: true}) formGroup: FormGroupDirective;
@@ -46,7 +47,6 @@ export class EditArtistVideosComponent implements OnInit, OnDestroy {
       parseEmbeddedVideoSrc(this.form.value.embed)
     ];
 
-    this.videosChange.emit(this.videos);
     this.form.reset();
     this.formGroup.resetForm();
   }
@@ -56,7 +56,6 @@ export class EditArtistVideosComponent implements OnInit, OnDestroy {
       .filter((link) => {
         return link.link !== linkToDelete.link;
       });
-    this.videosChange.emit(this.videos);
   }
 
   get linksExist() {
@@ -86,6 +85,14 @@ export class EditArtistVideosComponent implements OnInit, OnDestroy {
     if (this.helpDialogRef) {
       this.helpDialogRef.close();
     }
+  }
+
+  onSaveButtonClick() {
+    this.videosChange.emit(this.videos);
+  }
+
+  get noVideos() {
+    return !this.videos || !this.videos.length;
   }
 
   constructor(

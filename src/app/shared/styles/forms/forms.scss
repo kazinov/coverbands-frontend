@@ -58,4 +58,7 @@
 .app-save-button-container {
   display: flex;
   justify-content: flex-end;
+  flex: 1;
+  width: 100%;
+  align-items: flex-end;
 }

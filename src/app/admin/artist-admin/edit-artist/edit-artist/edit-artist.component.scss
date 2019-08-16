@@ -37,9 +37,11 @@
 
     .app-tabs-content-option {
       display: none;
+      height: 100%;
 
       &.selected {
-        display: block;
+        display: flex;
+        flex-direction: column;
       }
     }
   }
