@@ -1,5 +1,7 @@
 <div class="container">
-  <button mat-raised-button color="primary" (click)="input.click()">Загрузить</button>
+  <button mat-raised-button color="primary" (click)="input.click()">
+    {{changingLabel ? 'Изменить' : 'Загрузить'}}
+  </button>
   <input hidden
          type="file"
          #input

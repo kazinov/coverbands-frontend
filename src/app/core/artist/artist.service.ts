@@ -13,6 +13,7 @@ import {
 } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
 import { generateUUID } from '@shared/utils/generate-uid';
+import isNil from 'lodash-es/isNil';
 
 const ARTISTS_COLLECTION_NAME = 'artists';
 
@@ -77,6 +78,13 @@ export class ArtistService {
       );
   }
 
+  replaceArtistProfileImage(artist: Artist, image: File, thumb: File): Observable<Artist> {
+    return this.deleteArtistProfileImage(artist)
+      .pipe(
+        switchMap(() => this.uploadArtistProfileImage(artist, image, thumb))
+      );
+  }
+
   uploadArtistProfileImage(artist: Artist, image: File, thumb: File): Observable<Artist> {
     const profileImageRef = this.firebaseService.storageRef.child(getArtistImagePath(
       artist.id, ArtistImageType.Profile
@@ -106,15 +114,15 @@ export class ArtistService {
 
   deleteArtistProfileImage(artist: Artist): Observable<Artist> {
     const profileImageDelete = artist.profileImage
-    ? from(this.firebaseService.storageRef.child(artist.profileImage).delete())
-    : of(1);
+      ? from(this.firebaseService.storageRef.child(artist.profileImage).delete())
+      : of(1);
     const profileThumbDelete = artist.profileImageThumb
       ? from(this.firebaseService.storageRef.child(artist.profileImageThumb).delete())
       : of(1);
 
     return forkJoin([
-      profileImageDelete,
-      profileThumbDelete
+        profileImageDelete,
+        profileThumbDelete
       ]
     )
       .pipe(
@@ -125,7 +133,12 @@ export class ArtistService {
           updatedArtist.profileImage = null;
           updatedArtist.profileImageThumb = null;
 
-          return this.updateArtist(updatedArtist)
+          const noChanges = isNil(artist.profileImage)
+            && isNil(artist.profileImageThumb)
+            && isNil(updatedArtist.profileImage)
+            && isNil(updatedArtist.profileImageThumb);
+
+          return noChanges ? of(updatedArtist) : this.updateArtist(updatedArtist)
             .pipe(map(() => updatedArtist));
         }),
         catchError(fromFirebaseError)

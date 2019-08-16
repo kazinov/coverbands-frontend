@@ -42,14 +42,14 @@ export const loadArtistFailureAction = createAction(
   props<{ error: HttpError }>()
 );
 
-export const uploadArtistProfileImageAction = createAction('[Artist] Upload artist profile image',
+export const replaceArtistProfileImageAction = createAction('[Artist] Replace artist profile image',
   props<{ artist: Artist; image: File; thumb: File }>()
 );
 
-export const uploadArtistProfileImageSuccessAction = createAction('[Artist] Upload artist profile image success');
+export const replaceArtistProfileImageSuccessAction = createAction('[Artist] Replace artist profile image success');
 
-export const uploadArtistProfileImageFailureAction = createAction(
-  '[Artist] Upload artist profile image failure',
+export const replaceArtistProfileImageFailureAction = createAction(
+  '[Artist] Replace artist profile image failure',
   props<{ error: HttpError }>()
 );
 

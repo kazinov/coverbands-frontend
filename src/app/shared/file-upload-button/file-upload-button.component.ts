@@ -42,6 +42,7 @@ function globStringToRegex(str) {
 export class FileUploadButtonComponent implements OnInit {
   @Input() accept: string;
   @Input() multiple = false;
+  @Input() changingLabel = false;
   @Output() filesAttached = new EventEmitter<File[]>();
   @ViewChild('input', { static: true }) input: ElementRef;
   private regexp;

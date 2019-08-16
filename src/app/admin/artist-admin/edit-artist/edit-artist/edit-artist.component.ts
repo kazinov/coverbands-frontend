@@ -20,9 +20,9 @@ import {
   uploadArtistImageAction,
   uploadArtistImageFailureAction,
   uploadArtistImageSuccessAction,
-  uploadArtistProfileImageAction,
-  uploadArtistProfileImageFailureAction,
-  uploadArtistProfileImageSuccessAction
+  replaceArtistProfileImageAction,
+  replaceArtistProfileImageFailureAction,
+  replaceArtistProfileImageSuccessAction
 } from '@core/artist/artist.actions';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistSelectors } from '@core/artist/artist.selectors';
@@ -86,11 +86,11 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     this.actions$,
     {
       startActions: [
-        uploadArtistProfileImageAction
+        replaceArtistProfileImageAction
       ],
       stopActions: [
-        uploadArtistProfileImageSuccessAction,
-        uploadArtistProfileImageFailureAction
+        replaceArtistProfileImageSuccessAction,
+        replaceArtistProfileImageFailureAction
       ],
       takeUntil: untilDestroyed(this)
     }
@@ -216,7 +216,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onProfileImageAttached(results: ProfileImageUploadResults) {
-    this.onArtist(artist => this.store.dispatch(uploadArtistProfileImageAction({
+    this.onArtist(artist => this.store.dispatch(replaceArtistProfileImageAction({
         artist,
         image: results.image,
         thumb: results.thumb

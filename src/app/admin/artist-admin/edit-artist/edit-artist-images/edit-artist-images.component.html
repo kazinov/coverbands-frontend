@@ -3,11 +3,11 @@
         *ngIf="artist"
         [imagesUrls]="artist.profileImageThumb ? [artist.profileImageThumb]: null"
         max="1"
+        onlyReplacing="true"
         [isLoading]="isProfileImageLoading"
         [cropperSettings]="profileImageCropperSettings"
         [resizeSettings]="profileImageResizeSettings"
         (imageAttached)="onProfileImageAttached($event)"
-        (imageDelete)="onProfileImageDelete()"
 ></app-images-uploader>
 
 <h4 class="app-info-block">Загрузите другие фото</h4>

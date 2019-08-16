@@ -33,6 +33,7 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
   @Input() imagesUrls: string[];
   @Input() max = 0;
   @Input() isLoading = false;
+  @Input() onlyReplacing = false;
   @Input() cropperSettings: CropperSettings;
   @Input() resizeSettings: ResizeImageSettings[];
   @Output() imageAttached = new EventEmitter<ImagesUploadResults>();
@@ -44,6 +45,10 @@ export class ImagesUploaderComponent implements OnInit, OnDestroy {
 
   get maxImagesReached() {
     return !!this.max && this.imagesUrls && this.imagesUrls.length >= this.max;
+  }
+
+  get someImages() {
+    return this.imagesUrls && !!this.imagesUrls.length;
   }
 
   ngOnInit() {

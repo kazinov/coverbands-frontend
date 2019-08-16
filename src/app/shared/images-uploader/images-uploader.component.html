@@ -1,21 +1,23 @@
 <div class="images-container">
-    <div class="image-container" *ngFor="let imageUrl of imagesUrls">
-        <app-project-image class="thumb" [imageSrc]="imageUrl"></app-project-image>
-        <mat-icon class="remove-button"
-                  (click)="imageDelete.emit(imageUrl)">cancel
-        </mat-icon>
-    </div>
+  <div class="image-container" *ngFor="let imageUrl of imagesUrls">
+    <app-project-image class="thumb" [imageSrc]="imageUrl"></app-project-image>
+    <mat-icon class="remove-button"
+              *ngIf="!onlyReplacing"
+              (click)="imageDelete.emit(imageUrl)">cancel
+    </mat-icon>
+  </div>
 </div>
-<div class="controls-container" *ngIf="!maxImagesReached">
-    <app-file-upload-button
-            [accept]="'.jpg,.gif,.png,.jpeg,.jpe'"
-            [multiple]="isMutlipleUploadEnabled"
-            (filesAttached)="onImagesAttached($event)"
-    ></app-file-upload-button>
+<div class="controls-container" *ngIf="!maxImagesReached || onlyReplacing">
+  <app-file-upload-button
+    [changingLabel]="someImages && onlyReplacing"
+    [accept]="'.jpg,.gif,.png,.jpeg,.jpe'"
+    [multiple]="isMutlipleUploadEnabled"
+    (filesAttached)="onImagesAttached($event)"
+  ></app-file-upload-button>
 </div>
 
 <div class="spinner-container"
      *ngIf="showSpinner">
-    <mat-spinner [diameter]="30">
-    </mat-spinner>
+  <mat-spinner [diameter]="30">
+  </mat-spinner>
 </div>

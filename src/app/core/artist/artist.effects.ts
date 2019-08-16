@@ -23,9 +23,9 @@ import {
   updateArtistAction,
   updateArtistFailureAction,
   updateArtistSuccessAction, uploadArtistImageAction, uploadArtistImageFailureAction, uploadArtistImageSuccessAction,
-  uploadArtistProfileImageAction,
-  uploadArtistProfileImageFailureAction,
-  uploadArtistProfileImageSuccessAction,
+  replaceArtistProfileImageAction,
+  replaceArtistProfileImageFailureAction,
+  replaceArtistProfileImageSuccessAction,
   upsertArtistsToStoreAction
 } from '@core/artist/artist.actions';
 import { Artist } from '@core/artist/artist.model';
@@ -102,11 +102,11 @@ export class ArtistEffects {
     )
   );
 
-  uploadArtistProfileImage$ = createEffect(() =>
+  replaceArtistProfileImage$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(uploadArtistProfileImageAction),
+      ofType(replaceArtistProfileImageAction),
       exhaustMap(action => {
-          return this.artistService.uploadArtistProfileImage(
+          return this.artistService.replaceArtistProfileImage(
             action.artist,
             action.image,
             action.thumb
@@ -115,12 +115,12 @@ export class ArtistEffects {
               this.snackService.success(TRANSLATIONS.changesSaved);
               return of(
                 upsertArtistsToStoreAction({artists: [artist]}),
-                uploadArtistProfileImageSuccessAction()
+                replaceArtistProfileImageSuccessAction()
               );
             }),
             catchError(error => {
               this.showErrorSnack(error, 'upload-artist-profile-image');
-              return of(uploadArtistProfileImageFailureAction({error}));
+              return of(replaceArtistProfileImageFailureAction({error}));
             })
           );
         }
