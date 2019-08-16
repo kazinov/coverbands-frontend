@@ -16,4 +16,14 @@
     right: 0;
     bottom: 0;
   }
+
+  .navigation-menu {
+    .navigation-item {
+      &.selected {
+
+        border-right: 2px solid $primary;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
 }

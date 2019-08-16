@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, take, tap } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
@@ -33,6 +33,7 @@ import { Actions } from '@ngrx/effects';
 import { anyBooleanObservableTrue } from '@shared/utils/any-boolean-observable-true';
 import assign from 'lodash-es/assign';
 import { ProfileImageUploadResults } from '@artist-admin/edit-artist/edit-artist-images/edit-artist-images.component';
+import { ARTIST_TYPE_TO_TAB, EditArtistTab } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
 
 @Component({
   selector: 'app-edit-artist',
@@ -159,6 +160,12 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       map((band) => band ? band.videos : null)
     );
 
+  tabs$ = this.artist$
+    .pipe(
+      map((artist) => artist && ARTIST_TYPE_TO_TAB[artist.type])
+    );
+
+  selectedTab$ = new BehaviorSubject<EditArtistTab>(EditArtistTab.Main);
   ngUnsubscribe$ = new Subject<void>();
 
   ngOnInit() {
@@ -235,6 +242,10 @@ export class EditArtistComponent implements OnInit, OnDestroy {
         imagePath
       }))
     );
+  }
+
+  onTabClick(tab: EditArtistTab) {
+    this.selectedTab$.next(tab);
   }
 
   ngOnDestroy(): void {

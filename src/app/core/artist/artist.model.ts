@@ -26,6 +26,7 @@ export interface Artist {
   description?: string;
   city?: string;
   musicGenres?: string[];
+  danceGenres?: string[];
   covers?: CoverInfo[];
   links?: Link[];
   videos?: string[];

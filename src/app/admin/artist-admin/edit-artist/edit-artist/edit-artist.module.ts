@@ -10,6 +10,7 @@ import { EditArtistImagesModule } from '../edit-artist-images/edit-artist-images
 import { EditArtistComponent } from './edit-artist.component';
 import { EditArtistMainInfoModule } from '../edit-artist-main-info/edit-artist-main-info.module';
 import { EditArtistVideosModule } from '@artist-admin/edit-artist/edit-artist-videos/edit-artist-videos.module';
+import { MatListModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { EditArtistVideosModule } from '@artist-admin/edit-artist/edit-artist-vi
     EditArtistLinksModule,
     EditArtistPricesModule,
     EditArtistImagesModule,
-    EditArtistVideosModule
+    EditArtistVideosModule,
+    MatListModule
   ],
   declarations: [
     EditArtistComponent
