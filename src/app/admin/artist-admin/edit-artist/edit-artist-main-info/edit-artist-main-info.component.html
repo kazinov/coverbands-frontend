@@ -10,15 +10,6 @@
     <mat-error *ngIf="form.get('name').invalid">Обязательное поле</mat-error>
   </mat-form-field>
 
-  <mat-form-field *ngIf="!hideDescription">
-            <textarea matInput
-                      placeholder="Расскажите о проекте"
-                      formControlName="description"
-                      cdkTextareaAutosize
-                      cdkAutosizeMinRows="2"
-                      cdkAutosizeMaxRows="8"></textarea>
-  </mat-form-field>
-
   <mat-form-field>
     <mat-label>Город</mat-label>
     <mat-select formControlName="city" required>
@@ -47,6 +38,15 @@
       </mat-option>
     </mat-select>
     <mat-error *ngIf="form.get('genres').invalid">Обязательное поле</mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="!hideDescription">
+            <textarea matInput
+                      placeholder="Расскажите о проекте"
+                      formControlName="description"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="8"></textarea>
   </mat-form-field>
 
   <div class="app-save-button-container">

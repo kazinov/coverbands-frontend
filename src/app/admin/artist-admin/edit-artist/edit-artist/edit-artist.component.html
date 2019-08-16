@@ -95,39 +95,45 @@
               (click)="onTabClick(tab)"
       >{{t.editArtist.tabs[tab]}}</button>
     </mat-action-list>
-    <mat-card class="app-tabs-content" [ngSwitch]="selectedTab$ | async">
+    <mat-card class="app-tabs-content">
       <app-edit-artist-main-info
-        *ngSwitchCase="EditArtistTab.Main"
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Main}"
         [artist]="artist$ | async"
         (saveClick)="updateArtist($event)">
       </app-edit-artist-main-info>
 
       <app-edit-artist-contacts
-        *ngSwitchCase="EditArtistTab.Contacts"
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Contacts}"
         [artist]="artist$ | async"
         (saveClick)="updateArtist($event)">
       </app-edit-artist-contacts>
 
       <app-edit-artist-links
-        *ngSwitchCase="EditArtistTab.Links"
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Links}"
         [links]="links$ | async"
         (linksChange)="onLinksSave($event)">
       </app-edit-artist-links>
 
       <app-edit-artist-prices
-        *ngSwitchCase="EditArtistTab.Prices"
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Prices}"
         [artist]="artist$ | async"
         (pricesChange)="updateArtist($event)">
       </app-edit-artist-prices>
 
       <app-edit-artist-covers
-        *ngSwitchCase="EditArtistTab.Covers"
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Covers}"
         [covers]="covers$ | async"
         (coversChange)="onCoversChange($event)">
       </app-edit-artist-covers>
 
       <app-edit-artist-images
-        *ngSwitchCase="EditArtistTab.Photo"
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Photo}"
         [artist]="artist$ | async"
         (profileImageAttached)="onProfileImageAttached($event)"
         (profileImageDelete)="onProfileImageDelete()"
@@ -136,7 +142,8 @@
       ></app-edit-artist-images>
 
       <app-edit-artist-videos
-        *ngSwitchCase="EditArtistTab.Video"
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Video}"
         [videos]="videos$ | async"
         (videosChange)="onVideosSave($event)">
       </app-edit-artist-videos>
