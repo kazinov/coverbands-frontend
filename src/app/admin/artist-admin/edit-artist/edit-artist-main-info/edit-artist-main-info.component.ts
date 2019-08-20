@@ -5,15 +5,14 @@ import { takeUntil } from 'rxjs/operators';
 import omit from 'lodash-es/omit';
 import assign from 'lodash-es/assign';
 import { SelectorOption } from '@shared/utils/selector-option';
-import { TranslationService } from '@core/translation/translation.service';
 import { Artist } from '@core/artist/artist.model';
-import { ArtistTypes } from '@core/models/artist-types.model';
 import { ALL_MUSIC_GENRES } from '@core/models/music-genres.model';
 import { ALL_RUSSIAN_CITIES } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
 import { TRANSLATIONS } from '@core/translation/translations';
 import { EditArtistTabBase } from '@artist-admin/edit-artist/edit-artist-tab-base';
 import { EditableArtistField } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
+import { ALL_DANCE_GENRES } from '@core/models/dance-genres.model';
 
 const cityFilterFieldName = 'cityFilter';
 
@@ -36,21 +35,26 @@ export class EditArtistMainInfoComponent
   musicGenres: SelectorOption[]
     = ALL_MUSIC_GENRES.map((genreId) => ({
     id: genreId,
-    label: this.translationService.translateMusicGenre(genreId)
+    label: TRANSLATIONS.musicGenres[genreId]
+  }));
+
+  danceGenres: SelectorOption[]
+    = ALL_DANCE_GENRES.map((genreId) => ({
+    id: genreId,
+    label: TRANSLATIONS.danceGenres[genreId]
   }));
 
   cities: SelectorOption[]
     = ALL_RUSSIAN_CITIES.map((cityId) => ({
     id: cityId,
-    label: this.translationService.translateCity(Countries.Russia, cityId)
+    label: TRANSLATIONS.cities[Countries.Russia][cityId]
   }));
 
   filteredCities: SelectorOption[] = this.cities.slice();
   onDestroy$ = new Subject<void>();
 
   constructor(
-    private formBuilder: FormBuilder,
-    private translationService: TranslationService
+    private formBuilder: FormBuilder
   ) {
     super();
   }
@@ -91,13 +95,19 @@ export class EditArtistMainInfoComponent
           : []
       ];
     }
+    if (this.isFieldVisible(EditableArtistField.DanceGenres)) {
+      config.danceGenres = [this.artist ? this.artist.danceGenres : [],
+        this.isFieldRequired(EditableArtistField.DanceGenres) ?
+          [Validators.required]
+          : []
+      ];
+    }
 
     this.form = this.formBuilder.group(config);
   }
 
   onSubmit() {
     const result: Partial<Artist> = omit(this.form.value, cityFilterFieldName);
-    result.type = ArtistTypes.LiveMusic;
     this.saveClick.emit(assign({}, this.artist, result));
   }
 

@@ -33,8 +33,9 @@ import { Actions } from '@ngrx/effects';
 import { anyBooleanObservableTrue } from '@shared/utils/any-boolean-observable-true';
 import assign from 'lodash-es/assign';
 import { ProfileImageUploadResults } from '@artist-admin/edit-artist/edit-artist-images/edit-artist-images.component';
-import { ARTIST_TYPE_TO_TAB, EditArtistTab } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
 import { TRANSLATIONS } from '@core/translation/translations';
+import { EditArtistTab } from './edit-artist.model';
+import { ARTIST_TYPE_TO_TAB } from '@artist-admin/edit-artist/edit-artist/configs/artist-type-to-tab';
 
 @Component({
   selector: 'app-edit-artist',

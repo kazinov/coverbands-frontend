@@ -1,5 +1,6 @@
 import { Artist } from '@core/artist/artist.model';
-import { ARTIST_TYPE_TO_FIELD, EditableArtistField } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
+import { EditableArtistField } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
+import { ARTIST_TYPE_TO_FIELD_META } from '@artist-admin/edit-artist/edit-artist/configs/artist-type-to-field-meta';
 
 export abstract class EditArtistTabBase {
   artist: Artist;
@@ -10,11 +11,11 @@ export abstract class EditArtistTabBase {
   }
 
   isFieldVisible(field: EditableArtistField) {
-    return ARTIST_TYPE_TO_FIELD[this.artistType][field];
+    return !!ARTIST_TYPE_TO_FIELD_META[this.artistType][field];
   }
 
   isFieldRequired(field: EditableArtistField) {
-    return ARTIST_TYPE_TO_FIELD[this.artistType][field]
-      && ARTIST_TYPE_TO_FIELD[this.artistType][field].required;
+    return ARTIST_TYPE_TO_FIELD_META[this.artistType][field]
+      && ARTIST_TYPE_TO_FIELD_META[this.artistType][field].required;
   }
 }

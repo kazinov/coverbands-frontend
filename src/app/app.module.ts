@@ -13,7 +13,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { TranslationModule } from '@core/translation/translation.module';
 import { FirebaseModule } from '@core/firebase/firebase.module';
 import { AuthModule } from '@core/auth/auth.module';
 import { SnackModule } from '@core/snack/snack.module';
@@ -32,7 +31,6 @@ import { StorageUrlCacheModule } from '@core/storage-url-cache/storage-url-cache
     HttpClientModule,
     MatSnackBarModule,
     AppLayoutModule,
-    TranslationModule,
     AuthModule,
     FirebaseModule,
     SnackModule,

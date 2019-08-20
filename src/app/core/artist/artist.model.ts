@@ -20,6 +20,7 @@ export interface Price {
 
 export interface Artist {
   id: string;
+  onboardingStepPassed?: string;
   userId?: string;
   type?: string;
   name?: string;

@@ -8,6 +8,7 @@ import { RESET_PASSWORD_DIALOG_TRANSLATIONS } from '@core/auth/auth-components/r
 import { ArtistTypes } from '@core/models/artist-types.model';
 import { CREATE_ARTIST_TRANSLATIONS } from '@artist-admin/create-artist/create-artist.translations';
 import { EDIT_ARTIST_TRANSLATIONS } from '@artist-admin/edit-artist/edit-artist/edit-artist.translations';
+import { DanceGenres } from '@core/models/dance-genres.model';
 
 export const TRANSLATIONS = {
   cities: {
@@ -25,6 +26,11 @@ export const TRANSLATIONS = {
     [MusicGenres.Pop]: 'Поп',
     [MusicGenres.Rap]: 'Реп',
     [MusicGenres.Rock]: 'Рок',
+  },
+  danceGenres: {
+    [DanceGenres.HipHop]: 'Хип-хоп',
+    [DanceGenres.Russian]: 'Русские народные',
+    [DanceGenres.Ballroom]: 'Бальные',
   },
   artistTypes: {
     [ArtistTypes.LiveMusic]: 'Живая музыка',

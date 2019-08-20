@@ -48,6 +48,18 @@
     <mat-error *ngIf="form.get('musicGenres').invalid">Обязательное поле</mat-error>
   </mat-form-field>
 
+  <mat-form-field *ngIf="isFieldVisible(EditableArtistField.DanceGenres)">
+    <mat-label>Стили танцев</mat-label>
+    <mat-select formControlName="danceGenres" multiple required>
+      <mat-option
+        *ngFor="let danceGenre of danceGenres"
+        [value]="danceGenre.id">
+        {{danceGenre.label}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('danceGenres').invalid">Обязательное поле</mat-error>
+  </mat-form-field>
+
   <mat-form-field *ngIf="!hideDescription">
             <textarea matInput
                       placeholder="Расскажите о проекте"
