@@ -1,5 +1,5 @@
 import { uniqueStoreKey } from '@shared/utils/unique-store-key';
-import { FirebaseDocumentData, FirebaseDocumentSnapshot, FirebaseTimestamp } from '@core/firebase/firebase.model';
+import { FirebaseDocumentData, FirebaseDocumentSnapshot } from '@core/firebase/firebase.model';
 import assign from 'lodash-es/assign';
 
 export interface CoverInfo {
@@ -48,12 +48,15 @@ export abstract class ArtistHelpers {
   static fromFirebaseDocument(data: FirebaseDocumentSnapshot): Artist {
     const stapshot: FirebaseDocumentData = data.data();
 
-    let artist: Artist = {
-      id: data.id
-    };
+    if (stapshot) {
+      let artist: Artist = {
+        id: data.id
+      };
 
-    artist = assign(artist, stapshot);
+      artist = assign(artist, stapshot);
 
-    return artist;
+      return artist;
+    }
+    return null;
   }
 }

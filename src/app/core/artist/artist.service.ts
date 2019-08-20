@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { FirebaseService } from '@core/firebase/firebase.service';
 import { Artist, ArtistHelpers } from '@core/artist/artist.model';
-import { forkJoin, from, Observable, of } from 'rxjs';
+import { forkJoin, from, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
 import {
@@ -71,8 +71,16 @@ export class ArtistService {
       source: 'server'
     }))
       .pipe(
-        map((snapshot: FirebaseDocumentSnapshot) =>
-          ArtistHelpers.fromFirebaseDocument(snapshot)
+        switchMap((snapshot: FirebaseDocumentSnapshot) => {
+            const artist = ArtistHelpers.fromFirebaseDocument(snapshot);
+            if (!artist) {
+              return throwError({
+                code: 'artist-not-found'
+              });
+            }
+
+            return of(artist);
+          }
         ),
         catchError(fromFirebaseError)
       );
