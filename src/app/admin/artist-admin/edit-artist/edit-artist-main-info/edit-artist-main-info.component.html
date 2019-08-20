@@ -36,16 +36,16 @@
     <mat-error *ngIf="form.get('city').invalid">Обязательное поле</mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field *ngIf="isFieldVisible(EditableArtistField.MusicGenres)">
     <mat-label>Стили музыки</mat-label>
-    <mat-select formControlName="genres" multiple required>
+    <mat-select formControlName="musicGenres" multiple required>
       <mat-option
-        *ngFor="let genre of genres"
-        [value]="genre.id">
-        {{genre.label}}
+        *ngFor="let musicGenre of musicGenres"
+        [value]="musicGenre.id">
+        {{musicGenre.label}}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="form.get('genres').invalid">Обязательное поле</mat-error>
+    <mat-error *ngIf="form.get('musicGenres').invalid">Обязательное поле</mat-error>
   </mat-form-field>
 
   <mat-form-field *ngIf="!hideDescription">

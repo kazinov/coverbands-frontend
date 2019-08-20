@@ -12,6 +12,8 @@ import { ALL_MUSIC_GENRES } from '@core/models/music-genres.model';
 import { ALL_RUSSIAN_CITIES } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
 import { TRANSLATIONS } from '@core/translation/translations';
+import { EditArtistTabBase } from '@artist-admin/edit-artist/edit-artist-tab-base';
+import { EditableArtistField } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
 
 const cityFilterFieldName = 'cityFilter';
 
@@ -21,7 +23,9 @@ const cityFilterFieldName = 'cityFilter';
   styleUrls: ['./edit-artist-main-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
+export class EditArtistMainInfoComponent
+  extends EditArtistTabBase
+  implements OnInit, OnDestroy {
   @Input() saveButtonText = 'Сохранить';
   @Input() artist: Artist;
   @Input() hideDescription: boolean;
@@ -29,7 +33,7 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   form: FormGroup;
   t = TRANSLATIONS;
 
-  genres: SelectorOption[]
+  musicGenres: SelectorOption[]
     = ALL_MUSIC_GENRES.map((genreId) => ({
     id: genreId,
     label: this.translationService.translateMusicGenre(genreId)
@@ -48,6 +52,7 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private translationService: TranslationService
   ) {
+    super();
   }
 
   ngOnInit() {
@@ -70,13 +75,24 @@ export class EditArtistMainInfoComponent implements OnInit, OnDestroy {
   }
 
   private buildForm(): void {
-    this.form = this.formBuilder.group({
+    const config: {
+      [key: string]: any;
+    } = {
       name: [this.artist ? this.artist.name : null, [Validators.required]],
       description: [this.artist ? this.artist.description : null, []],
       [cityFilterFieldName]: [null, []],
-      city: [this.artist ? this.artist.city : null, [Validators.required]],
-      genres: [this.artist ? this.artist.musicGenres : [], [Validators.required]]
-    });
+      city: [this.artist ? this.artist.city : null, [Validators.required]]
+    };
+
+    if (this.isFieldVisible(EditableArtistField.MusicGenres)) {
+      config.musicGenres = [this.artist ? this.artist.musicGenres : [],
+        this.isFieldRequired(EditableArtistField.MusicGenres) ?
+          [Validators.required]
+          : []
+      ];
+    }
+
+    this.form = this.formBuilder.group(config);
   }
 
   onSubmit() {
