@@ -203,6 +203,13 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       })
     );
 
+  saveButtonText$ = this.isOnboarding$
+    .pipe(
+      map((isOnboarding) => isOnboarding
+        ? this.t.editArtist.nextButton
+        : this.t.editArtist.saveButton)
+    );
+
   ngUnsubscribe$ = new Subject<void>();
 
   ngOnInit() {
@@ -256,18 +263,32 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  onLinksSave(links: Link[]) {
-    this.onArtist(artist => this.store.dispatch(updateArtistAction({
+  onLinksNextClick() {
+    this.onArtist(artist => {
+      this.emitUpdateArtist(artist, EditArtistTab.Links);
+    });
+  }
+
+  onLinksChange(links: Link[]) {
+    this.onArtist(artist => {
+      this.store.dispatch(updateArtistAction({
         artist: assign({}, artist, {links})
-      }))
-    );
+      }));
+    });
+  }
+
+  onCoversNextClick() {
+    this.onArtist(artist => {
+      this.emitUpdateArtist(artist, EditArtistTab.Covers);
+    });
   }
 
   onCoversChange(covers: CoverInfo[]) {
-    this.onArtist(artist => this.store.dispatch(updateArtistAction({
+    this.onArtist(artist => {
+      this.store.dispatch(updateArtistAction({
         artist: assign({}, artist, {covers})
-      }))
-    );
+      }));
+    });
   }
 
   onVideosSave(videos: string[]) {
@@ -293,13 +314,6 @@ export class EditArtistComponent implements OnInit, OnDestroy {
           }
         );
       }
-    );
-  }
-
-  onProfileImageDelete() {
-    this.onArtist(artist => this.store.dispatch(deleteArtistProfileImageAction({
-        artist
-      }))
     );
   }
 

@@ -40,3 +40,10 @@
     </mat-chip-list>
   </div>
 </div>
+
+<div class="app-save-button-container" *ngIf="showNextButton">
+  <button type="submit"
+          mat-raised-button
+          color="primary"
+          (click)="nextButtonClick.emit()">{{t.editArtist.nextButton}}</button>
+</div>

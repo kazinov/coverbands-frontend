@@ -27,7 +27,7 @@ export class EditArtistVideosComponent implements OnInit, OnDestroy {
   t = TRANSLATIONS;
   @Input() videos: string[];
   @Input() saveButtonText = this.t.editArtist.saveButton;
-  @Output() videosChange = new EventEmitter<string[]>();
+  @Output() saveVideos = new EventEmitter<string[]>();
   form: FormGroup;
   @ViewChild('formGroup', {static: true}) formGroup: FormGroupDirective;
   tableColumns: string[] = ['video', 'remove'];
@@ -93,7 +93,7 @@ export class EditArtistVideosComponent implements OnInit, OnDestroy {
   }
 
   onSaveButtonClick() {
-    this.videosChange.emit(this.videos);
+    this.saveVideos.emit(this.videos);
   }
 
   get noVideos() {

@@ -21,7 +21,7 @@
   (imageDelete)="onImageDelete($event)"
 ></app-images-uploader>
 
-<div class="app-save-button-container" *ngIf="nextButtonNeeded">
+<div class="app-save-button-container" *ngIf="showNextButton">
   <button type="submit"
           mat-raised-button
           [disabled]="!artist.profileImage || !artist.profileImageThumb"

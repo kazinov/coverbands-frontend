@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Link } from '@core/artist/artist.model';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 @Component({
   selector: 'app-edit-artist-links',
@@ -9,8 +10,11 @@ import { Link } from '@core/artist/artist.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistLinksComponent implements OnInit {
+  t = TRANSLATIONS;
+  @Input() showNextButton = false;
   @Input() links: Link[];
   @Output() linksChange = new EventEmitter<Link[]>();
+  @Output() nextButtonClick = new EventEmitter();
   form: FormGroup;
   @ViewChild('formGroup', { static: true }) formGroup: FormGroupDirective;
   linksTableColumns: string[] = ['link', 'description', 'remove'];

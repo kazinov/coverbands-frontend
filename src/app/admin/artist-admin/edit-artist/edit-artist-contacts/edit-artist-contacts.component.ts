@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Artist } from '@core/artist/artist.model';
 import assign from 'lodash-es/assign';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 interface PhoneFormInputConfig {
   mask: string;
@@ -26,6 +27,8 @@ const contactsCommentFormName = 'contactsComment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistContactsComponent implements OnInit {
+  t = TRANSLATIONS;
+  @Input() saveButtonText = this.t.editArtist.saveButton;
   @Input() artist: Artist;
   @Output() saveClick = new EventEmitter<Artist>();
   form: FormGroup;

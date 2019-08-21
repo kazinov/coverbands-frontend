@@ -56,3 +56,10 @@
     <mat-row *matRowDef="let row; columns: linksTableColumns;"></mat-row>
   </mat-table>
 </div>
+
+<div class="app-save-button-container" *ngIf="showNextButton">
+  <button type="submit"
+          mat-raised-button
+          color="primary"
+          (click)="nextButtonClick.emit()">{{t.editArtist.nextButton}}</button>
+</div>

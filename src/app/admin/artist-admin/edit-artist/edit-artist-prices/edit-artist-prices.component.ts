@@ -15,7 +15,7 @@ export class EditArtistPricesComponent implements OnInit {
   t = TRANSLATIONS;
   @Input() artist: Artist;
   @Input() saveButtonText = this.t.editArtist.saveButton;
-  @Output() pricesChange = new EventEmitter<Artist>();
+  @Output() savePrices = new EventEmitter<Artist>();
   addPriceFrom: FormGroup;
   form: FormGroup;
   @ViewChild('formGroup', { static: true }) formGroup: FormGroupDirective;
@@ -89,7 +89,7 @@ export class EditArtistPricesComponent implements OnInit {
         } as Price));
     }
 
-    this.pricesChange.emit(result);
+    this.savePrices.emit(result);
   }
 
   constructor(

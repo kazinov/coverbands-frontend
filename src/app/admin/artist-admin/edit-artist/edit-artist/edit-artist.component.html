@@ -18,14 +18,14 @@
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Main}"
         [artist]="artist$ | async"
         (saveClick)="updateArtist($event, EditArtistTab.Main)"
-        [saveButtonText]="(isOnboarding$ |async) ? t.editArtist.nextButton : t.editArtist.saveButton">
+        [saveButtonText]="saveButtonText$ | async">
       </app-edit-artist-main-info>
 
       <app-edit-artist-images
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Photo}"
         [artist]="artist$ | async"
-        [nextButtonNeeded]="isOnboarding$ | async"
+        [showNextButton]="isOnboarding$ | async"
         (profileImageAttached)="onProfileImageAttached($event)"
         (imageAttached)="onImageAttached($event)"
         (imageDelete)="onImageDelete($event)"
@@ -36,22 +36,23 @@
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Video}"
         [videos]="videos$ | async"
-        [saveButtonText]="(isOnboarding$ |async) ? t.editArtist.nextButton : t.editArtist.saveButton"
-        (videosChange)="onVideosSave($event)">
+        [saveButtonText]="saveButtonText$ | async"
+        (saveVideos)="onVideosSave($event)">
       </app-edit-artist-videos>
 
       <app-edit-artist-prices
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Prices}"
         [artist]="artist$ | async"
-        [saveButtonText]="(isOnboarding$ |async) ? t.editArtist.nextButton : t.editArtist.saveButton"
-        (pricesChange)="updateArtist($event, EditArtistTab.Prices)">
+        [saveButtonText]="saveButtonText$ | async"
+        (savePrices)="updateArtist($event, EditArtistTab.Prices)">
       </app-edit-artist-prices>
 
       <app-edit-artist-contacts
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Contacts}"
         [artist]="artist$ | async"
+        [saveButtonText]="saveButtonText$ | async"
         (saveClick)="updateArtist($event, EditArtistTab.Contacts)">
       </app-edit-artist-contacts>
 
@@ -59,14 +60,18 @@
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Links}"
         [links]="links$ | async"
-        (linksChange)="onLinksSave($event)">
+        [showNextButton]="isOnboarding$ | async"
+        (linksChange)="onLinksChange($event)"
+        (nextButtonClick)="onLinksNextClick()">
       </app-edit-artist-links>
 
       <app-edit-artist-covers
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Covers}"
         [covers]="covers$ | async"
-        (coversChange)="onCoversChange($event)">
+        [showNextButton]="isOnboarding$ | async"
+        (coversChange)="onCoversChange($event)"
+        (nextButtonClick)="onCoversNextClick()">
       </app-edit-artist-covers>
     </mat-card>
   </div>

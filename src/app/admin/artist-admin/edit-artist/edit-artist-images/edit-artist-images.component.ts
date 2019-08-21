@@ -42,7 +42,7 @@ export interface ProfileImageUploadResults {
 })
 export class EditArtistImagesComponent implements OnInit {
   @Input() artist: Artist;
-  @Input() nextButtonNeeded: boolean;
+  @Input() showNextButton: boolean;
   @Output() profileImageAttached = new EventEmitter<ProfileImageUploadResults>();
   @Output() imageAttached = new EventEmitter<File>();
   @Output() imageDelete = new EventEmitter<string>();
