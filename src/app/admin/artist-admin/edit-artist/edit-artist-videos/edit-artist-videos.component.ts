@@ -13,6 +13,7 @@ import { parseEmbeddedVideoSrc } from '@shared/utils/parse-embedded-video-src';
 import { videoEmbedFormatValidator } from '@artist-admin/edit-artist/edit-artist-videos/video-embed-format.validator';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { EditArtistVideoHelpDialogComponent } from '@artist-admin/edit-artist/edit-artist-videos/edit-artist-video-help-dialog/edit-artist-video-help-dialog.component';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 const EMBED_FORM_KEY = 'embed';
 
@@ -23,8 +24,9 @@ const EMBED_FORM_KEY = 'embed';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistVideosComponent implements OnInit, OnDestroy {
+  t = TRANSLATIONS;
   @Input() videos: string[];
-  @Input() saveButtonText = 'Сохранить'
+  @Input() saveButtonText = this.t.editArtist.saveButton;
   @Output() videosChange = new EventEmitter<string[]>();
   form: FormGroup;
   @ViewChild('formGroup', {static: true}) formGroup: FormGroupDirective;

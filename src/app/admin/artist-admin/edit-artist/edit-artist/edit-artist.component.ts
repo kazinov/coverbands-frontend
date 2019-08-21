@@ -216,14 +216,24 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   updateArtist(artist: Artist, tab: EditArtistTab) {
+    this.emitUpdateArtist(artist, tab);
+  }
+
+  onImagesNextButton() {
+    this.onArtist((artist => {
+      this.emitUpdateArtist(artist, EditArtistTab.Photo);
+    }));
+  }
+
+  private emitUpdateArtist(artist: Artist, tab: EditArtistTab) {
     this.onIsOnboarding((isOnboarding) => {
         if (isOnboarding) {
           artist = {
             ...artist,
             onboardingStepPassed: tab
           };
-          this.store.dispatch(updateArtistAction({artist}));
         }
+        this.store.dispatch(updateArtistAction({artist}));
       }
     );
   }
@@ -261,18 +271,28 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onVideosSave(videos: string[]) {
-    this.onArtist(artist => this.store.dispatch(updateArtistAction({
-        artist: assign({}, artist, {videos})
-      }))
-    );
+    this.onArtist(artist => {
+      this.emitUpdateArtist(assign({}, artist, {videos}), EditArtistTab.Video);
+    });
   }
 
   onProfileImageAttached(results: ProfileImageUploadResults) {
-    this.onArtist(artist => this.store.dispatch(replaceArtistProfileImageAction({
-        artist,
-        image: results.image,
-        thumb: results.thumb
-      }))
+    this.onArtist(artist => {
+        this.onIsOnboarding((isOnboarding) => {
+            if (isOnboarding) {
+              artist = {
+                ...artist,
+                onboardingStepPassed: EditArtistTab.Photo
+              };
+            }
+            this.store.dispatch(replaceArtistProfileImageAction({
+              artist,
+              image: results.image,
+              thumb: results.thumb
+            }));
+          }
+        );
+      }
     );
   }
 

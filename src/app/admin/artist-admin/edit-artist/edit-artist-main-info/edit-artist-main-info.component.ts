@@ -25,12 +25,12 @@ const cityFilterFieldName = 'cityFilter';
 export class EditArtistMainInfoComponent
   extends EditArtistTabBase
   implements OnInit, OnDestroy {
-  @Input() saveButtonText = 'Сохранить';
+  t = TRANSLATIONS;
+  @Input() saveButtonText = this.t.editArtist.saveButton;
   @Input() artist: Artist;
   @Input() hideDescription: boolean;
   @Output() saveClick = new EventEmitter<Artist>();
   form: FormGroup;
-  t = TRANSLATIONS;
 
   musicGenres: SelectorOption[]
     = ALL_MUSIC_GENRES.map((genreId) => ({

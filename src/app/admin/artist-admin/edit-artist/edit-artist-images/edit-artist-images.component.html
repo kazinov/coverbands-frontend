@@ -1,22 +1,30 @@
 <h4 class="app-info-block">Основное фото профиля</h4>
 <app-images-uploader
-        *ngIf="artist"
-        [imagesUrls]="artist.profileImageThumb ? [artist.profileImageThumb]: null"
-        max="1"
-        onlyReplacing="true"
-        [isLoading]="isProfileImageLoading"
-        [cropperSettings]="profileImageCropperSettings"
-        [resizeSettings]="profileImageResizeSettings"
-        (imageAttached)="onProfileImageAttached($event)"
+  *ngIf="artist"
+  [imagesUrls]="artist.profileImageThumb ? [artist.profileImageThumb]: null"
+  max="1"
+  onlyReplacing="true"
+  [isLoading]="isProfileImageLoading"
+  [cropperSettings]="profileImageCropperSettings"
+  [resizeSettings]="profileImageResizeSettings"
+  (imageAttached)="onProfileImageAttached($event)"
 ></app-images-uploader>
 
 <h4 class="app-info-block">Загрузите другие фото</h4>
 <app-images-uploader
-        *ngIf="artist"
-        [imagesUrls]="artist.images"
-        [max]="maxImages"
-        [isLoading]="isImageLoading"
-        [resizeSettings]="bandImageResizeSettings"
-        (imageAttached)="onImageAttached($event)"
-        (imageDelete)="onImageDelete($event)"
+  *ngIf="artist"
+  [imagesUrls]="artist.images"
+  [max]="maxImages"
+  [isLoading]="isImageLoading"
+  [resizeSettings]="bandImageResizeSettings"
+  (imageAttached)="onImageAttached($event)"
+  (imageDelete)="onImageDelete($event)"
 ></app-images-uploader>
+
+<div class="app-save-button-container" *ngIf="nextButtonNeeded">
+  <button type="submit"
+          mat-raised-button
+          [disabled]="!artist.profileImage || !artist.profileImageThumb"
+          color="primary"
+          (click)="nextButtonClick.emit()">{{t.editArtist.nextButton}}</button>
+</div>

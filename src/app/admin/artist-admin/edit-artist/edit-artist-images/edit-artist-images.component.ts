@@ -3,6 +3,7 @@ import { ImageCropperHelper } from '@shared/utils/image-cropper-helper';
 import { ResizeImageSettings, Side } from '@shared/utils/resizing.utils';
 import { ImagesUploadResults } from '@shared/images-uploader/images-uploader.component';
 import { Artist } from '@core/artist/artist.model';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 const BAND_PROFILE_THUMB_IMAGE_WIDTH = 200;
 const BAND_IMAGE_HEIGHT = 600;
@@ -41,11 +42,13 @@ export interface ProfileImageUploadResults {
 })
 export class EditArtistImagesComponent implements OnInit {
   @Input() artist: Artist;
+  @Input() nextButtonNeeded: boolean;
   @Output() profileImageAttached = new EventEmitter<ProfileImageUploadResults>();
-  @Output() profileImageDelete = new EventEmitter();
   @Output() imageAttached = new EventEmitter<File>();
   @Output() imageDelete = new EventEmitter<string>();
+  @Output() nextButtonClick = new EventEmitter();
 
+  t = TRANSLATIONS;
   isProfileImageLoading = false;
   isImageLoading = false;
   maxImages = MAX_BAND_IMAGES;
@@ -63,10 +66,6 @@ export class EditArtistImagesComponent implements OnInit {
         image: results.imageVersions[0],
         thumb: results.imageVersions[1]
       });
-  }
-
-  onProfileImageDelete() {
-    this.profileImageDelete.emit();
   }
 
   onImageAttached(results: ImagesUploadResults) {

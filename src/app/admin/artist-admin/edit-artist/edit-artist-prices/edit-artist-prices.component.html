@@ -86,8 +86,8 @@
   <div class="app-save-button-container">
     <button type="submit"
             mat-raised-button
-            [disabled]="form.invalid || form.pristine"
-            color="primary">Сохранить
+            [disabled]="form.invalid"
+            color="primary">{{saveButtonText}}
     </button>
   </div>
 </form>

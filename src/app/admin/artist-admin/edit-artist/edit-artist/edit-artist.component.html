@@ -21,6 +21,33 @@
         [saveButtonText]="(isOnboarding$ |async) ? t.editArtist.nextButton : t.editArtist.saveButton">
       </app-edit-artist-main-info>
 
+      <app-edit-artist-images
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Photo}"
+        [artist]="artist$ | async"
+        [nextButtonNeeded]="isOnboarding$ | async"
+        (profileImageAttached)="onProfileImageAttached($event)"
+        (imageAttached)="onImageAttached($event)"
+        (imageDelete)="onImageDelete($event)"
+        (nextButtonClick)="onImagesNextButton()"
+      ></app-edit-artist-images>
+
+      <app-edit-artist-videos
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Video}"
+        [videos]="videos$ | async"
+        [saveButtonText]="(isOnboarding$ |async) ? t.editArtist.nextButton : t.editArtist.saveButton"
+        (videosChange)="onVideosSave($event)">
+      </app-edit-artist-videos>
+
+      <app-edit-artist-prices
+        class="app-tabs-content-option"
+        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Prices}"
+        [artist]="artist$ | async"
+        [saveButtonText]="(isOnboarding$ |async) ? t.editArtist.nextButton : t.editArtist.saveButton"
+        (pricesChange)="updateArtist($event, EditArtistTab.Prices)">
+      </app-edit-artist-prices>
+
       <app-edit-artist-contacts
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Contacts}"
@@ -35,36 +62,12 @@
         (linksChange)="onLinksSave($event)">
       </app-edit-artist-links>
 
-      <app-edit-artist-prices
-        class="app-tabs-content-option"
-        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Prices}"
-        [artist]="artist$ | async"
-        (pricesChange)="updateArtist($event, EditArtistTab.Prices)">
-      </app-edit-artist-prices>
-
       <app-edit-artist-covers
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Covers}"
         [covers]="covers$ | async"
         (coversChange)="onCoversChange($event)">
       </app-edit-artist-covers>
-
-      <app-edit-artist-images
-        class="app-tabs-content-option"
-        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Photo}"
-        [artist]="artist$ | async"
-        (profileImageAttached)="onProfileImageAttached($event)"
-        (profileImageDelete)="onProfileImageDelete()"
-        (imageAttached)="onImageAttached($event)"
-        (imageDelete)="onImageDelete($event)"
-      ></app-edit-artist-images>
-
-      <app-edit-artist-videos
-        class="app-tabs-content-option"
-        [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Video}"
-        [videos]="videos$ | async"
-        (videosChange)="onVideosSave($event)">
-      </app-edit-artist-videos>
     </mat-card>
   </div>
 

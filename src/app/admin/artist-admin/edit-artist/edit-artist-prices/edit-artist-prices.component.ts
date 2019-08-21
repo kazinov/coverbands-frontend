@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { Artist, Price } from '@core/artist/artist.model';
 import { Currencies } from '@core/models/currencies.model';
 import assign from 'lodash-es/assign';
+import { TRANSLATIONS } from '@core/translation/translations';
 
 @Component({
   selector: 'app-edit-artist-prices',
@@ -11,7 +12,9 @@ import assign from 'lodash-es/assign';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArtistPricesComponent implements OnInit {
+  t = TRANSLATIONS;
   @Input() artist: Artist;
+  @Input() saveButtonText = this.t.editArtist.saveButton;
   @Output() pricesChange = new EventEmitter<Artist>();
   addPriceFrom: FormGroup;
   form: FormGroup;
