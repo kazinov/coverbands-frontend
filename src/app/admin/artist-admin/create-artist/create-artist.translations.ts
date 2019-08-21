@@ -1,6 +1,6 @@
 export const CREATE_ARTIST_TRANSLATIONS = {
   createArtist: {
-    header: 'Создать артиста',
+    header: 'Создание артиста',
     submitButton: 'Создать',
     genre: 'Жанр',
     name: 'Название или имя артиста'

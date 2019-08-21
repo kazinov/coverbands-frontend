@@ -26,6 +26,15 @@
           border-left: 2px solid $primary;
           background-color: rgba(0, 0, 0, 0.1);
         }
+
+        &[disabled] {
+          color: $grey;
+
+          &:hover {
+            background-color: transparent;
+            cursor: auto;
+          }
+        }
       }
     }
 

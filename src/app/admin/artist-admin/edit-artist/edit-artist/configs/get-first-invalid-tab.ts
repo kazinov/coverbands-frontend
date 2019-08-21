@@ -7,12 +7,14 @@ export function getFirstInvalidTab(artist: Artist): EditArtistTab {
     return EditArtistTab.Main;
   }
 
-  const musicGenresRequired = ARTIST_TYPE_TO_FIELD_META[artist.type][EditableArtistField.MusicGenres].required;
+  const musicGenresConfig = ARTIST_TYPE_TO_FIELD_META[artist.type][EditableArtistField.MusicGenres];
+  const musicGenresRequired = musicGenresConfig && musicGenresConfig.required;
   if (musicGenresRequired && (!artist.musicGenres || !artist.musicGenres.length)) {
     return EditArtistTab.Main;
   }
 
-  const danceGenresRequired = ARTIST_TYPE_TO_FIELD_META[artist.type][EditableArtistField.DanceGenres].required;
+  const danceGenresConfig = ARTIST_TYPE_TO_FIELD_META[artist.type][EditableArtistField.DanceGenres]
+  const danceGenresRequired = danceGenresConfig && danceGenresConfig.required;
   if (danceGenresRequired && (!artist.danceGenres || !artist.danceGenres.length)) {
     return EditArtistTab.Main;
   }

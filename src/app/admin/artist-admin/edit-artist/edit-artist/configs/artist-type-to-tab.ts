@@ -1,54 +1,15 @@
 import { EditArtistTab } from '@artist-admin/edit-artist/edit-artist/edit-artist.model';
 import { ArtistTypes } from '@core/models/artist-types.model';
+import { ALL_ONBOARDING_STEPS } from '@artist-admin/edit-artist/edit-artist/configs/all-onboarding-steps';
+
+const ONBOARDING_STEPS_WITHOUT_COVERS = ALL_ONBOARDING_STEPS
+  .filter((step) => step !== EditArtistTab.Covers);
 
 export const ARTIST_TYPE_TO_TAB: {[type: string]: EditArtistTab[]} = {
-  [ArtistTypes.LiveMusic]: [
-    EditArtistTab.Main,
-    EditArtistTab.Photo,
-    EditArtistTab.Video,
-    EditArtistTab.Prices,
-    EditArtistTab.Contacts,
-    EditArtistTab.Links,
-    EditArtistTab.Covers,
-  ],
-  [ArtistTypes.DJ]: [
-    EditArtistTab.Main,
-    EditArtistTab.Photo,
-    EditArtistTab.Video,
-    EditArtistTab.Prices,
-    EditArtistTab.Contacts,
-    EditArtistTab.Links,
-  ],
-  [ArtistTypes.MC]: [
-    EditArtistTab.Main,
-    EditArtistTab.Photo,
-    EditArtistTab.Video,
-    EditArtistTab.Prices,
-    EditArtistTab.Contacts,
-    EditArtistTab.Links,
-  ],
-  [ArtistTypes.DanceShow]: [
-    EditArtistTab.Main,
-    EditArtistTab.Photo,
-    EditArtistTab.Video,
-    EditArtistTab.Prices,
-    EditArtistTab.Contacts,
-    EditArtistTab.Links,
-  ],
-  [ArtistTypes.StandUp]: [
-    EditArtistTab.Main,
-    EditArtistTab.Photo,
-    EditArtistTab.Video,
-    EditArtistTab.Prices,
-    EditArtistTab.Contacts,
-    EditArtistTab.Links,
-  ],
-  [ArtistTypes.Other]: [
-    EditArtistTab.Main,
-    EditArtistTab.Photo,
-    EditArtistTab.Video,
-    EditArtistTab.Prices,
-    EditArtistTab.Contacts,
-    EditArtistTab.Links,
-  ],
+  [ArtistTypes.LiveMusic]: ALL_ONBOARDING_STEPS,
+  [ArtistTypes.DJ]: ONBOARDING_STEPS_WITHOUT_COVERS,
+  [ArtistTypes.MC]: ONBOARDING_STEPS_WITHOUT_COVERS,
+  [ArtistTypes.DanceShow]: ONBOARDING_STEPS_WITHOUT_COVERS,
+  [ArtistTypes.StandUp]: ONBOARDING_STEPS_WITHOUT_COVERS,
+  [ArtistTypes.Other]: ONBOARDING_STEPS_WITHOUT_COVERS
 };

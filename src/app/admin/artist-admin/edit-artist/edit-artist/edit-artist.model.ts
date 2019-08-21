@@ -9,20 +9,20 @@ export enum EditArtistTab {
 }
 
 export enum EditableArtistField {
-  Name = 0,
-  Description,
-  City,
-  MusicGenres,
-  DanceGenres,
-  Covers,
-  Links,
-  Videos,
-  ProfileImage,
-  Images,
-  Email,
-  Phone,
-  OneShowPrice,
-  Prices
+  Name = 'name',
+  Description = 'description',
+  City = 'city',
+  MusicGenres = 'music-genres',
+  DanceGenres = 'dance-genres',
+  Covers = 'covers',
+  Links = 'links',
+  Videos = 'videos',
+  ProfileImage = 'profile-image',
+  Images = 'images',
+  Email = 'email',
+  Phone = 'phone',
+  OneShowPrice = 'one-show-price',
+  Prices = 'prices',
 }
 
 export interface EditableArtistFieldMeta {

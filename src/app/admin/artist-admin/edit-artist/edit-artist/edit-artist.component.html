@@ -1,9 +1,11 @@
-<div class="app-form-wrapper">
-  <h3 class="app-form-header">Изменить профиль</h3>
+<div class="app-form-wrapper" *ngIf="!!(artist$ | async)">
+  <h3
+    class="app-form-header">{{(isOnboarding$ |async) ? t.editArtist.onboardingHeader : t.editArtist.editingHeader}}</h3>
 
-  <div class="app-tabs" *ngIf="!!(artist$ | async)">
+  <div class="app-tabs">
     <mat-action-list class="app-tabs-navigation-menu">
       <button class="app-tabs-navigation-item"
+              [disabled]="(isOnboarding$ |async) === true && (selectedTab$ | async) !== tab"
               mat-list-item
               *ngFor="let tab of (tabs$ | async)"
               [ngClass]="{'selected': (selectedTab$ | async) === tab}"
@@ -15,14 +17,15 @@
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Main}"
         [artist]="artist$ | async"
-        (saveClick)="updateArtist($event)">
+        (saveClick)="updateArtist($event, EditArtistTab.Main)"
+        [saveButtonText]="(isOnboarding$ |async) ? t.editArtist.nextButton : t.editArtist.saveButton">
       </app-edit-artist-main-info>
 
       <app-edit-artist-contacts
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Contacts}"
         [artist]="artist$ | async"
-        (saveClick)="updateArtist($event)">
+        (saveClick)="updateArtist($event, EditArtistTab.Contacts)">
       </app-edit-artist-contacts>
 
       <app-edit-artist-links
@@ -36,7 +39,7 @@
         class="app-tabs-content-option"
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Prices}"
         [artist]="artist$ | async"
-        (pricesChange)="updateArtist($event)">
+        (pricesChange)="updateArtist($event, EditArtistTab.Prices)">
       </app-edit-artist-prices>
 
       <app-edit-artist-covers
@@ -65,12 +68,11 @@
     </mat-card>
   </div>
 
-  <div class="spinner-spacer"
-       *ngIf="isLoading$ | async">
-    <mat-spinner>
-    </mat-spinner>
-  </div>
-
+</div>
+<div class="spinner-spacer"
+     *ngIf="isLoading$ | async">
+  <mat-spinner>
+  </mat-spinner>
 </div>
 
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { distinctUntilChanged, map, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { select, Store } from '@ngrx/store';
@@ -14,15 +14,15 @@ import {
   loadArtistAction,
   loadArtistFailureAction,
   loadArtistSuccessAction,
+  replaceArtistProfileImageAction,
+  replaceArtistProfileImageFailureAction,
+  replaceArtistProfileImageSuccessAction,
   updateArtistAction,
   updateArtistFailureAction,
   updateArtistSuccessAction,
   uploadArtistImageAction,
   uploadArtistImageFailureAction,
-  uploadArtistImageSuccessAction,
-  replaceArtistProfileImageAction,
-  replaceArtistProfileImageFailureAction,
-  replaceArtistProfileImageSuccessAction
+  uploadArtistImageSuccessAction
 } from '@core/artist/artist.actions';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistSelectors } from '@core/artist/artist.selectors';
@@ -36,6 +36,7 @@ import { ProfileImageUploadResults } from '@artist-admin/edit-artist/edit-artist
 import { TRANSLATIONS } from '@core/translation/translations';
 import { EditArtistTab } from './edit-artist.model';
 import { ARTIST_TYPE_TO_TAB } from '@artist-admin/edit-artist/edit-artist/configs/artist-type-to-tab';
+import { getFirstInvalidTab } from '@artist-admin/edit-artist/edit-artist/configs/get-first-invalid-tab';
 
 @Component({
   selector: 'app-edit-artist',
@@ -169,7 +170,39 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       map((artist) => artist && ARTIST_TYPE_TO_TAB[artist.type])
     );
 
-  selectedTab$ = new BehaviorSubject<EditArtistTab>(EditArtistTab.Main);
+  onboardingTab$ = this.artist$
+    .pipe(
+      withLatestFrom(this.tabs$),
+      map(([artist, tabs]: [Artist, EditArtistTab[]]) => {
+        if (!artist || !tabs) {
+          return null;
+        }
+
+        if (!artist.onboardingStepPassed) {
+          return tabs[0];
+        }
+
+        const passedStepIndex = tabs.indexOf(artist.onboardingStepPassed as EditArtistTab);
+        return (passedStepIndex >= 0 && passedStepIndex < tabs.length - 1)
+          ? tabs[passedStepIndex + 1]
+          : getFirstInvalidTab(artist);
+      })
+    );
+
+  isOnboarding$ = this.onboardingTab$
+    .pipe(
+      map((onboardingTab: EditArtistTab) => !!onboardingTab)
+    );
+
+  userSelectedTab$ = new BehaviorSubject<EditArtistTab>(EditArtistTab.Main);
+
+  selectedTab$ = this.onboardingTab$
+    .pipe(
+      switchMap((onboardingTab: EditArtistTab) => {
+        return onboardingTab ? of(onboardingTab) : this.userSelectedTab$;
+      })
+    );
+
   ngUnsubscribe$ = new Subject<void>();
 
   ngOnInit() {
@@ -182,12 +215,30 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     return this.activatedRoute.snapshot.paramMap.get('id');
   }
 
-  updateArtist(artist: Artist) {
-    this.store.dispatch(updateArtistAction({artist}));
+  updateArtist(artist: Artist, tab: EditArtistTab) {
+    this.onIsOnboarding((isOnboarding) => {
+        if (isOnboarding) {
+          artist = {
+            ...artist,
+            onboardingStepPassed: tab
+          };
+          this.store.dispatch(updateArtistAction({artist}));
+        }
+      }
+    );
   }
 
   onArtist(collback: (artist: Artist) => void) {
     this.artist$
+      .pipe(
+        take(1),
+        tap(collback)
+      )
+      .subscribe();
+  }
+
+  onIsOnboarding(collback: (isOnboarding: boolean) => void) {
+    this.isOnboarding$
       .pipe(
         take(1),
         tap(collback)
@@ -249,7 +300,12 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onTabClick(tab: EditArtistTab) {
-    this.selectedTab$.next(tab);
+    this.onIsOnboarding((isOnboarding) => {
+        if (!isOnboarding) {
+          this.userSelectedTab$.next(tab);
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {
