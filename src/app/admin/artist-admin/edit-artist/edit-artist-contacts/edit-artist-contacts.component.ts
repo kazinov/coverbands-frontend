@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Artist } from '@core/artist/artist.model';
 import assign from 'lodash-es/assign';
 import { TRANSLATIONS } from '@core/translation/translations';
+import { EMAIL_REGEX } from '@core/auth/auth-components/auth-components.utils';
 
 interface PhoneFormInputConfig {
   mask: string;
@@ -41,7 +42,7 @@ export class EditArtistContactsComponent implements OnInit {
 
   private buildForms(): void {
     this.form = this.formBuilder.group({
-      [emailFormName]: [this.artist ? this.artist.email : null, [Validators.email]],
+      [emailFormName]: [this.artist ? this.artist.email : null, [Validators.pattern(EMAIL_REGEX)]],
       [phoneNumberFormName]: [this.artist ? this.artist.phoneNumber : null,
         [Validators.pattern(this.phoneConfig.validationRegex)]],
       [contactsCommentFormName]: [this.artist ? this.artist.contactsComment : null],
