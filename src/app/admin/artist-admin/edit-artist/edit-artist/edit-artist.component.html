@@ -1,7 +1,17 @@
 <div class="app-form-wrapper" *ngIf="!!(artist$ | async)">
   <h3
     class="app-form-header">{{(isOnboarding$ |async) ? t.editArtist.onboardingHeader : t.editArtist.editingHeader}}</h3>
-
+  <div class="mat-elevation-z2 top-controls" *ngIf="(isOnboarding$ |async) === false">
+    <div class="published-label"
+         [ngClass]="{'not-published': (published$ | async) === false}">
+      {{ (published$ | async) ? 'Артист опубликован' : 'Артист не виден при поиске'}}
+    </div>
+    <button
+      mat-raised-button
+      [color]="(published$ | async) ? null : 'primary'"
+      (click)="onTogglePublished()"
+    >{{ (published$ | async) ? 'Скрыть из поиска' : 'Опубликовать'}}</button>
+  </div>
   <div class="app-tabs">
     <mat-action-list class="app-tabs-navigation-menu">
       <button class="app-tabs-navigation-item"

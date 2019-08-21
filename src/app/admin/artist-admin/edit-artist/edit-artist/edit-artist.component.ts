@@ -167,6 +167,11 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       map((band) => band ? band.videos : null)
     );
 
+  published$ = this.artist$
+    .pipe(
+      map((artist) => artist ? artist.published : null)
+    );
+
   tabs$ = this.artist$
     .pipe(
       map((artist) => artist && ARTIST_TYPE_TO_TAB[artist.type])
@@ -235,6 +240,16 @@ export class EditArtistComponent implements OnInit, OnDestroy {
 
   get artistId() {
     return this.activatedRoute.snapshot.paramMap.get('id');
+  }
+
+  onTogglePublished() {
+    this.onArtist(artist => {
+      this.store.dispatch(updateArtistAction({
+        artist: assign({}, artist, {
+          published: !artist.published
+        })
+      }));
+    });
   }
 
   updateArtist(artist: Artist, tab: EditArtistTab) {
