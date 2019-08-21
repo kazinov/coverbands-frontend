@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Artist, CoverInfo, Link } from '@core/artist/artist.model';
 import { select, Store } from '@ngrx/store';
@@ -24,7 +24,7 @@ import {
   uploadArtistImageFailureAction,
   uploadArtistImageSuccessAction
 } from '@core/artist/artist.actions';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArtistSelectors } from '@core/artist/artist.selectors';
 import { Dictionary } from '@ngrx/entity';
 import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
@@ -37,6 +37,8 @@ import { TRANSLATIONS } from '@core/translation/translations';
 import { EditArtistTab } from './edit-artist.model';
 import { ARTIST_TYPE_TO_TAB } from '@artist-admin/edit-artist/edit-artist/configs/artist-type-to-tab';
 import { getFirstInvalidTab } from '@artist-admin/edit-artist/edit-artist/configs/get-first-invalid-tab';
+import { AuthSelectors } from '@core/auth/auth.selectors';
+import { AppPaths } from '../../../../app-paths';
 
 @Component({
   selector: 'app-edit-artist',
@@ -216,6 +218,19 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.store.dispatch(loadArtistAction({id: this.artistId}));
     });
+
+    this.artist$
+      .pipe(
+        filter(val => !!val),
+        take(1),
+        withLatestFrom(this.store.pipe(select(this.authSelectors.currentUserId))),
+        untilDestroyed(this)
+      )
+      .subscribe(([artist, currentUserId]) => {
+        if (artist.userId !== currentUserId) {
+          this.router.navigate([AppPaths.Home]);
+        }
+      });
   }
 
   get artistId() {
@@ -352,6 +367,8 @@ export class EditArtistComponent implements OnInit, OnDestroy {
               private store: Store<any>,
               private activatedRoute: ActivatedRoute,
               private artistSelectors: ArtistSelectors,
-              private actions$: Actions) {
+              private authSelectors: AuthSelectors,
+              private actions$: Actions,
+              private router: Router) {
   }
 }
