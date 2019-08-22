@@ -29,7 +29,9 @@ export class EditArtistMainInfoComponent
   @Input() saveButtonText = this.t.editArtist.saveButton;
   @Input() artist: Artist;
   @Input() hideDescription: boolean;
+  @Input() isOnboarding: boolean;
   @Output() saveClick = new EventEmitter<Artist>();
+  @Output() togglePublished = new EventEmitter();
   form: FormGroup;
 
   musicGenres: SelectorOption[]

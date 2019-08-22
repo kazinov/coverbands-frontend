@@ -1,2 +1,19 @@
+@import "app/shared/styles/common";
+
 :host {
+  .top-controls {
+    display: flex;
+    margin-bottom: $margin-md;
+
+    .published-label {
+      margin-right: $margin-md;
+      flex: 1;
+      display: flex;
+      align-items: center;
+
+      &.not-published {
+        color: $red;
+      }
+    }
+  }
 }

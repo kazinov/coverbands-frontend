@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { EditArtistMainInfoComponent } from './edit-artist-main-info.component';
+import { MatDividerModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { EditArtistMainInfoComponent } from './edit-artist-main-info.component';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatDividerModule
   ],
   declarations: [
     EditArtistMainInfoComponent

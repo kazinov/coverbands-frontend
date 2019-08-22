@@ -59,20 +59,4 @@
     margin-bottom: $margin-xl;
   }
 
-  .top-controls {
-    display: flex;
-    margin-bottom: $margin-md;
-    padding: $margin-md;
-
-    .published-label {
-      margin-right: $margin-md;
-      flex: 1;
-      display: flex;
-      align-items: center;
-
-      &.not-published {
-        color: $red;
-      }
-    }
-  }
 }

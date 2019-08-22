@@ -1,9 +1,23 @@
+<div class="top-controls" *ngIf="!isOnboarding">
+  <div class="published-label"
+       [ngClass]="{'not-published': !artist.published}">
+    {{ artist.published ? 'Артист опубликован' : 'Артист не виден при поиске'}}
+  </div>
+  <button
+    mat-raised-button
+    [color]="artist.published ? null : 'primary'"
+    (click)="togglePublished.emit()"
+  >{{ artist.published ? 'Скрыть из поиска' : 'Опубликовать'}}</button>
+</div>
+
+
 <form [formGroup]="form"
       class="flex-column spacer"
       novalidate
       (submit)="onSubmit()">
+  <mat-divider></mat-divider>
 
-  <mat-form-field>
+  <mat-form-field class="margin-top-xl">
     <input matInput
            placeholder="Название или имя артиста"
            required
