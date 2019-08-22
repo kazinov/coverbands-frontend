@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CreateArtistComponent } from './create-artist/create-artist.component';
 import { ArtistAdminPaths } from './artist-admin-paths';
 import { EditArtistComponent } from './edit-artist/edit-artist/edit-artist.component';
+import { ArtistListComponent } from '@artist-admin/artist-list/artist-list.component';
 
 export const artistAdminRoutes: Routes = [
   {
@@ -20,6 +21,10 @@ export const artistAdminRoutes: Routes = [
       {
         path: ArtistAdminPaths.Edit + '/:id',
         component: EditArtistComponent
+      },
+      {
+        path: ArtistAdminPaths.List,
+        component: ArtistListComponent
       }
     ],
 

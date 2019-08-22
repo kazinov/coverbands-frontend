@@ -1,5 +1,6 @@
 export enum ArtistAdminPaths {
   Artist = 'artist',
   Create = 'create',
-  Edit = 'edit'
+  Edit = 'edit',
+  List = 'list'
 }

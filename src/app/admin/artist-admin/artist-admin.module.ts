@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CreateArtistModule } from './create-artist/create-artist.module';
 import { ArtistAdminRoutingModule } from './artist-admin-routing.module';
 import { EditArtistModule } from './edit-artist/edit-artist/edit-artist.module';
+import { ArtistListModule } from '@artist-admin/artist-list/artist-list.module';
 
 @NgModule({
   imports: [
@@ -10,6 +11,7 @@ import { EditArtistModule } from './edit-artist/edit-artist/edit-artist.module';
     ArtistAdminRoutingModule,
     CreateArtistModule,
     EditArtistModule,
+    ArtistListModule,
   ],
   providers: []
 })

@@ -20,8 +20,8 @@ export class NavbarComponent {
       map(result => result.matches)
     );
 
-  get editBandUrl() {
-    return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.Edit}/123`;
+  get artistsUrl() {
+    return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.List}`;
   }
 
   get createBandUrl() {

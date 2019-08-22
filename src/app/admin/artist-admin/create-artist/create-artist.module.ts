@@ -16,7 +16,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
   imports: [
     CommonModule,
     EditArtistMainInfoModule,
-    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
