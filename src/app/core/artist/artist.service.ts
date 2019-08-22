@@ -4,7 +4,7 @@ import 'firebase/firestore';
 import { FirebaseService } from '@core/firebase/firebase.service';
 import { Artist, ArtistHelpers } from '@core/artist/artist.model';
 import { forkJoin, from, Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
 import {
   FirebaseDocumentReference,
@@ -34,10 +34,12 @@ export class ArtistService {
   createArtist(artist: Partial<Artist>): Observable<Artist> {
     return this.authService.getCurrentUserId()
       .pipe(
-        switchMap((userId: string) => {
+        withLatestFrom(this.authService.getCurrentUserEmail()),
+        switchMap(([userId, userEmail]) => {
           const newArtist = {
             ...artist,
-            userId
+            userId,
+            email: userEmail
           };
 
           return from(this.artistsCollection.add({

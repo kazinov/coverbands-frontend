@@ -19,7 +19,7 @@
         [artist]="artist$ | async"
         [saveButtonText]="saveButtonText$ | async"
         [isOnboarding]="(isOnboarding$ |async) === true"
-        (saveClick)="updateArtist($event, EditArtistTab.Main)"
+        (saveClick)="emitUpdateArtist($event, EditArtistTab.Main)"
         (togglePublished)="onTogglePublished()">
       </app-edit-artist-main-info>
 
@@ -47,7 +47,7 @@
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Prices}"
         [artist]="artist$ | async"
         [saveButtonText]="saveButtonText$ | async"
-        (savePrices)="updateArtist($event, EditArtistTab.Prices)">
+        (savePrices)="emitUpdateArtist($event, EditArtistTab.Prices)">
       </app-edit-artist-prices>
 
       <app-edit-artist-contacts
@@ -55,7 +55,7 @@
         [ngClass]="{'selected': (selectedTab$ | async) === EditArtistTab.Contacts}"
         [artist]="artist$ | async"
         [saveButtonText]="saveButtonText$ | async"
-        (saveClick)="updateArtist($event, EditArtistTab.Contacts)">
+        (saveClick)="emitUpdateArtist($event, EditArtistTab.Contacts)">
       </app-edit-artist-contacts>
 
       <app-edit-artist-links

@@ -19,6 +19,7 @@ import { SnackModule } from '@core/snack/snack.module';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ArtistModule } from '@core/artist/artist.module';
 import { StorageUrlCacheModule } from '@core/storage-url-cache/storage-url-cache.module';
+import { ArtistAdminEffectsModule } from '@artist-admin/artist-admin-effects.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { StorageUrlCacheModule } from '@core/storage-url-cache/storage-url-cache
     SnackModule,
     ArtistModule,
     StorageUrlCacheModule,
+    ArtistAdminEffectsModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: environment.production ? {} : {

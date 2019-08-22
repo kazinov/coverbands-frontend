@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Опубликовать?</h1>
+<div mat-dialog-content>
+  Если вы опубликуете артиста, он станет доступен для поиска. Вы можете сделать это сейчас или позже.
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close(false)">
+    Продолжить редактирование
+  </button>
+  <button mat-raised-button
+          color="primary"
+          (click)="dialogRef.close(true)"
+          cdkFocusInitial>Опубликовать артиста
+  </button>
+</div>

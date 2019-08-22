@@ -15,9 +15,9 @@
       class="flex-column spacer"
       novalidate
       (submit)="onSubmit()">
-  <mat-divider></mat-divider>
+  <mat-divider *ngIf="!isOnboarding"></mat-divider>
 
-  <mat-form-field class="margin-top-xl">
+  <mat-form-field [ngClass]="{'margin-top-xl': !isOnboarding}">
     <input matInput
            placeholder="Название или имя артиста"
            required

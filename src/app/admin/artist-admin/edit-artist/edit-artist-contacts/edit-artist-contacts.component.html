@@ -1,4 +1,4 @@
-<h4 class="app-info-block">Добавьте контакты для связи</h4>
+<h4 class="app-info-block">Добавьте контакты для связи (будут показаны на странице артиста)</h4>
 <form [formGroup]="form"
       class="flex-column spacer vertical-spacer"
       novalidate
@@ -10,6 +10,9 @@
                formControlName="email">
         <mat-error *ngIf="form.get('email').invalid">Неверный формат электронной почты</mat-error>
     </mat-form-field>
+  <div>
+    или телефон
+  </div>
     <mat-form-field>
         <input matInput
                type="tel"

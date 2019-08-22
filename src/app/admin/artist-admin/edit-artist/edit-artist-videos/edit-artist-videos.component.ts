@@ -45,7 +45,7 @@ export class EditArtistVideosComponent implements OnInit, OnDestroy {
 
   onLinkSubmit() {
     const newVideo = parseEmbeddedVideoSrc(this.form.value.embed);
-    if (!this.videos.some((video) => video === newVideo)) {
+    if (!this.videos || !this.videos.some((video) => video === newVideo)) {
       this.videos = [
         ...(this.videos || []),
         parseEmbeddedVideoSrc(this.form.value.embed)

@@ -39,6 +39,7 @@ import { ARTIST_TYPE_TO_TAB } from '@artist-admin/edit-artist/edit-artist/config
 import { getFirstInvalidTab } from '@artist-admin/edit-artist/edit-artist/configs/get-first-invalid-tab';
 import { AuthSelectors } from '@core/auth/auth.selectors';
 import { AppPaths } from '../../../../app-paths';
+import { updateArtistWithPublish } from '@artist-admin/artist-admin.actions';
 
 @Component({
   selector: 'app-edit-artist',
@@ -177,6 +178,11 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       map((artist) => artist && ARTIST_TYPE_TO_TAB[artist.type])
     );
 
+  lastTab$ = this.tabs$
+    .pipe(
+      map((tabs: EditArtistTab[]) => tabs && tabs[tabs.length - 1])
+    );
+
   onboardingTab$ = this.artist$
     .pipe(
       withLatestFrom(this.tabs$),
@@ -252,10 +258,6 @@ export class EditArtistComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateArtist(artist: Artist, tab: EditArtistTab) {
-    this.emitUpdateArtist(artist, tab);
-  }
-
   onImagesNextButton() {
     this.onArtist((artist => {
       this.emitUpdateArtist(artist, EditArtistTab.Photo);
@@ -263,12 +265,17 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   private emitUpdateArtist(artist: Artist, tab: EditArtistTab) {
-    this.onIsOnboarding((isOnboarding) => {
+    this.onIsOnboarding(([isOnboarding, lastTab]) => {
         if (isOnboarding) {
           artist = {
             ...artist,
             onboardingStepPassed: tab
           };
+
+          if (tab === lastTab) {
+            this.store.dispatch(updateArtistWithPublish({artist}));
+            return;
+          }
         }
         this.store.dispatch(updateArtistAction({artist}));
       }
@@ -284,10 +291,11 @@ export class EditArtistComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  onIsOnboarding(collback: (isOnboarding: boolean) => void) {
+  onIsOnboarding(collback: ([isOnboarding, lastTab]: [boolean, EditArtistTab]) => void) {
     this.isOnboarding$
       .pipe(
         take(1),
+        withLatestFrom(this.lastTab$),
         tap(collback)
       )
       .subscribe();
@@ -329,20 +337,11 @@ export class EditArtistComponent implements OnInit, OnDestroy {
 
   onProfileImageAttached(results: ProfileImageUploadResults) {
     this.onArtist(artist => {
-        this.onIsOnboarding((isOnboarding) => {
-            if (isOnboarding) {
-              artist = {
-                ...artist,
-                onboardingStepPassed: EditArtistTab.Photo
-              };
-            }
-            this.store.dispatch(replaceArtistProfileImageAction({
-              artist,
-              image: results.image,
-              thumb: results.thumb
-            }));
-          }
-        );
+        this.store.dispatch(replaceArtistProfileImageAction({
+          artist,
+          image: results.image,
+          thumb: results.thumb
+        }));
       }
     );
   }
@@ -364,7 +363,7 @@ export class EditArtistComponent implements OnInit, OnDestroy {
   }
 
   onTabClick(tab: EditArtistTab) {
-    this.onIsOnboarding((isOnboarding) => {
+    this.onIsOnboarding(([isOnboarding, lastTab]) => {
         if (!isOnboarding) {
           this.userSelectedTab$.next(tab);
         }
