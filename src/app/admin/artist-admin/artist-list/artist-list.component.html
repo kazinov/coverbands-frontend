@@ -1,3 +1,8 @@
-<div *ngFor="let artist of (artists$ | async)">
-  {{artist.name}}
-</div>
+<mat-nav-list>
+  <mat-list-item *ngFor="let artist of (artists$ | async)">
+    <app-project-image
+      matListAvatar
+      [imageSrc]="artist.profileImageThumb"></app-project-image>
+    <h3 matLine> {{artist.name}} </h3>
+  </mat-list-item>
+</mat-nav-list>

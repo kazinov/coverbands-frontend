@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FirebaseService } from '@core/firebase/firebase.service';
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { take, tap } from 'rxjs/operators';
+import { catchError, take, tap } from 'rxjs/operators';
 import { StorageUrlCacheService } from '@core/storage-url-cache/storage-url-cache.service';
 
 @Component({
@@ -25,6 +25,11 @@ export class ProjectImageComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (!this.imageSrc) {
+      this.parsedSrc = null;
+      return;
+    }
+
     const urlFromCache = this.storageUrlCacheService.getUrl(this.imageSrc);
     if (urlFromCache) {
       this.parsedSrc = urlFromCache;
@@ -36,6 +41,10 @@ export class ProjectImageComponent implements OnInit, OnChanges, OnDestroy {
             this.parsedSrc = val;
             this.storageUrlCacheService.setUrl(this.imageSrc, val);
             this.changeDetectorRef.markForCheck();
+          }),
+          catchError((error) => {
+            console.error('error', error);
+            return of();
           }),
           untilDestroyed(this)
         )
