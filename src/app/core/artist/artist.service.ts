@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { FirebaseService } from '@core/firebase/firebase.service';
-import { Artist, ArtistHelpers } from '@core/artist/artist.model';
+import { Artist, ArtistHelpers, LoadArtistsParams } from '@core/artist/artist.model';
 import { forkJoin, from, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
 import {
   FirebaseDocumentReference,
-  FirebaseDocumentSnapshot,
+  FirebaseDocumentSnapshot, FirebaseQuery, FirebaseQuerySnapshot,
   FirebaseUploadTaskSnapshot
 } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
@@ -65,7 +65,6 @@ export class ArtistService {
       .pipe(
         catchError(fromFirebaseError)
       );
-
   }
 
   loadArtist(id: string): Observable<Artist> {
@@ -74,7 +73,7 @@ export class ArtistService {
     }))
       .pipe(
         switchMap((snapshot: FirebaseDocumentSnapshot) => {
-            const artist = ArtistHelpers.fromFirebaseDocument(snapshot);
+            const artist = ArtistHelpers.firebaseDataToArtist(snapshot);
             if (!artist) {
               return throwError({
                 code: 'artist-not-found'
@@ -191,6 +190,26 @@ export class ArtistService {
 
           return this.updateArtist(updatedArtist)
             .pipe(map(() => updatedArtist));
+        }),
+        catchError(fromFirebaseError)
+      );
+  }
+
+  loadArtists(params: LoadArtistsParams): Observable<Artist[]> {
+    let query: FirebaseQuery;
+    if (params.userId) {
+      query = this.artistsCollection.where('userId', '==', params.userId);
+    }
+
+    if (!query) {
+      return throwError('There should be params to load artists');
+    }
+    const config = { source: 'server'} as any;
+
+    return from(query.get(config))
+      .pipe(
+        map((snapshot: FirebaseQuerySnapshot) => {
+          return ArtistHelpers.fromFirebaseQueryResults(snapshot);
         }),
         catchError(fromFirebaseError)
       );

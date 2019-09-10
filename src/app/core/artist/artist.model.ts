@@ -1,5 +1,9 @@
 import { uniqueStoreKey } from '@shared/utils/unique-store-key';
-import { FirebaseDocumentData, FirebaseDocumentSnapshot } from '@core/firebase/firebase.model';
+import {
+  FirebaseDocumentSnapshot,
+  FirebaseQueryDocumentSnapshot,
+  FirebaseQuerySnapshot
+} from '@core/firebase/firebase.model';
 import assign from 'lodash-es/assign';
 
 export interface CoverInfo {
@@ -43,19 +47,35 @@ export interface Artist {
   prices?: Price[];
 }
 
+export interface LoadArtistsParams {
+  userId?: string;
+}
+
 export const ARTIST_STORE_KEY = uniqueStoreKey('artist');
 
 
 export abstract class ArtistHelpers {
-  static fromFirebaseDocument(data: FirebaseDocumentSnapshot): Artist {
-    const stapshot: FirebaseDocumentData = data.data();
 
-    if (stapshot) {
+  static fromFirebaseQueryResults(snapshot: FirebaseQuerySnapshot): Artist[] {
+    const artists = [];
+
+    snapshot.forEach((documentSnapshot: FirebaseQueryDocumentSnapshot) => {
+      artists.push(
+        ArtistHelpers.firebaseDataToArtist(documentSnapshot)
+      );
+    });
+
+    return artists;
+  }
+
+  static firebaseDataToArtist(snapshot: FirebaseDocumentSnapshot) {
+    const data = snapshot.data();
+    if (data) {
       let artist: Artist = {
-        id: data.id
+        id: snapshot.id
       };
 
-      artist = assign(artist, stapshot);
+      artist = assign(artist, data);
 
       return artist;
     }

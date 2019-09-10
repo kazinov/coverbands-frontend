@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpError } from '@shared/types/http-error';
-import { Artist } from '@core/artist/artist.model';
+import { Artist, LoadArtistsParams } from '@core/artist/artist.model';
 
 export const upsertArtistsToStoreAction = createAction(
   '[Artist] Add artists to store',
@@ -83,5 +83,18 @@ export const deleteArtistImageSuccessAction = createAction('[Artist] Delete arti
 
 export const deleteArtistImageFailureAction = createAction(
   '[Artist] Delete artist image failure',
+  props<{ error: HttpError }>()
+);
+
+export const loadCurrentUserArtistsAction = createAction('[Artist] Load current user artists');
+
+export const loadArtistsAction = createAction('[Artist] Load artists',
+  props<{ params: LoadArtistsParams }>()
+);
+
+export const loadArtistsSuccessAction = createAction('[Artist] Load artists success');
+
+export const loadArtistsFailureAction = createAction(
+  '[Artist] Load artists failure',
   props<{ error: HttpError }>()
 );

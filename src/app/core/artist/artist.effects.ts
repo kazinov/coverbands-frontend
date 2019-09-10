@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, switchMap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { SnackService } from '@core/snack/snack.service';
 import { TRANSLATIONS } from '@core/translation/translations';
@@ -13,22 +13,34 @@ import { ArtistService } from '@core/artist/artist.service';
 import {
   createArtistAction,
   createArtistFailureAction,
-  createArtistSuccessAction, deleteArtistImageAction, deleteArtistImageFailureAction, deleteArtistImageSuccessAction,
+  createArtistSuccessAction,
+  deleteArtistImageAction,
+  deleteArtistImageFailureAction,
+  deleteArtistImageSuccessAction,
   deleteArtistProfileImageAction,
   deleteArtistProfileImageFailureAction,
   deleteArtistProfileImageSuccessAction,
   loadArtistAction,
   loadArtistFailureAction,
+  loadArtistsAction,
+  loadArtistsFailureAction,
+  loadArtistsSuccessAction,
   loadArtistSuccessAction,
-  updateArtistAction,
-  updateArtistFailureAction,
-  updateArtistSuccessAction, uploadArtistImageAction, uploadArtistImageFailureAction, uploadArtistImageSuccessAction,
+  loadCurrentUserArtistsAction,
   replaceArtistProfileImageAction,
   replaceArtistProfileImageFailureAction,
   replaceArtistProfileImageSuccessAction,
+  updateArtistAction,
+  updateArtistFailureAction,
+  updateArtistSuccessAction,
+  uploadArtistImageAction,
+  uploadArtistImageFailureAction,
+  uploadArtistImageSuccessAction,
   upsertArtistsToStoreAction
 } from '@core/artist/artist.actions';
 import { Artist } from '@core/artist/artist.model';
+import { select, Store } from '@ngrx/store';
+import { AuthSelectors } from '@core/auth/auth.selectors';
 
 @Injectable()
 export class ArtistEffects {
@@ -182,7 +194,7 @@ export class ArtistEffects {
           return this.artistService.deleteArtistImage(
             action.artist,
             action.imagePath
-            ).pipe(
+          ).pipe(
             switchMap((artist: Artist) => {
               this.snackService.success(TRANSLATIONS.changesSaved);
               return of(
@@ -193,6 +205,42 @@ export class ArtistEffects {
             catchError(error => {
               this.showErrorSnack(error, 'delete-artist-image');
               return of(deleteArtistImageFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+  );
+
+  loadCurrentUserArtists$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadCurrentUserArtistsAction),
+      withLatestFrom(this.store.pipe(select(this.authSelectors.currentUserId))),
+      map(([action, currentUserId]) => {
+          return loadArtistsAction({
+            params: {
+              userId: currentUserId
+            }
+          });
+        }
+      )
+    )
+  );
+
+  loadArtists$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadArtistsAction),
+      exhaustMap(action => {
+          return this.artistService.loadArtists(action.params).pipe(
+            switchMap((artists: Artist[]) => {
+              return of(
+                upsertArtistsToStoreAction({artists}),
+                loadArtistsSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'load-artists');
+              return of(loadArtistsFailureAction({error}));
             })
           );
         }
@@ -212,6 +260,8 @@ export class ArtistEffects {
 
   constructor(
     private actions$: Actions,
+    private store: Store<any>,
+    private authSelectors: AuthSelectors,
     private artistService: ArtistService,
     private snackService: SnackService,
     private router: Router

@@ -85,20 +85,14 @@ export class AuthService {
   getCurrentUserId() {
     return this.store.pipe(
       select(this.authSelectors.currentUserId),
-      take(1),
-      switchMap((id) => {
-        return of(id) || throwError('user id is not defined');
-      })
+      take(1)
     );
   }
 
   getCurrentUserEmail() {
     return this.store.pipe(
       select(this.authSelectors.currentUserEmail),
-      take(1),
-      switchMap((id) => {
-        return of(id) || throwError('user email is not defined');
-      })
+      take(1)
     );
   }
 
