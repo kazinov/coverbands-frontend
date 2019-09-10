@@ -7,6 +7,7 @@ import { loadCurrentUserArtistsAction } from '@core/artist/artist.actions';
 import { ArtistListSelectors } from '@artist-admin/artist-list/artist-list.selectors';
 import { AuthSelectors } from '@core/auth/auth.selectors';
 import { filter, take, tap } from 'rxjs/operators';
+import { Artist } from '@core/artist/artist.model';
 
 @Component({
   selector: 'app-artist-list',
@@ -38,6 +39,10 @@ export class ArtistListComponent implements OnInit, OnDestroy {
       })
     ).subscribe();
 
+  }
+
+  onRemove(artist: Artist) {
+    console.error('artist', artist);
   }
 
   onSubmit() {

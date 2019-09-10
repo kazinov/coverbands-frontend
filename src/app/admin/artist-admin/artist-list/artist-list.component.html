@@ -1,8 +1,12 @@
 <mat-nav-list>
-  <mat-list-item *ngFor="let artist of (artists$ | async)">
+  <a *ngFor="let artist of (artists$ | async)"
+     mat-list-item [routerLink]="['/admin', 'artist', 'edit', artist.id]">
     <app-project-image
       matListAvatar
       [imageSrc]="artist.profileImageThumb"></app-project-image>
     <h3 matLine> {{artist.name}} </h3>
-  </mat-list-item>
+    <button mat-icon-button (click)="onRemove(artist)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </a>
 </mat-nav-list>

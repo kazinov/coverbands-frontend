@@ -2,14 +2,18 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArtistListComponent } from '@artist-admin/artist-list/artist-list.component';
 import { ArtistListSelectors } from '@artist-admin/artist-list/artist-list.selectors';
-import { MatListModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatListModule } from '@angular/material';
 import { ProjectImageModule } from '@shared/project-image/project-image.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     MatListModule,
-    ProjectImageModule
+    ProjectImageModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule
   ],
   declarations: [
     ArtistListComponent
