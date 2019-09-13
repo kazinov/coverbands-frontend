@@ -8,7 +8,9 @@ import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { fromFirebaseError } from '@core/firebase/util/from-firebase-error';
 import {
   FirebaseDocumentReference,
-  FirebaseDocumentSnapshot, FirebaseQuery, FirebaseQuerySnapshot,
+  FirebaseDocumentSnapshot,
+  FirebaseQuery,
+  FirebaseQuerySnapshot,
   FirebaseUploadTaskSnapshot
 } from '@core/firebase/firebase.model';
 import { AuthService } from '@core/auth/auth.service';
@@ -204,7 +206,7 @@ export class ArtistService {
     if (!query) {
       return throwError('There should be params to load artists');
     }
-    const config = { source: 'server'} as any;
+    const config = {source: 'server'} as any;
 
     return from(query.get(config))
       .pipe(

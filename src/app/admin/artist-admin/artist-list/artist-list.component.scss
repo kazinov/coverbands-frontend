@@ -1,4 +1,9 @@
 @import "app/shared/styles/common";
 
 :host {
+  @include form-page();
+
+  .spinner-spacer {
+    position: absolute;
+  }
 }

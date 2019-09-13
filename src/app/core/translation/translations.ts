@@ -9,6 +9,7 @@ import { ArtistTypes } from '@core/models/artist-types.model';
 import { CREATE_ARTIST_TRANSLATIONS } from '@artist-admin/create-artist/create-artist.translations';
 import { EDIT_ARTIST_TRANSLATIONS } from '@artist-admin/edit-artist/edit-artist/edit-artist.translations';
 import { DanceGenres } from '@core/models/dance-genres.model';
+import { ARTIST_LIST_TRANSLATIONS } from '@artist-admin/artist-list/artist-list.translations';
 
 export const TRANSLATIONS = {
   cities: {
@@ -54,5 +55,7 @@ export const TRANSLATIONS = {
   ...AUTH_TRANSLATIONS,
   ...RESET_PASSWORD_DIALOG_TRANSLATIONS,
   ...CREATE_ARTIST_TRANSLATIONS,
-  ...EDIT_ARTIST_TRANSLATIONS
+  ...EDIT_ARTIST_TRANSLATIONS,
+  ...ARTIST_LIST_TRANSLATIONS
 };
+

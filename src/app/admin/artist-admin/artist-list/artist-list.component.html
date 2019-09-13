@@ -1,12 +1,20 @@
-<mat-nav-list>
-  <a *ngFor="let artist of (artists$ | async)"
-     mat-list-item [routerLink]="['/admin', 'artist', 'edit', artist.id]">
-    <app-project-image
-      matListAvatar
-      [imageSrc]="artist.profileImageThumb"></app-project-image>
-    <h3 matLine> {{artist.name}} </h3>
-    <button mat-icon-button (click)="onRemove(artist)">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </a>
-</mat-nav-list>
+<div class="app-form-wrapper">
+  <h3 class="app-form-header">{{t.artistList.myArtists}}</h3>
+  <mat-nav-list>
+    <a *ngFor="let artist of (artists$ | async)"
+       mat-list-item [routerLink]="['/admin', 'artist', 'edit', artist.id]">
+      <app-project-image
+        matListAvatar
+        [imageSrc]="artist.profileImageThumb"></app-project-image>
+      <h3 matLine> {{artist.name}} </h3>
+      <button mat-icon-button (click)="onRemove(artist)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </a>
+  </mat-nav-list>
+</div>
+<div class="spinner-spacer"
+     *ngIf="isLoading$ | async">
+  <mat-spinner>
+  </mat-spinner>
+</div>
