@@ -19,8 +19,9 @@ import { Artist } from '@core/artist/artist.model';
 import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { deleteArtistWithConfirmation } from '@artist-admin/artist-admin.actions';
-import { combineLatest } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 import { anyBooleanTrue } from '@shared/utils/any-boolean-true';
+import { CREATE_ARTIST_URL } from '@artist-admin/artist-admin-paths';
 
 @Component({
   selector: 'app-artist-list',
@@ -96,6 +97,10 @@ export class ArtistListComponent implements OnInit, OnDestroy {
     $event.stopPropagation();
 
     this.store.dispatch(deleteArtistWithConfirmation({artist}));
+  }
+
+  get createArtistUrl() {
+    return CREATE_ARTIST_URL;
   }
 
   onSubmit() {

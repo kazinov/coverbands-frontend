@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ArtistAdminPaths } from '@artist-admin/artist-admin-paths';
+import { ArtistAdminPaths, CREATE_ARTIST_URL } from '@artist-admin/artist-admin-paths';
 import { AppPaths } from '../../app-paths';
 import { AdminPaths } from '@admin/admin-paths';
 
@@ -24,8 +24,8 @@ export class NavbarComponent {
     return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.List}`;
   }
 
-  get createBandUrl() {
-    return `/${AdminPaths.Admin}/${ArtistAdminPaths.Artist}/${ArtistAdminPaths.Create}`;
+  get createArtistUrl() {
+    return CREATE_ARTIST_URL;
   }
 
   constructor(

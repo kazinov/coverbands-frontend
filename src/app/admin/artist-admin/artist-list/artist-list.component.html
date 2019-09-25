@@ -12,6 +12,10 @@
       </button>
     </a>
   </mat-nav-list>
+  <div *ngIf="(artists$ | async).length === 0"
+  class="create-artist-container">
+    <a mat-button [routerLink]="createArtistUrl">Создать артиста</a>
+  </div>
 </div>
 <div class="spinner-spacer"
      *ngIf="isSpinner$ | async">
