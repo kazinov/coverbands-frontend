@@ -7,7 +7,7 @@
         matListAvatar
         [imageSrc]="artist.profileImageThumb"></app-project-image>
       <h3 matLine> {{artist.name}} </h3>
-      <button mat-icon-button (click)="onRemove(artist)">
+      <button mat-icon-button (click)="onRemove(artist, $event)">
         <mat-icon>delete</mat-icon>
       </button>
     </a>

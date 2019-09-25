@@ -4,6 +4,7 @@ import { ArtistAdminEffects } from '@artist-admin/artist-admin.effects';
 import { ArtistAdminService } from '@artist-admin/artist-admin.service';
 import { PublishArtistDialogComponent } from '@artist-admin/publish-artist-dialog/publish-artist-dialog.component';
 import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
+import { DeleteArtistDialogComponent } from '@artist-admin/delete-artist-dialog/delete-artist-dialog.component';
 
 @NgModule({
   imports: [
@@ -15,10 +16,12 @@ import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/materi
     MatDialogModule,
   ],
   declarations: [
-    PublishArtistDialogComponent
+    PublishArtistDialogComponent,
+    DeleteArtistDialogComponent
   ],
   entryComponents: [
-    PublishArtistDialogComponent
+    PublishArtistDialogComponent,
+    DeleteArtistDialogComponent
   ],
   providers: [
     ArtistAdminService

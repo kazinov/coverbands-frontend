@@ -217,6 +217,11 @@ export class ArtistService {
       );
   }
 
+  deleteArtist(id: string): Observable<void> {
+    return from(this.artistsCollection.doc(id).delete())
+      .pipe(catchError(fromFirebaseError));
+  }
+
   constructor(
     private firebaseService: FirebaseService,
     private authService: AuthService

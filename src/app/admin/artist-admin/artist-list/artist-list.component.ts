@@ -15,6 +15,7 @@ import { delay, filter, take, tap } from 'rxjs/operators';
 import { Artist } from '@core/artist/artist.model';
 import { getIsLoadingObservable } from '@shared/utils/get-is-loading-observable';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { deleteArtistWithConfirmation } from '@artist-admin/artist-admin.actions';
 
 @Component({
   selector: 'app-artist-list',
@@ -62,8 +63,11 @@ export class ArtistListComponent implements OnInit, OnDestroy {
 
   }
 
-  onRemove(artist: Artist) {
-    console.error('remove artist', artist);
+  onRemove(artist: Artist, $event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    this.store.dispatch(deleteArtistWithConfirmation({artist}));
   }
 
   onSubmit() {

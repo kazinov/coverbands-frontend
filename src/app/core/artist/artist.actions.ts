@@ -98,3 +98,14 @@ export const loadArtistsFailureAction = createAction(
   '[Artist] Load artists failure',
   props<{ error: HttpError }>()
 );
+
+export const deleteArtistAction = createAction('[Artist] Delete artist',
+  props<{ id: string }>()
+);
+
+export const deleteArtistSuccessAction = createAction('[Artist] Delete artist success');
+
+export const deleteArtistFailureAction = createAction(
+  '[Artist] Delete artist failure',
+  props<{ error: HttpError }>()
+);

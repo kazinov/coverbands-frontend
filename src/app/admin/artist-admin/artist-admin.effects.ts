@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { updateArtistWithPublish } from '@artist-admin/artist-admin.actions';
-import { updateArtistAction } from '@core/artist/artist.actions';
+import { deleteArtistWithConfirmation, updateArtistWithPublish } from '@artist-admin/artist-admin.actions';
+import { deleteArtistAction, updateArtistAction } from '@core/artist/artist.actions';
 import { ArtistAdminService } from '@artist-admin/artist-admin.service';
-import { exhaustMap, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { exhaustMap, map, switchMap } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
 import { Artist } from '@core/artist/artist.model';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class ArtistAdminEffects {
             return of(updateArtistAction({artist: action.artist}));
           }
 
-          return this.artistAdminService.openAuthDialog()
+          return this.artistAdminService.openPublishDialog()
             .pipe(
               map((shouldPublish: boolean) => {
                 const updatedArtist: Artist = {
@@ -28,6 +28,23 @@ export class ArtistAdminEffects {
                   updatedArtist.published = true;
                 }
                 return updateArtistAction({artist: updatedArtist});
+              })
+            );
+        }
+      )
+    )
+  );
+
+  deleteArtistWithConfirm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteArtistWithConfirmation),
+      exhaustMap(action => {
+          return this.artistAdminService.openDeleteDialog(action.artist)
+            .pipe(
+              switchMap((shouldDelete: boolean) => {
+                return shouldDelete ?
+                  of(deleteArtistAction({id: action.artist.id})) :
+                  EMPTY;
               })
             );
         }

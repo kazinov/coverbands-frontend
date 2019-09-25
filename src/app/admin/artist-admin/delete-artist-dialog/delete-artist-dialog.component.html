@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Удалить артиста "{{artistName}}"?</h1>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close(false)">
+    Отмена
+  </button>
+  <button mat-raised-button
+          color="primary"
+          (click)="dialogRef.close(true)"
+          cdkFocusInitial>Удалить
+  </button>
+</div>

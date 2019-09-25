@@ -13,20 +13,20 @@ import { ArtistService } from '@core/artist/artist.service';
 import {
   createArtistAction,
   createArtistFailureAction,
-  createArtistSuccessAction,
+  createArtistSuccessAction, deleteArtistAction, deleteArtistFailureAction,
   deleteArtistImageAction,
   deleteArtistImageFailureAction,
   deleteArtistImageSuccessAction,
   deleteArtistProfileImageAction,
   deleteArtistProfileImageFailureAction,
-  deleteArtistProfileImageSuccessAction,
+  deleteArtistProfileImageSuccessAction, deleteArtistSuccessAction,
   loadArtistAction,
   loadArtistFailureAction,
   loadArtistsAction,
   loadArtistsFailureAction,
   loadArtistsSuccessAction,
   loadArtistSuccessAction,
-  loadCurrentUserArtistsAction,
+  loadCurrentUserArtistsAction, removeArtistsFromStoreAction,
   replaceArtistProfileImageAction,
   replaceArtistProfileImageFailureAction,
   replaceArtistProfileImageSuccessAction,
@@ -241,6 +241,27 @@ export class ArtistEffects {
             catchError(error => {
               this.showErrorSnack(error, 'load-artists');
               return of(loadArtistsFailureAction({error}));
+            })
+          );
+        }
+      )
+    )
+  );
+
+  deleteArtist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteArtistAction),
+      exhaustMap(action => {
+          return this.artistService.deleteArtist(action.id).pipe(
+            switchMap(() => {
+              return of(
+                removeArtistsFromStoreAction({ids : [action.id]}),
+                deleteArtistSuccessAction()
+              );
+            }),
+            catchError(error => {
+              this.showErrorSnack(error, 'delete-artist');
+              return of(deleteArtistFailureAction({error}));
             })
           );
         }
