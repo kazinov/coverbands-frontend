@@ -66,10 +66,10 @@ export class EditArtistMainInfoComponent
 
     this.form.get(cityFilterFieldName).valueChanges
       .pipe(takeUntil(this.onDestroy$))
-      .subscribe((search) => this.filterBanks(search));
+      .subscribe((search) => this.filterCities(search));
   }
 
-  filterBanks(search: string) {
+  filterCities(search: string) {
     if (!search) {
       this.filteredCities = this.cities.slice();
     } else {

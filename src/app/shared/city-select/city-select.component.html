@@ -1,0 +1,18 @@
+<mat-form-field>
+  <mat-label>{{label}}</mat-label>
+  <mat-select [ngModel]="value">
+    <mat-option>
+      <ngx-mat-select-search
+        placeholderLabel="Поиск"
+        noEntriesFoundLabel="Город не найден"
+        [ngModel]="cityFilter"
+        (ngModelChange)="onCityFilterChange($event)"
+      ></ngx-mat-select-search>
+    </mat-option>
+    <mat-option
+      *ngFor="let city of filteredCities"
+      [value]="city.id">
+      {{city.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

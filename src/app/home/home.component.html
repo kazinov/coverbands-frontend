@@ -1,3 +1,5 @@
-<p>
-  home works!
-</p>
+<app-city-select
+  label="Город"
+  [ngModel]="city"
+  (ngModelChange)="onCityChange($event)"
+></app-city-select>
