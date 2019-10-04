@@ -2,9 +2,10 @@
   <mat-label>{{label}}</mat-label>
   <mat-select
     [ngModel]="value"
-    (ngModelChange)="value = $event">
+    (ngModelChange)="value = $event"
+    multiple>
     <mat-option
-      *ngFor="let type of artistTypes"
+      *ngFor="let type of musicGenres"
       [value]="type.id">
       {{type.label}}
     </mat-option>

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ArtistTypeSelectModule } from '@shared/artist-type-select/artist-type-select.module';
 import { CitySelectModule } from '@shared/city-select/city-select.module';
+import { MusicGenreSelectModule } from '@shared/music-genre-select/music-genre-select.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { CommonModule } from '@angular/common';
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CitySelectModule,
     ArtistTypeSelectModule,
+    MusicGenreSelectModule,
     MatFormFieldModule,
   ],
   declarations: [HomeComponent]

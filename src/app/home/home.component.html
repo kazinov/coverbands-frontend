@@ -10,3 +10,9 @@
   [ngModel]="artistType"
   (ngModelChange)="onArtistTypeChange($event)">
 </app-artist-type-select>
+<app-music-genre-select
+  class="filter"
+  label="Жанры музыки"
+  [ngModel]="musicGenres"
+  (ngModelChange)="onMusicGenresChange($event)">
+</app-music-genre-select>

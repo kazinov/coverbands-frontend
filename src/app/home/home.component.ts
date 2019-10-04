@@ -12,6 +12,7 @@ import { Countries } from '@core/models/countries.model';
 export class HomeComponent implements OnInit {
   city = Cities[Countries.Russia].SaintPetersburg;
   artistType = ArtistTypes.LiveMusic;
+  musicGenres = [];
 
   constructor() {
   }
@@ -25,5 +26,9 @@ export class HomeComponent implements OnInit {
 
   onArtistTypeChange(value) {
     console.error('value', value);
+  }
+
+  onMusicGenresChange(value) {
+    console.error('music genres', value);
   }
 }
