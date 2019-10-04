@@ -1,5 +1,12 @@
 <app-city-select
+  class="filter"
   label="Город"
   [ngModel]="city"
   (ngModelChange)="onCityChange($event)"
 ></app-city-select>
+<app-artist-type-select
+  class="filter"
+  label="Тип артиста"
+  [ngModel]="artistType"
+  (ngModelChange)="onArtistTypeChange($event)">
+</app-artist-type-select>

@@ -1,0 +1,10 @@
+<mat-form-field>
+  <mat-label>{{label}}</mat-label>
+  <mat-select [ngModel]="value">
+    <mat-option
+      *ngFor="let type of artistTypes"
+      [value]="type.id">
+      {{type.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

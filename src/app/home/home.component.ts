@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ArtistTypes } from '@core/models/artist-types.model';
 import { Cities } from '@core/models/cities.model';
 import { Countries } from '@core/models/countries.model';
 
@@ -9,7 +10,8 @@ import { Countries } from '@core/models/countries.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  city: string = Cities[Countries.Russia].SaintPetersburg;
+  city = Cities[Countries.Russia].SaintPetersburg;
+  artistType = ArtistTypes.LiveMusic;
 
   constructor() {
   }
@@ -17,7 +19,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onCityChange(city) {
-    console.error('city', city);
+  onCityChange(value) {
+    console.error('value', value);
+  }
+
+  onArtistTypeChange(value) {
+    console.error('value', value);
   }
 }
