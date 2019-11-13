@@ -1,18 +1,28 @@
 <app-city-select
   class="filter"
   label="Город"
-  [ngModel]="city"
+  [(ngModel)]="city"
   (ngModelChange)="onCityChange($event)"
 ></app-city-select>
 <app-artist-type-select
   class="filter"
   label="Тип артиста"
-  [ngModel]="artistType"
+  [(ngModel)]="artistType"
   (ngModelChange)="onArtistTypeChange($event)">
 </app-artist-type-select>
 <app-music-genre-select
   class="filter"
   label="Жанры музыки"
-  [ngModel]="musicGenres"
+  *ngIf="showMusicGenre"
+  [(ngModel)]="musicGenres"
   (ngModelChange)="onMusicGenresChange($event)">
 </app-music-genre-select>
+
+<mat-form-field>
+  <mat-label>Цена выступления от</mat-label>
+  <input matInput
+         type="number"
+         [(ngModel)]="price"
+         (ngModelChange)="onPriceChange($event)">
+  <span matSuffix>&nbsp; руб. &nbsp;</span>
+</mat-form-field>

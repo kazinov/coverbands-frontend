@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   city = Cities[Countries.Russia].SaintPetersburg;
   artistType = ArtistTypes.LiveMusic;
   musicGenres = [];
+  price: number;
 
   constructor() {
   }
@@ -30,5 +31,14 @@ export class HomeComponent implements OnInit {
 
   onMusicGenresChange(value) {
     console.error('music genres', value);
+  }
+
+  onPriceChange(value) {
+    console.error('price', value);
+  }
+
+  get showMusicGenre() {
+    return this.artistType === ArtistTypes.LiveMusic ||
+      this.artistType === ArtistTypes.DJ;
   }
 }
